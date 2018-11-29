@@ -23,6 +23,6 @@ function resize() {
   viewWidth = window.innerWidth;
   viewHeight = window.innerHeight;
 }
-/aloalo
+
 
 draw();
