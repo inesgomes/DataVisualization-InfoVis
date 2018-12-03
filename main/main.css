@@ -28,3 +28,7 @@ select {
 #selectionUI {
   display: inline-block;
 }
+
+.black {
+  fill: black;
+}
