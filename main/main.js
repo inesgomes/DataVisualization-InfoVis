@@ -13,15 +13,7 @@ var svg = d3.select("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 function draw() {
-  //get jsons
-  let assaults = assault.countries;
-  let burglaries = burglary.countries;
-  let homicides = homicide.countries;
-  let sexviolences = sexualviolence.countries;
-
-  console.log(assaults)
-
-  //TODO draw things!
+  //TODO get json and draw things!
   console.log("draw")
 }
 
