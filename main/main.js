@@ -19,10 +19,8 @@ var color = d3.scaleLinear()
     .range(["red","#e8eab8","lightgreen","#3a6033"])
     .interpolate(d3.interpolateHcl);
 
+function drawMap(){
 
-function draw() {
-  //TODO get json and draw things!
-<<<<<<< HEAD
   var countries;
   var center=[15, 53.3];
   /*var svg = d3.select("#map")
@@ -67,9 +65,13 @@ function draw() {
 
   this.svg = svg;
   this.projection = projection;
+
+}
+
+function draw() {
+  //TODO get json and draw things!
   
-=======
->>>>>>> parent of c834fa1... Merge pull request #2 from inesgomes/master
+  drawMap()
   console.log("draw")
   
 }
