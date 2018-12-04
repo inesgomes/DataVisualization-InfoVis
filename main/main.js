@@ -6,32 +6,35 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40};
 var width = viewWidth - margin.left - margin.right;
 var height = viewHeight - margin.top - margin.bottom;
 
-/*var svg = d3.select("svg")
+var svg = d3.select("svg")
     .attr("width", viewWidth)
     .attr("height", viewHeight)
     .append("g")
+    .style('background', '#C1E1EC')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-*/
+
 function draw() {
   //TODO get json and draw things!
-
-  var svg = d3.select("#main")
+  var countries;
+  var center=[4, 68.6];
+  /*var svg = d3.select("#map")
     .attr("width", viewWidth)
     .attr("height", viewHeight)
-    .style('background', '#C1E1EC');
+    .style('background', '#C1E1EC');*/
+    
   
-  var projection = d3.geoAlbers()
-      .scale(1280)
-      .translate([viewWidth/2,viewHeight/2]);
-      //center
+  var projection = d3.geoMercator()
+      .scale(700)
+      .translate([viewWidth/2,viewHeight/2])
+      .center(center);
 
   var  path = d3.geoPath()
       .projection(projection);
 
-    g = svg.append("g");
+    countries = svg.append("g");
 
     d3.json('../data/europe.json', function(data) {
-      g.selectAll('.country')
+      countries.selectAll('.country')
       .data(topojson.feature(data, data.objects.europe  ).features)
       .enter()
       .append('path')
@@ -40,7 +43,8 @@ function draw() {
       return;
   });
 
-
+  this.svg = svg;
+  this.projection = projection;
   
   console.log("draw")
 }
