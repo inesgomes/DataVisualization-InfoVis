@@ -22,6 +22,7 @@ var color = d3.scaleLinear()
 
 function draw() {
   //TODO get json and draw things!
+<<<<<<< HEAD
   var countries;
   var center=[15, 53.3];
   /*var svg = d3.select("#map")
@@ -67,6 +68,8 @@ function draw() {
   this.svg = svg;
   this.projection = projection;
   
+=======
+>>>>>>> parent of c834fa1... Merge pull request #2 from inesgomes/master
   console.log("draw")
   
 }
