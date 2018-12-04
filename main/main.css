@@ -31,7 +31,7 @@ select {
 
 
         .country {
-            fill: lightgray;
+            /*fill: lightgray;*/
             stroke: darkgrey;
             stroke-width: 1px;
         } 

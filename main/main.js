@@ -13,10 +13,17 @@ var svg = d3.select("svg")
     .style('background', '#C1E1EC')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+var color = d3.scaleLinear()
+    .clamp(true)
+    .domain([0, 0.9,1,1.5])
+    .range(["red","#e8eab8","lightgreen","#3a6033"])
+    .interpolate(d3.interpolateHcl);
+
+
 function draw() {
   //TODO get json and draw things!
   var countries;
-  var center=[4, 68.6];
+  var center=[15, 53.3];
   /*var svg = d3.select("#map")
     .attr("width", viewWidth)
     .attr("height", viewHeight)
@@ -24,7 +31,7 @@ function draw() {
     
   
   var projection = d3.geoMercator()
-      .scale(700)
+      .scale(440)
       .translate([viewWidth/2,viewHeight/2])
       .center(center);
 
@@ -39,7 +46,21 @@ function draw() {
       .enter()
       .append('path')
       .attr('class', 'country')
-      .attr('d', path);
+      .attr('d', path)
+      .attr("fill",  function(d) {
+       /* var country = getiso (d);
+      
+        var quota =getquota (country);
+        var signatures =getsignatures(country);
+    
+        if(signatures == 0){
+          return "#ccc";	
+        }
+        var diff = signatures/quota;*/
+        console.log(d.properties.NAME)
+        return color(1.5);
+      })
+      console.log(data.objects.europe);
       return;
   });
 
@@ -47,6 +68,7 @@ function draw() {
   this.projection = projection;
   
   console.log("draw")
+  
 }
 
 function resize() {
