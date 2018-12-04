@@ -28,3 +28,37 @@ select {
 #selectionUI {
   display: inline-block;
 }
+.country {
+  /*fill: lightgray;*/
+  stroke: darkgrey;
+  stroke-width: 1px;
+} 
+.country:hover {
+  fill: darkgrey;
+}
+div.tooltipDestination {
+position: absolute;
+text-align: center;
+width: 60px;
+height: 16px;
+padding: 2px;
+font: 12px sans-serif;
+background: red;
+border: 0px;
+border-radius: 0px;
+pointer-events: none;
+padding-top: 5px;
+}
+div.tooltipOrigin {
+position: absolute;
+text-align: center;
+width: 60px;
+height: 16px;
+padding: 2px;
+font: 12px sans-serif;
+background: green;
+border: 0px;
+border-radius: 0px;
+pointer-events: none;
+padding-top: 5px;
+}
