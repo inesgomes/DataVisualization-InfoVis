@@ -1,75 +1,230 @@
-// data that you want to plot, I've used separate arrays for x and y values
-let assalto = assault.countries;
-let roubos = robbery.countries;
+var viewWidth = window.innerWidth;
+var viewHeight = window.innerHeight;
+d3.select(window).on("resize", resize);
 
-// size and margins for the chart
-var margin = {top: 20, right: 15, bottom: 60, left: 60}
-  , width = 960 - margin.left - margin.right
-  , height = 960 - margin.top - margin.bottom;
+var margin = { top: 20, right: 20, bottom: 30, left: 40 };
+var width = (viewWidth - margin.left - margin.right)/2
+var height = (viewHeight - margin.top - margin.bottom)/2
 
-// x and y scales, I've used linear here but there are other options
-// the scales translate data values to pixel values for you
-console.log(assalto[2010])
+/*var svg = d3.select("svg")
+    .attr("width",viewWidth)
+    .attr("height", viewHeight)
+    .append("g")
+    .style("background", '#C1E1EC')
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");*/
 
-let index = 0; 
-let xValues = [];
-let yValues = [];
+var chart = d3.select("svg")
+    .attr('width', width + 50)
+    .attr('height', height + 50)
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
-for(index=0; index < assalto.length; index++){
-  xValues[index] = assalto[index][2010];
-  yValues[index] = assalto[index][2010];
+var assaults = assault.countries;
+var burglaries = burglary.countries;
+var homicides = homicide.countries;
+var sexviolences = sexualviolence.countries;
+var robberies = robbery.countries;    
+
+var defaultX = "assault";
+var defaultY = "sexualviolence";
+var defaultYear = 2010;
+var points;
+
+function draw() {
+
+    drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear)
 }
 
-console.log(xValues);
+function getArray(valueName) {
+    if (valueName == "assault")
+        return assaults;
+    if (valueName == "burglary")
+        return burglaries;
+    if (valueName == "homicide")
+        return homicides;
+    if (valueName == "sexualviolence")
+        return sexviolences;
+    if (valueName == "robbery")
+        return robberies;
+}
 
-var x = d3.scaleLinear()
-          .domain([0, d3.max(xValues)])  // the range of the values to plot
-          .range([0, width]);        // the pixel range of the x-axis
+function drawScatterplot(v1, v2, v3) {
+    // draw the graph object
+    let index = 0;
+    let xValues = [];
+    let yValues = [];
 
-var y = d3.scaleLinear()
-          .domain([0, d3.max(yValues)])
-          .range([height, 0]);
+    // TODO compor para os indices serem de acordo com o array que recebe
+    for (index = 0; index < v1.length; index++) {
+        xValues[index] = v1[index][v3];
+        yValues[index] = v2[index][v3];
+    }
 
-// the chart object, includes all margins
-var chart = d3.select('body')
-.append('svg:svg')
-.attr('width', width + margin.right + margin.left)
-.attr('height', height + margin.top + margin.bottom)
-.attr('class', 'chart')
+    // TODO the chart object, includes all margins
+    /*var chart = d3.select('body')
+        .append('svg:svg')
+        .attr('width', width + margin.right + margin.left)
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('class', 'chart')
 
-// the main object where the chart and axis will be drawn
-var main = chart.append('g')
-.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-.attr('width', width)
-.attr('height', height)
-.attr('class', 'main')
+    // TODO the main object where the chart and axis will be drawn
+    var main = chart.append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('class', 'main')*/
 
-// draw the x axis
-var xAxis = d3.axisBottom()
-    .scale(x);
+    var x = d3.scaleLinear()
+        .domain([0, d3.max(xValues)])  // the range of the values to plot
+        .range([0, width]);        // the pixel range of the x-axis
+
+    var y = d3.scaleLinear()
+        .domain([0, d3.max(yValues)])
+        .range([height, 0]);
+
+    var xAxis = d3.axisBottom()
+        .scale(x);
+
+    var yAxis = d3.axisLeft()
+        .scale(y);
+
+    /*var xExtent = d3.extent(xValues, function(d) { return d[xValues]; });
+    var yExtent = d3.extent(yValues, function(d) { return d[yValues]; });
+      
+    x.domain(xExtent).nice();
+    y.domain(yExtent).nice();*/
+
+    //chart.selectAll("g").remove();
+
+    chart.append("g")
+      .attr("id", "xAxis")
+      .attr("class", "x axis")
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("id", "xLabel")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("boas");
+
+    chart.append("g")
+      .attr("id", "yAxis")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("id", "yLabel")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("boas");
+
+    points = chart.selectAll("scatter-dots")
+        .data(v1)
+        .enter().append("svg:circle")  // create a new circle for each value
+        .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
+        .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
+        .attr("r", 5) // radius of circle
+        .style("opacity", 0.6); // opacity of circle*/
+}
+
+function updatePoints(v1, v2, v3) {
+
+    let index = 0;
+    let xValues = [];
+    let yValues = [];
+
+    for (index = 0; index < v1.length; index++) {
+        xValues[index] = v1[index][v3];
+        yValues[index] = v2[index][v3];
+    }
+
+    /*d3.select("#xLabel").text(dataName(v1));
+    d3.select("#yLabel").text(dataName(v2));
+  
+    d3.select("#xAxis").call(xAxis);
+    d3.select("#yAxis").call(yAxis);*/
+
+    var transition = d3.transition()
+        .duration(750)
+        .ease(d3.easeCubic);
+
+    points.transition(transition)
+        .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
+        .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
+}
+
+function dataName(v) {
+
+    if (v == "assault")
+        return "Assault";
+    else if (v == "burglary")
+        return "Burglary";
+    else if (v == "homicide")
+        return "Homicide";
+    else if (v == "robbery")
+        return "Robbery";
+    else if (v == "sexualviolence")
+        return "Sexual Violence";
+}
+
+function selectVariable(id) {
+
+    var variable;
+    console.log(id)
+
+    if (id === 0) {
+        var e = document.getElementById("xAxisItem");
+        xValue = e.options[e.selectedIndex].value;
+    }
+
+    if (id === 1) {
+        var e = document.getElementById("yAxisItem");
+        yValue = e.options[e.selectedIndex].value;
+    }
+
+    if (id === 2) {
+        var e = document.getElementById("Year");
+        Year = e.options[e.selectedIndex].value;
+    }
 
 
-main.append('g')
-.attr('transform', 'translate(0,' + height + ')')
-.attr('class', 'main axis date')
-.call(xAxis);
 
-// draw the y axis
-var yAxis = d3.axisLeft()
-    .scale(y);
+    updatePoints(getArray(xValue), getArray(yValue), Year);
+}
 
-main.append('g')
-.attr('transform', 'translate(0,0)')
-.attr('class', 'main axis date')
-.call(yAxis);
+// TODO compor isto e meter como no main
 
-// draw the graph object
-var g = main.append("svg:g"); 
-//console.log(assalto); 
-g.selectAll("scatter-dots")
-.data(assalto)
-  .enter().append("svg:circle")  // create a new circle for each value
-      .attr("cx", function (d, i) { return x(xValues[i]); } ) // translate y value to a pixel
-      .attr("cy", function (d, i) { return y(yValues[i]); } ) // translate x value
-      .attr("r", 5) // radius of circle
-      .style("opacity", 0.6); // opacity of circle
+function resize() {
+
+    viewWidth = window.innerWidth;
+    viewHeight = window.innerHeight;
+
+    /* width = viewWidth - margin.left - margin.right;
+     height = viewHeight - margin.top - margin.bottom;
+ 
+     x.range([0, width]);
+     y.range([height, 0]);
+ 
+     xAxis.scale(x);
+     yAxis.scale(y);
+ 
+     d3.select("#container")
+         .attr("width", viewWidth);
+ 
+     d3.select("#vis")
+         .attr("width", viewWidth)
+         .attr("height", viewHeight);
+ 
+     d3.select("svg")
+         .attr("width", viewWidth)
+         .attr("height", viewHeight);*/
+
+
+    // drawScatterplot(xValue, yValue, );
+}
+
+draw()
