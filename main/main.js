@@ -28,7 +28,9 @@ var robberies = robbery.countries;
 var defaultX = "assault";
 var defaultY = "sexualviolence";
 var defaultYear = 2010;
-var points;
+var points,x,y,xAxis,yAxis;
+var xValues = [];
+var yValues = [];
 
 function draw() {
 
@@ -48,44 +50,27 @@ function getArray(valueName) {
         return robberies;
 }
 
-function drawScatterplot(v1, v2, v3) {
+function initXY(v1,v2,v3){
     // draw the graph object
     let index = 0;
-    let xValues = [];
-    let yValues = [];
-
     // TODO compor para os indices serem de acordo com o array que recebe
     for (index = 0; index < v1.length; index++) {
         xValues[index] = v1[index][v3];
         yValues[index] = v2[index][v3];
     }
 
-    // TODO the chart object, includes all margins
-    /*var chart = d3.select('body')
-        .append('svg:svg')
-        .attr('width', width + margin.right + margin.left)
-        .attr('height', height + margin.top + margin.bottom)
-        .attr('class', 'chart')
-
-    // TODO the main object where the chart and axis will be drawn
-    var main = chart.append('g')
-        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('class', 'main')*/
-
-    var x = d3.scaleLinear()
+    x = d3.scaleLinear()
         .domain([0, d3.max(xValues)])  // the range of the values to plot
         .range([0, width]);        // the pixel range of the x-axis
 
-    var y = d3.scaleLinear()
+    y = d3.scaleLinear()
         .domain([0, d3.max(yValues)])
         .range([height, 0]);
 
-    var xAxis = d3.axisBottom()
+    xAxis = d3.axisBottom()
         .scale(x);
 
-    var yAxis = d3.axisLeft()
+    yAxis = d3.axisLeft()
         .scale(y);
 
     /*var xExtent = d3.extent(xValues, function(d) { return d[xValues]; });
@@ -94,8 +79,7 @@ function drawScatterplot(v1, v2, v3) {
     x.domain(xExtent).nice();
     y.domain(yExtent).nice();*/
 
-    //chart.selectAll("g").remove();
-
+    //TODO compor legendas
     chart.append("g")
       .attr("id", "xAxis")
       .attr("class", "x axis")
@@ -121,6 +105,11 @@ function drawScatterplot(v1, v2, v3) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("boas");
+}
+
+function drawScatterplot(v1, v2, v3) {
+
+    initXY(v1, v2, v3)
 
     points = chart.selectAll("scatter-dots")
         .data(v1)
@@ -128,20 +117,14 @@ function drawScatterplot(v1, v2, v3) {
         .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
         .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
         .attr("r", 5) // radius of circle
-        .style("opacity", 0.6); // opacity of circle*/
+        .style("opacity", 0.6); // opacity of circle
 }
 
 function updatePoints(v1, v2, v3) {
 
-    let index = 0;
-    let xValues = [];
-    let yValues = [];
+    initXY(v1, v2, v3)
 
-    for (index = 0; index < v1.length; index++) {
-        xValues[index] = v1[index][v3];
-        yValues[index] = v2[index][v3];
-    }
-
+    //TODO ver das legendas
     /*d3.select("#xLabel").text(dataName(v1));
     d3.select("#yLabel").text(dataName(v2));
   
@@ -178,22 +161,20 @@ function selectVariable(id) {
 
     if (id === 0) {
         var e = document.getElementById("xAxisItem");
-        xValue = e.options[e.selectedIndex].value;
+        defaultX = e.options[e.selectedIndex].value;
     }
 
     if (id === 1) {
         var e = document.getElementById("yAxisItem");
-        yValue = e.options[e.selectedIndex].value;
+        defaultY = e.options[e.selectedIndex].value;
     }
 
     if (id === 2) {
         var e = document.getElementById("Year");
-        Year = e.options[e.selectedIndex].value;
+        defaultYear = e.options[e.selectedIndex].value;
     }
 
-
-
-    updatePoints(getArray(xValue), getArray(yValue), Year);
+    updatePoints(getArray(defaultX), getArray(defaultY), defaultYear);
 }
 
 // TODO compor isto e meter como no main
