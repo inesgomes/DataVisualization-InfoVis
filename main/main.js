@@ -156,7 +156,7 @@ slider.transition() // mudar para ser 'discreto'
 function hue(h) {
   var ano=Math.round(h);
   handle.attr("cx", x(ano));
-  drawMap(assaults, ano)
+  drawMap(sexviolences, ano)
   console.log(h)
   //svg.style("background-color", d3.hsl(h, 0.8, 0.8));
 }
