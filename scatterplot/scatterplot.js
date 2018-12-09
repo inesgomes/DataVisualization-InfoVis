@@ -9,7 +9,7 @@ var points,x,y,xAxis,yAxis;
 var xValues = [];
 var yValues = [];  
 
-var chart = d3.select("svg")
+var chart = d3.select("#scatterplot")
     .attr('width', widthChart + 50)
     .attr('height', heightChart + 50)
     .append('g')
