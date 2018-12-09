@@ -15,8 +15,9 @@ var svg = d3.select("#map")
 
 var color = d3.scaleLinear()
   .clamp(true)
-  .domain([0.4, 0.6, 0.8, 1])
-  .range(['#fdbe85', '#fd8d3c', '#e6550d', '#a63603'])
+  .domain([0,0.2,0.4, 0.6, 0.8, 1])
+  .range(['#feedde','#fdd0a2','#fdae6b','#fd8d3c','#e6550d','#a63603'])
+  
   .interpolate(d3.interpolateHcl);
 
 function drawMap(crimes, year) {
@@ -55,7 +56,7 @@ function drawMap(crimes, year) {
       .append('path')
       .attr('class', 'country')
       .attr('d', path)
-      .attr("fill", function (d) {
+     .attr("fill", function (d) {
         //find country name in map list and color it
         console.log("ta a pintar")
         let i;
@@ -70,6 +71,30 @@ function drawMap(crimes, year) {
         return 'aliceblue';
       })
     console.log(data.objects.europe);
+    
+    //Fazer legenda
+    var legend_labels = ["<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
+    var legend = svg.selectAll("g.legend")
+    .data([0,0.2,0.4, 0.6, 0.8, 1])
+    .enter().append("g")
+    .attr("class", "legend");
+  
+    var ls_w = 15, ls_h = 15;
+
+    legend.append("rect")
+    .attr("x", 65*viewWidth /100)
+    .attr("y", function(d, i){ return (40+viewHeight/2) - (i*ls_h) - 2*ls_h;})
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function(d, i) { return color(d); })
+    .style("opacity", 0.8);
+  
+    legend.append("text")
+    .attr("x", 20+65*viewWidth / 100)
+    .attr("y", function(d, i){ return (40+viewHeight/2) - (i*ls_h) - ls_h - 4;})
+    .text(function(d, i){ return legend_labels[i]; });
+
+
     return;
   });
 
@@ -144,10 +169,7 @@ var sexviolences = sexualviolence.countries;
 
 function draw() {
   //get jsons
-
-
   console.log(assaults)
-
   //TODO draw things!
   drawMap(assaults, 2010)
   sliderYears()
