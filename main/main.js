@@ -6,18 +6,17 @@ var margin = { top: 20, right: 20, bottom: 30, left: 40 };
 var width = (viewWidth - margin.left - margin.right)/2
 var height = (viewHeight - margin.top - margin.bottom)/2
 
-/*var svg = d3.select("svg")
+var svg = d3.select("svg")
     .attr("width",viewWidth)
     .attr("height", viewHeight)
     .append("g")
-    .style("background", '#C1E1EC')
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");*/
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var chart = d3.select("svg")
     .attr('width', width + 50)
     .attr('height', height + 50)
     .append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
 var assaults = assault.countries;
 var burglaries = burglary.countries;
@@ -27,14 +26,14 @@ var robberies = robbery.countries;
 
 var defaultX = "assault";
 var defaultY = "sexualviolence";
-var defaultYear = 2010;
+var defaultYear = 2011;
 var points,x,y,xAxis,yAxis;
 var xValues = [];
-var yValues = [];
+var yValues = [];  
 
 function draw() {
 
-    drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear)
+    drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY)
 }
 
 function getArray(valueName) {
@@ -50,14 +49,17 @@ function getArray(valueName) {
         return robberies;
 }
 
-function initXY(v1,v2,v3){
+function initXY(v1,v2,v3,labelX,labelY){
     // draw the graph object
+ 
     let index = 0;
     // TODO compor para os indices serem de acordo com o array que recebe
     for (index = 0; index < v1.length; index++) {
         xValues[index] = v1[index][v3];
         yValues[index] = v2[index][v3];
     }
+    svg.selectAll("g").remove();
+    chart.selectAll("g").remove();
 
     x = d3.scaleLinear()
         .domain([0, d3.max(xValues)])  // the range of the values to plot
@@ -78,38 +80,44 @@ function initXY(v1,v2,v3){
       
     x.domain(xExtent).nice();
     y.domain(yExtent).nice();*/
-
+    
     //TODO compor legendas
     chart.append("g")
       .attr("id", "xAxis")
       .attr("class", "x axis")
       .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis)
-      .append("text")
-      .attr("class", "label")
-      .attr("id", "xLabel")
-      .attr("x", width)
-      .attr("y", -6)
-      .style("text-anchor", "end")
-      .text("boas");
+      .call(xAxis)  
 
     chart.append("g")
       .attr("id", "yAxis")
       .attr("class", "y axis")
       .call(yAxis)
-      .append("text")
-      .attr("class", "label")
-      .attr("id", "yLabel")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("boas");
+
+    var legend = svg.append("g")
+        .attr("class", "legend");
+
+    //legenda eixo X
+    legend.append("text")
+        .attr("x", width )
+        .attr("y", height - 10)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(dataName(labelX));
+    
+    //legenda eixo Y
+    legend.append("text")
+      .attr("x", 15)
+      .attr("y", -5)
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(dataName(labelY));
+
+   
 }
 
-function drawScatterplot(v1, v2, v3) {
+function drawScatterplot(v1, v2, v3, labelX, labelY) {
 
-    initXY(v1, v2, v3)
+    initXY(v1, v2, v3, labelX, labelY)
 
     points = chart.selectAll("scatter-dots")
         .data(v1)
@@ -120,16 +128,9 @@ function drawScatterplot(v1, v2, v3) {
         .style("opacity", 0.6); // opacity of circle
 }
 
-function updatePoints(v1, v2, v3) {
+function updatePoints(v1, v2, v3, labelX, labelY) {
 
-    initXY(v1, v2, v3)
-
-    //TODO ver das legendas
-    /*d3.select("#xLabel").text(dataName(v1));
-    d3.select("#yLabel").text(dataName(v2));
-  
-    d3.select("#xAxis").call(xAxis);
-    d3.select("#yAxis").call(yAxis);*/
+    initXY(v1, v2, v3, labelX, labelY)
 
     var transition = d3.transition()
         .duration(750)
@@ -157,7 +158,6 @@ function dataName(v) {
 function selectVariable(id) {
 
     var variable;
-    console.log(id)
 
     if (id === 0) {
         var e = document.getElementById("xAxisItem");
@@ -174,7 +174,7 @@ function selectVariable(id) {
         defaultYear = e.options[e.selectedIndex].value;
     }
 
-    updatePoints(getArray(defaultX), getArray(defaultY), defaultYear);
+    updatePoints(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY);
 }
 
 // TODO compor isto e meter como no main
@@ -203,8 +203,6 @@ function resize() {
      d3.select("svg")
          .attr("width", viewWidth)
          .attr("height", viewHeight);*/
-
-
     // drawScatterplot(xValue, yValue, );
 }
 
