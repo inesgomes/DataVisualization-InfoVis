@@ -15,9 +15,8 @@ var svg = d3.select("#map")
 
 var color = d3.scaleLinear()
   .clamp(true)
-  .domain([0,0.2,0.4, 0.6, 0.8, 1])
-  .range(['#feedde','#fdd0a2','#fdae6b','#fd8d3c','#e6550d','#a63603'])
-  
+  .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
+  .range(['#feedde', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'])
   .interpolate(d3.interpolateHcl);
 
 function drawMap(crimes, year) {
@@ -28,7 +27,7 @@ function drawMap(crimes, year) {
     .attr("width", viewWidth)
     .attr("height", viewHeight)
     .style('background', '#C1E1EC');*/
-  
+
   //make array with values of crime in one year and finding max for color diff
   let i, maxValues = [];
   for (i = 0; i < crimes.length; i++) {
@@ -40,7 +39,7 @@ function drawMap(crimes, year) {
   //begin map
   var projection = d3.geoMercator()
     .scale(300)
-    .translate([4*viewWidth / 5, viewHeight / 3])
+    .translate([4 * viewWidth / 5, viewHeight / 3])
     .center(center);
 
   var path = d3.geoPath()
@@ -56,7 +55,7 @@ function drawMap(crimes, year) {
       .append('path')
       .attr('class', 'country')
       .attr('d', path)
-     .attr("fill", function (d) {
+      .attr("fill", function (d) {
         //find country name in map list and color it
         console.log("ta a pintar")
         let i;
@@ -71,28 +70,28 @@ function drawMap(crimes, year) {
         return 'aliceblue';
       })
     console.log(data.objects.europe);
-    
+
     //Fazer legenda
     var legend_labels = ["<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
     var legend = svg.selectAll("g.legend")
-    .data([0,0.2,0.4, 0.6, 0.8, 1])
-    .enter().append("g")
-    .attr("class", "legend");
-  
+      .data([0, 0.2, 0.4, 0.6, 0.8, 1])
+      .enter().append("g")
+      .attr("class", "legend");
+
     var ls_w = 15, ls_h = 15;
 
     legend.append("rect")
-    .attr("x", 65*viewWidth /100)
-    .attr("y", function(d, i){ return (40+viewHeight/2) - (i*ls_h) - 2*ls_h;})
-    .attr("width", ls_w)
-    .attr("height", ls_h)
-    .style("fill", function(d, i) { return color(d); })
-    .style("opacity", 0.8);
-  
+      .attr("x", 65 * viewWidth / 100)
+      .attr("y", function (d, i) { return (40 + viewHeight / 2) - (i * ls_h) - 2 * ls_h; })
+      .attr("width", ls_w)
+      .attr("height", ls_h)
+      .style("fill", function (d, i) { return color(d); })
+      .style("opacity", 0.8);
+
     legend.append("text")
-    .attr("x", 20+65*viewWidth / 100)
-    .attr("y", function(d, i){ return (40+viewHeight/2) - (i*ls_h) - ls_h - 4;})
-    .text(function(d, i){ return legend_labels[i]; });
+      .attr("x", 20 + 65 * viewWidth / 100)
+      .attr("y", function (d, i) { return (40 + viewHeight / 2) - (i * ls_h) - ls_h - 4; })
+      .text(function (d, i) { return legend_labels[i]; });
 
 
     return;
@@ -103,66 +102,60 @@ function drawMap(crimes, year) {
 
 }
 
-function sliderYears(){
-  
- var x = d3.scaleLinear()    //tem de ser discreto
-    .domain([2010, 2015])
-    .range([0, width/4])
-    .clamp(true);
-    
+function sliderYears() {
 
-//cria 'eixo'
-var slider = svg.append("g")
+  var x = d3.scaleLinear()    //tem de ser discreto
+    .domain([2010, 2015])
+    .range([0, width / 4])
+    .clamp(true);
+
+
+  //cria 'eixo'
+  var slider = svg.append("g")
     .attr("class", "slider")
-    .attr("transform", "translate(" + width/4 + "," + margin.top + ")");
-slider.append("line")
+    .attr("transform", "translate(" + width / 4 + "," + margin.top + ")");
+  slider.append("line")
     .attr("class", "track")
     .attr("x1", x.range()[0])
     .attr("x2", x.range()[1])
-  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    .select(function () { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-inset")
-  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    .select(function () { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-overlay")
     .call(d3.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() { hue(x.invert(d3.event.x)); }));
+      .on("start.interrupt", function () { slider.interrupt(); })
+      .on("start drag", function () { y(x.invert(d3.event.x)); }));
 
 
-//escrever ticks e texto
-slider.insert("g", ".track-overlay")
+  //escrever ticks e texto
+  slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
     .attr("transform", "translate(0," + 18 + ")")
-  .selectAll("text")
-  .data(x.ticks(6))
-  .enter().append("text")
+    .selectAll("text")
+    .data(x.ticks(6))
+    .enter().append("text")
     .attr("x", x)
     .attr("text-anchor", "middle")
-    .text(function(d) { return d ; }); 
-    console.log(x.ticks(6))
+    .text(function (d) { return d; });
+  console.log(x.ticks(6))
 
-//criar bolinha 
-var handle = slider.insert("circle", ".track-overlay")
-    .attr("class", "handle")  
+  //criar bolinha 
+  var handle = slider.insert("circle", ".track-overlay")
+    .attr("class", "handle")
     .attr("r", 9);
 
-slider.transition() // mudar para ser 'discreto'
-    .duration(750)
-   /* .tween("hue", function() {
-      var i = d3.interpolate(0, 70);
-      console.log(i)
-      return function(t) { hue(i(t)); };
-    });
-*/
-function hue(h) {
-  var ano=Math.round(h);
-  handle.attr("cx", x(ano));
-  drawMap(sexviolences, ano)
-  console.log(h)
-  //svg.style("background-color", d3.hsl(h, 0.8, 0.8));
-}
+  slider.transition().duration(750)
+
+  function y(h) {
+    var ano = Math.round(h);
+    handle.attr("cx", x(ano));
+    drawMap(sexviolences, ano)
+    console.log(h)
+    //svg.style("background-color", d3.hsl(h, 0.8, 0.8));
+  }
 
 }
-var assaults = assault.countries; 
+var assaults = assault.countries;
 var burglaries = burglary.countries;
 var homicides = homicide.countries;
 var sexviolences = sexualviolence.countries;
