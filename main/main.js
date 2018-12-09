@@ -6,6 +6,12 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40};
 var width = viewWidth - margin.left - margin.right;
 var height = viewHeight - margin.top - margin.bottom;
 
+var assaults = assault.countries;
+var burglaries = burglary.countries;
+var homicides = homicide.countries;
+var sexviolences = sexualviolence.countries;
+var robberies = robbery.countries;    
+
 var svg = d3.select("svg")
     .attr("width", viewWidth)
     .attr("height", viewHeight)
@@ -69,16 +75,9 @@ function drawMap(){
 }
 
 function draw() {
-  //get jsons
-  let assaults = assault.countries;
-  let burglaries = burglary.countries;
-  let homicides = homicide.countries;
-  let sexviolences = sexualviolence.countries;
-
-  console.log(assaults)
-
   //TODO draw things!
   drawMap()
+  drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY)
   console.log("draw")
 }
 

@@ -3,12 +3,41 @@
 	<head>
 		<title></title>
 		<link rel=stylesheet href=main.css>
+		<link rel=stylesheet href=../scatterplot/scatterplot.css>
 		<script type="text/javascript" src="../lib/d3.v4.min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../lib/topojson.v1.min.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<div id="main">
 			<svg></svg>
+			<div id="scatterplot">
+				<div id="selectionUI">
+					xAxis:
+					<select id="xAxisItem" onchange="selectVariable(0)">
+						<option value="assault" selected="selected">Assault</option>
+						<option value="burglary">Burglary</option>
+						<option value="homicide"> Homicide</option>
+						<option value="robbery"> Robbery</option>
+						<option value="sexualviolence"> Sexual Violence</option>
+					</select>
+					yAxis:
+					<select id="yAxisItem" onchange="selectVariable(1)">
+						<option value="assault">Assault</option>
+						<option value="burglary">Burglary</option>
+						<option value="homicide"> Homicide</option>
+						<option value="robbery"> Robbery</option>
+						<option value="sexualviolence"selected="selected"> Sexual Violence</option>
+					</select>
+					Year:
+					<select id="Year" onchange="selectVariable(2)">
+						<option value="2010">2010</option>
+						<option value="2011"selected="selected">2011</option>
+						<option value="2012">2012</option>
+						<option value="2013">2013</option>
+						<option value="2014">2014</option>
+						<option value="2015" >2015</option>
+					</select>
+				</div>
 		</div>
 		<script type="text/javascript" src="../data/assault.js"></script>
 		<script type="text/javascript" src="../data/burglary.js"></script>
@@ -16,6 +45,7 @@
 		<script type="text/javascript" src="../data/robbery.js"></script>
 		<script type="text/javascript" src="../data/sexualviolence.js"></script>
 		<script type="text/json" src="../data/europe.json"></script>
+		<script type="text/javascript" src="../scatterplot/scatterplot.js"></script>
 		<script type="text/javascript" src="main.js"></script>
 
 	</body>
