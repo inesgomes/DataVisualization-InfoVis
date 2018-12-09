@@ -48,6 +48,7 @@ function drawMap(crimes, year) {
   countries = svg.append("g");
   //load map info 
   d3.json('../data/europe.json', function (data) {
+    console.log("olaola")
     countries.selectAll('.country')
       .data(topojson.feature(data, data.objects.europe).features)
       .enter()
@@ -56,6 +57,7 @@ function drawMap(crimes, year) {
       .attr('d', path)
       .attr("fill", function (d) {
         //find country name in map list and color it
+        console.log("ta a pintar")
         let i;
         for (i = 0; i < crimes.length; i++) {
           if (crimes[i]['country'] == d.properties.NAME) {
@@ -77,15 +79,17 @@ function drawMap(crimes, year) {
 }
 
 function sliderYears(){
-  var x = d3.scaleLinear()    //tem de ser discreto
-    .domain([2010, 2016])
-    .range([0, width/3])
+  
+ var x = d3.scaleLinear()    //tem de ser discreto
+    .domain([2010, 2015])
+    .range([0, width/4])
     .clamp(true);
+    
 
+//cria 'eixo'
 var slider = svg.append("g")
     .attr("class", "slider")
     .attr("transform", "translate(" + width/4 + "," + margin.top + ")");
-
 slider.append("line")
     .attr("class", "track")
     .attr("x1", x.range()[0])
@@ -98,42 +102,49 @@ slider.append("line")
         .on("start.interrupt", function() { slider.interrupt(); })
         .on("start drag", function() { hue(x.invert(d3.event.x)); }));
 
+
+//escrever ticks e texto
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
     .attr("transform", "translate(0," + 18 + ")")
   .selectAll("text")
-  .data(x.ticks(7))
+  .data(x.ticks(6))
   .enter().append("text")
     .attr("x", x)
     .attr("text-anchor", "middle")
-    .text(function(d) { return d ; });
+    .text(function(d) { return d ; }); 
+    console.log(x.ticks(6))
 
+//criar bolinha 
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")  
     .attr("r", 9);
 
-    
 slider.transition() // mudar para ser 'discreto'
     .duration(750)
-    .tween("hue", function() {
+   /* .tween("hue", function() {
       var i = d3.interpolate(0, 70);
+      console.log(i)
       return function(t) { hue(i(t)); };
     });
-
+*/
 function hue(h) {
-  handle.attr("cx", x(h));
-  svg.style("background-color", d3.hsl(h, 0.8, 0.8));
+  var ano=Math.round(h);
+  handle.attr("cx", x(ano));
+  drawMap(assaults, ano)
+  console.log(h)
+  //svg.style("background-color", d3.hsl(h, 0.8, 0.8));
 }
 
-
 }
+var assaults = assault.countries; 
+var burglaries = burglary.countries;
+var homicides = homicide.countries;
+var sexviolences = sexualviolence.countries;
 
 function draw() {
   //get jsons
-  let assaults = assault.countries;
-  let burglaries = burglary.countries;
-  let homicides = homicide.countries;
-  let sexviolences = sexualviolence.countries;
+
 
   console.log(assaults)
 
