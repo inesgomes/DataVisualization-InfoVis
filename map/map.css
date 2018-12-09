@@ -1,0 +1,12 @@
+.country {
+    /*fill: lightgray;*/
+    stroke: darkgrey;
+    stroke-width: 1px;
+  } 
+  .country:hover {
+    fill: darkgrey;
+  }
+  
+  .legend {
+    font-size: 8px;
+  }
