@@ -3,12 +3,13 @@
 	<head>
 		<title></title>
 		<link rel=stylesheet href=main.css>
+		<link rel=stylesheet href=../scatterplot/scatterplot.css>
 		<script type="text/javascript" src="../lib/d3.v4.min.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<div id="main">
 			<svg></svg>
-			<div id="container">
+			<div id="scatterplot">
 				<div id="selectionUI">
 					xAxis:
 					<select id="xAxisItem" onchange="selectVariable(0)">
@@ -45,6 +46,7 @@
 		<script type="text/javascript" src="../data/homicide.js"></script>
 		<script type="text/javascript" src="../data/robbery.js"></script>
 		<script type="text/javascript" src="../data/sexualviolence.js"></script>
+		<script type="text/javascript" src="../scatterplot/scatterplot.js"></script>
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
