@@ -23,7 +23,6 @@ var chart = d3.select("#scatterplot")
     .attr('width', widthChart + 50)
     .attr('height', heightChart + 50)
     .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
-    .style('background', 'blue')
     .append('g')
    
 

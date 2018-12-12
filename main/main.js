@@ -48,7 +48,7 @@ function sliderYears() {
     .attr("x", x)
     .attr("text-anchor", "middle")
     .text(function (d) { return d; });
-  console.log(x.ticks(6))
+  //console.log(x.ticks(6))
 
   //criar bolinha 
   var handle = slider.insert("circle", ".track-overlay")
@@ -62,28 +62,25 @@ function sliderYears() {
     var ano = Math.round(h);
     handle.attr("cx", x(ano));
     drawMap(sexviolences, ano)
-    console.log(h)
-  }
-
-    
+    //console.log(h)
+  }    
 }
 
 var assaults = assault.countries;
 var burglaries = burglary.countries;
 var homicides = homicide.countries;
+var robberies = robbery.countries;
 var sexviolences = sexualviolence.countries;
 var drawCountries=[];
 
 function draw() {
-  //get jsons
-  console.log(assaults)
-  //TODO draw things!
-  
   sliderYears()
+
   drawMap(assaults, 2010)
   
   drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
-  console.log("draw")
+
+  drawPCP(assaults,burglaries,homicides,robberies,sexviolences,2010)
 }
 
 function resize() {
