@@ -63,6 +63,7 @@ function sliderYears() {
     handle.attr("cx", x(ano));
     drawMap(sexviolences, ano)
     //console.log(h)
+    updatePCP(ano)
   }    
 }
 
@@ -80,7 +81,7 @@ function draw() {
   
   drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
 
-  drawPCP(assaults,burglaries,homicides,robberies,sexviolences,2010)
+  drawPCP(2010)
 }
 
 function resize() {
