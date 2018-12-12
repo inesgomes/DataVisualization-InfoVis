@@ -2,14 +2,16 @@
 <html>
 	<head>
 		<title></title>
-		<link rel=stylesheet href=main.css>
+		<link rel=stylesheet href=map/map.css>
+		<link rel=stylesheet href=main/main.css>
 		<link rel=stylesheet href=../scatterplot/scatterplot.css>
-		<script type="text/javascript" src="../lib/d3.v4.min.js" charset="utf-8"></script>
-		<script type="text/javascript" src="../lib/topojson.v1.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="lib/d3.v4.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="lib/topojson.v1.min.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<div id="main">
-			<svg></svg>
+			<svg id="slider"></svg>
+			<svg id="map"></svg>
 			<div>
 				<svg id="scatterplot"></svg>
 				<div id="selectionUI">
@@ -40,14 +42,15 @@
 					</select>
 				</div>
 		</div>
-		<script type="text/javascript" src="../data/assault.js"></script>
-		<script type="text/javascript" src="../data/burglary.js"></script>
-		<script type="text/javascript" src="../data/homicide.js"></script>
-		<script type="text/javascript" src="../data/robbery.js"></script>
-		<script type="text/javascript" src="../data/sexualviolence.js"></script>
-		<script type="text/json" src="../data/europe.json"></script>
-		<script type="text/javascript" src="../scatterplot/scatterplot.js"></script>
-		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="data/assault.js"></script>
+		<script type="text/javascript" src="data/burglary.js"></script>
+		<script type="text/javascript" src="data/homicide.js"></script>
+		<script type="text/javascript" src="data/robbery.js"></script>
+		<script type="text/javascript" src="data/sexualviolence.js"></script>
+		<script type="text/json" src="data/europe.json"></script>
+		<script type="text/javascript" src="scatterplot/scatterplot.js"></script>
+		<script type="text/javascript" src="map/map.js"></script>
+		<script type="text/javascript" src="main/main.js"></script>
 
 	</body>
 </html>
