@@ -1,3 +1,7 @@
+// PERGUNTAR BÁRBARA: como limpar o scatterplot quando quisermos selecionar paises (e como des'selecionar paises)
+
+
+
 var marginChart = { top: 20, right: 20, bottom: 30, left: 40 };
 var widthChart = (window.innerWidth - marginChart.left - marginChart.right)/2
 var heightChart = (window.innerHeight - marginChart.top - marginChart.bottom)/2
@@ -39,8 +43,9 @@ function initXY(v1,v2,v3,labelX,labelY){
         xValues[index] = v1[index][v3];
         yValues[index] = v2[index][v3];
     }
-    //svg.selectAll("g").remove();
+
     chart.selectAll("g").remove();
+    chart.selectAll("scatter-dots").remove();
 
     x = d3.scaleLinear()
         .domain([0, d3.max(xValues)])  // the range of the values to plot
@@ -79,11 +84,11 @@ function initXY(v1,v2,v3,labelX,labelY){
 
     //legenda eixo X
     legend.append("text")
-        .attr("x", widthChart )
-        .attr("y", heightChart - 10)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(dataName(labelX));
+      .attr("x", widthChart )
+      .attr("y", heightChart - 10)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(dataName(labelX));
     
     //legenda eixo Y
     legend.append("text")
@@ -96,13 +101,35 @@ function initXY(v1,v2,v3,labelX,labelY){
    
 }
 
-function drawScatterplot(v1, v2, v3, labelX, labelY) {
-
+function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
+    let data = []
+    
     initXY(v1, v2, v3, labelX, labelY)
 
+    if(selectedC.length == 0){
+        data=v1
+    }
+
+    else{
+        data=selectedC
+        filtered_v1 = v1.filter(function(obj) { return selectedC.includes(obj['country']) })
+        filtered_v2 = v2.filter(function(obj) { return selectedC.includes(obj['country']) })
+        let ind = 0
+        for(ind = 0; ind< filtered_v1.length; ind++){
+            xValues[ind] = filtered_v1[ind][v3] 
+            yValues[ind] = filtered_v2[ind][v3] 
+        }
+    }
+
+    if(points != null){
+        chart.selectAll("scatter-dots").remove();
+    }
+        
+
     points = chart.selectAll("scatter-dots")
-        .data(v1)
+        .data(data)
         .enter().append("svg:circle")  // create a new circle for each value
+        .attr("class", "circle")
         .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
         .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
         .attr("r", 5) // radius of circle
@@ -110,7 +137,7 @@ function drawScatterplot(v1, v2, v3, labelX, labelY) {
 }
 
 function updatePoints(v1, v2, v3, labelX, labelY) {
-
+  
     initXY(v1, v2, v3, labelX, labelY)
 
     var transition = d3.transition()
