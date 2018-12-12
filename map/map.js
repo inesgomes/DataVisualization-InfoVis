@@ -130,7 +130,6 @@ function drawMap(crimes, year) {
 }
 function showTooltipPoint(d) {
   var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
-  console.log(mouse)
   tooltip.classed('hidden', false) //make tooltip visible
     .html(d.properties.NAME) //display the name of point
     .attr('style', //set size of the tooltip

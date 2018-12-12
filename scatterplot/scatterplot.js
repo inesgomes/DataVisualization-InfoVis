@@ -3,8 +3,8 @@
 
 
 var marginChart = { top: 20, right: 20, bottom: 30, left: 40 };
-var widthChart = (window.innerWidth/2 - marginChart.left - marginChart.right)
-var heightChart = (window.innerHeight/2 - marginChart.top - marginChart.bottom)
+var widthChart = (window.innerWidth - marginChart.left - marginChart.right)/2
+var heightChart = (window.innerHeight - marginChart.top - marginChart.bottom)/2
 
 var defaultX = "assault";
 var defaultY = "sexualviolence";
@@ -12,20 +12,14 @@ var defaultYear = 2011;
 var points,x,y,xAxis,yAxis;
 var xValues = [];
 var yValues = [];  
-/*
-var selectionUI = d3.select("#selectionUI")
-    .attr('width', widthChart + 50)
-   .attr('height', heightChart + 50)
-    .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
-   // .style('background', 'red')
-  */  
+
 var chart = d3.select("#scatterplot")
     .attr('width', widthChart + 50)
     .attr('height', heightChart + 50)
-    .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
-    .style('background', 'blue')
     .append('g')
-   
+        .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
+
+
 
 function getArray(valueName) {
     if (valueName == "assault")
@@ -50,8 +44,10 @@ function initXY(v1,v2,v3,labelX,labelY){
         yValues[index] = v2[index][v3];
     }
 
+    /*
     chart.selectAll("g").remove();
     chart.selectAll("scatter-dots").remove();
+    */
 
     x = d3.scaleLinear()
         .domain([0, d3.max(xValues)])  // the range of the values to plot
@@ -107,33 +103,26 @@ function initXY(v1,v2,v3,labelX,labelY){
    
 }
 
-function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
-    let data = []
-    
+function drawScatterplot(v1, v2, v3, labelX, labelY,selectedC) {
+
     initXY(v1, v2, v3, labelX, labelY)
-
-    if(selectedC.length == 0){
-        data=v1
-    }
-
-    else{
-        data=selectedC
+        
+    if(selectedC.length != 0){
+        filtered_v1 = [], filtered_v2 = []
         filtered_v1 = v1.filter(function(obj) { return selectedC.includes(obj['country']) })
         filtered_v2 = v2.filter(function(obj) { return selectedC.includes(obj['country']) })
+
         let ind = 0
-        for(ind = 0; ind< filtered_v1.length; ind++){
+        xValues = [], yValues = []
+        for(ind = 0; ind < filtered_v1.length; ind++){
             xValues[ind] = filtered_v1[ind][v3] 
             yValues[ind] = filtered_v2[ind][v3] 
         }
+        points.remove()
     }
-
-    if(points != null){
-        chart.selectAll("scatter-dots").remove();
-    }
-        
 
     points = chart.selectAll("scatter-dots")
-        .data(data)
+        .data(xValues)
         .enter().append("svg:circle")  // create a new circle for each value
         .attr("class", "circle")
         .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
@@ -190,4 +179,3 @@ function selectVariable(id) {
 
     updatePoints(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY);
 }
-
