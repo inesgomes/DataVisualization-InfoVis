@@ -8,7 +8,7 @@ var height = viewHeight - margin.top - margin.bottom;
 
 var svg = d3.select("#slider")
   .attr("width", viewWidth/2)
-  .attr("height", height/4)
+  .attr("height", height/5)
   .style('background', '#C1E1EC') 
   //.attr("transform", "translate(0," + margin.top  + ")")
   .append("g");
@@ -78,8 +78,10 @@ function draw() {
   //get jsons
   console.log(assaults)
   //TODO draw things!
-  drawMap(assaults, 2010)
+  
   sliderYears()
+  drawMap(assaults, 2010)
+  
   drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
   console.log("draw")
 }

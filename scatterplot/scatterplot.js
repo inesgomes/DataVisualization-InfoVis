@@ -3,8 +3,8 @@
 
 
 var marginChart = { top: 20, right: 20, bottom: 30, left: 40 };
-var widthChart = (window.innerWidth - marginChart.left - marginChart.right)/2
-var heightChart = (window.innerHeight - marginChart.top - marginChart.bottom)/2
+var widthChart = (window.innerWidth/2 - marginChart.left - marginChart.right)
+var heightChart = (window.innerHeight/2 - marginChart.top - marginChart.bottom)
 
 var defaultX = "assault";
 var defaultY = "sexualviolence";
@@ -12,14 +12,20 @@ var defaultYear = 2011;
 var points,x,y,xAxis,yAxis;
 var xValues = [];
 var yValues = [];  
-
+/*
+var selectionUI = d3.select("#selectionUI")
+    .attr('width', widthChart + 50)
+   .attr('height', heightChart + 50)
+    .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
+   // .style('background', 'red')
+  */  
 var chart = d3.select("#scatterplot")
     .attr('width', widthChart + 50)
     .attr('height', heightChart + 50)
+    .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
+    .style('background', 'blue')
     .append('g')
-        .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
-
-
+   
 
 function getArray(valueName) {
     if (valueName == "assault")
@@ -185,31 +191,3 @@ function selectVariable(id) {
     updatePoints(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY);
 }
 
-// TODO compor isto e meter como no main
-
-function resize() {
-
-    viewWidth = window.innerWidth;
-    viewHeight = window.innerHeight;
-
-    /* width = viewWidth - margin.left - margin.right;
-     height = viewHeight - margin.top - margin.bottom;
- 
-     x.range([0, width]);
-     y.range([height, 0]);
- 
-     xAxis.scale(x);
-     yAxis.scale(y);
- 
-     d3.select("#container")
-         .attr("width", viewWidth);
- 
-     d3.select("#vis")
-         .attr("width", viewWidth)
-         .attr("height", viewHeight);
- 
-     d3.select("svg")
-         .attr("width", viewWidth)
-         .attr("height", viewHeight);*/
-    // drawScatterplot(xValue, yValue, );
-}

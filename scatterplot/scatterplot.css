@@ -8,3 +8,7 @@
     stroke-width: 0.25pt;
     stroke: #555;
   }
+
+  div#containerSP{
+    display:block;
+  }

@@ -6,7 +6,7 @@ var map = d3.select("#map")
   .attr("width", width_map)
   .attr("height", height_map)
   .style('background', '#fdae6b')
-  .attr("transform", "translate(0," + margin_map.top + ")")
+  //.attr("transform", "translate(0," + margin_map.top + ")")
   .append("g");
 
 var body=d3.select("body");
