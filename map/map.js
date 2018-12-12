@@ -9,6 +9,7 @@ var map = d3.select("#map")
   //.attr("transform", "translate(0," + margin_map.top + ")")
   .append("g");
 
+var defaultB = "assault";
 var body=d3.select("body");
 
 var rangeColor=[
@@ -18,11 +19,11 @@ var rangeColor=[
     ['#fee5d9','#fcbba1','#fc9272','#fb6a4a','#de2d26','#a50f15'], //vermelho
     ['#f2f0f7','#dadaeb','#bcbddc','#9e9ac8','#756bb1','#54278f']   //roxo
 ];
-var numRangeColor = 0;
+
 var color = d3.scaleLinear()
   .clamp(true)
   .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
-  .range(rangeColor[numRangeColor])
+  .range(rangeColor[0])
   .interpolate(d3.interpolateHcl);
 
   var tooltip = body //for hover
@@ -100,7 +101,6 @@ function drawMap(crimes, year) {
     var legend = map.selectAll("g.legend")
       .data([0, 0.2, 0.4, 0.6, 0.8, 1])
       .enter().append("g")
-     
       .attr("class", "legend");
 
     var ls_w = 15, ls_h = 15;
@@ -110,7 +110,6 @@ function drawMap(crimes, year) {
       .attr("y", function (d, i) { return height_map*7/10 - (i * ls_h) - 2 * ls_h; })
       .attr("width", ls_w)
       .attr("height", ls_h)
-     
       .style("fill", function (d, i) { return color(d); })
       .style("opacity", 0.8)
      // .attr("transform", "translate(0," + margin_map.top*2  + ")");
@@ -128,6 +127,24 @@ function drawMap(crimes, year) {
   this.projection = projection;
 
 }
+
+function selectBotton() {
+
+    var e = document.getElementById("botton");
+    console.log(e)
+    defaultB = e.options[e.selectedIndex].value;
+    console.log(defaultB)
+    console.log(e.selectedIndex)
+
+  color = d3.scaleLinear()
+  .clamp(true)
+  .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
+  .range(rangeColor[e.selectedIndex])
+  .interpolate(d3.interpolateHcl);
+
+    drawMap(getArray(defaultB),ano);
+}
+
 function showTooltipPoint(d) {
   var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
   console.log(mouse)

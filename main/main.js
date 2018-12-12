@@ -5,13 +5,26 @@ d3.select(window).on("resize", resize);
 var margin = { top: 20, right: 20, bottom: 30, left: 40 };
 var width = viewWidth - margin.left - margin.right;
 var height = viewHeight - margin.top - margin.bottom;
-
+var ano=2010;
 var svg = d3.select("#slider")
   .attr("width", viewWidth/2)
   .attr("height", height/5)
   .style('background', '#C1E1EC') 
   //.attr("transform", "translate(0," + margin.top  + ")")
   .append("g");
+
+  function getArray(valueName) {
+    if (valueName == "assault")
+        return assaults;
+    if (valueName == "burglary")
+        return burglaries;
+    if (valueName == "homicide")
+        return homicides;
+    if (valueName == "sexualviolence")
+        return sexviolences;
+    if (valueName == "robbery")
+        return robberies;
+}
 
 function sliderYears() {
 
@@ -59,9 +72,9 @@ function sliderYears() {
     .duration(750)
 
   function f(h) {
-    var ano = Math.round(h);
+    ano = Math.round(h);
     handle.attr("cx", x(ano));
-    drawMap(sexviolences, ano)
+    drawMap(getArray(defaultB), ano)
     console.log(h)
   }
 

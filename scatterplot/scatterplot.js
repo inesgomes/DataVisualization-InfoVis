@@ -27,18 +27,7 @@ var chart = d3.select("#scatterplot")
     .append('g')
    
 
-function getArray(valueName) {
-    if (valueName == "assault")
-        return assaults;
-    if (valueName == "burglary")
-        return burglaries;
-    if (valueName == "homicide")
-        return homicides;
-    if (valueName == "sexualviolence")
-        return sexviolences;
-    if (valueName == "robbery")
-        return robberies;
-}
+
 
 function initXY(v1,v2,v3,labelX,labelY){
     // draw the graph object
