@@ -6,6 +6,8 @@ var margin = { top: 20, right: 20, bottom: 30, left: 40 };
 var width = viewWidth - margin.left - margin.right;
 var height = viewHeight - margin.top - margin.bottom;
 
+var defaultYear = 2010
+
 var svg = d3.select("#slider")
   .attr("width", viewWidth/2)
   .attr("height", height/5)
@@ -62,6 +64,8 @@ function sliderYears() {
     var ano = Math.round(h);
     handle.attr("cx", x(ano));
     drawMap(sexviolences, ano)
+    updatePoints(getArray(defaultX), getArray(defaultY), ano, defaultX, defaultY);
+
     console.log(h)
   }
 
@@ -80,7 +84,7 @@ function draw() {
   //TODO draw things!
   
   sliderYears()
-  drawMap(assaults, 2010)
+  drawMap(assaults, defaultYear)
   
   drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
   console.log("draw")

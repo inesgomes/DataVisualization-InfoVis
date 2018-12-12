@@ -8,7 +8,6 @@ var heightChart = (window.innerHeight - marginChart.top - marginChart.bottom)/2
 
 var defaultX = "assault";
 var defaultY = "sexualviolence";
-var defaultYear = 2011;
 var points,x,y,xAxis,yAxis;
 var xValues = [];
 var yValues = [];  
@@ -44,10 +43,10 @@ function initXY(v1,v2,v3,labelX,labelY){
         yValues[index] = v2[index][v3];
     }
 
-    /*
-    chart.selectAll("g").remove();
+    
+    chart.selectAll("g").remove()
     chart.selectAll("scatter-dots").remove();
-    */
+    
 
     x = d3.scaleLinear()
         .domain([0, d3.max(xValues)])  // the range of the values to plot
@@ -172,10 +171,10 @@ function selectVariable(id) {
         defaultY = e.options[e.selectedIndex].value;
     }
 
-    if (id === 2) {
+   /* if (id === 2) {
         var e = document.getElementById("Year");
         defaultYear = e.options[e.selectedIndex].value;
-    }
+    }*/
 
     updatePoints(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY);
 }
