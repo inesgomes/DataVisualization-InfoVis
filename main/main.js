@@ -20,7 +20,6 @@ function sliderYears() {
     .range([0, width / 4])
     .clamp(true);
 
-
   //cria 'eixo'
   var slider = svg.append("g")
     .attr("class", "slider")
