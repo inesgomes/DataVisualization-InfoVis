@@ -81,6 +81,7 @@ function drawMap(crimes, year) {
         }
 
         drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
+        updatePCP(drawCountries,defaultYear)
       })
       .on("mousemove", showTooltipPoint) //hover in
       .on("mouseout", hideTooltipPoint) //hover out

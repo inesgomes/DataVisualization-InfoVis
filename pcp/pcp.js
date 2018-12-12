@@ -10,10 +10,26 @@ var margin_pcp = { top: 66, right: 110, bottom: 20, left: 188 },
       .range(["#DB7F85", "#50AB84", "#4C6C86", "#C47DCB", "#B59248", "#DD6CA7", "#E15E5A", "#5DA5B3", "#725D82", "#54AF52", "#954D56", "#8C92E8", "#D8597D", "#AB9C27", "#D67D4B", "#D58323", "#BA89AD", "#357468", "#8F86C2", "#7D9E33", "#517C3F", "#9D5130", "#5E9ACF", "#776327", "#944F7E"]);
 */
 
-function getData(a, b, h, r, s, year) {
-
+function getData(selectedC,year) {
   let data = [], obj, ind;
-  for (ind = 0; ind < b.length; ind++) {
+
+  if(selectedC.length != 0){
+    //filter the countries
+    a = assaults.filter(function(obj) { return selectedC.includes(obj['country']) })
+    b = burglaries.filter(function(obj) { return selectedC.includes(obj['country']) })
+    r = robberies.filter(function(obj) { return selectedC.includes(obj['country']) })
+    h = homicides.filter(function(obj) { return selectedC.includes(obj['country']) })
+    s = sexviolences.filter(function(obj) { return selectedC.includes(obj['country']) })    
+  }
+  else{
+    a = assaults;
+    b = burglaries;
+    h = homicides;
+    r = robberies;
+    s = sexviolences;
+  }
+ 
+  for (ind = 0; ind < a.length; ind++) {
     obj = new Object();
     obj.country = a[ind]['country'];
     obj.assault = a[ind][year];
@@ -21,7 +37,7 @@ function getData(a, b, h, r, s, year) {
     obj.homicide = h[ind][year];
     obj.robbery = r[ind][year];
     obj.sexualViolence = s[ind][year];
-    data.push(obj)
+    data.push(obj);
   }
   return data;
 }
@@ -109,10 +125,10 @@ function getData(a, b, h, r, s, year) {
     .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
 
 
-function drawPCP(year) {
+function drawPCP(selectedC,year) {
 
   //create data
-  data = getData(assaults, burglaries, homicides, robberies, sexviolences, year)
+  data = getData(selectedC,year)
 
   ctx.globalCompositeOperation = 'darken';
   ctx.globalAlpha = 0.15;
@@ -168,12 +184,12 @@ function drawPCP(year) {
   /*d3.selectAll(".axis.pl_discmethod .tick text")
     .style("fill", color);*/
 
-    updatePCP(year);
+    updatePCP(selectedC,year);
     
 }
 
-function updatePCP(year){
-  let data = getData(assaults, burglaries, homicides, robberies, sexviolences, year)
+function updatePCP(selectedC,year){
+  let data = getData(selectedC,year)
   let render = renderQueue(draw_pcp).rate(30);
   ctx.clearRect(0, 0, width_pcp, height_pcp);
   ctx.globalAlpha = d3.min([1.15 / Math.pow(data.length, 0.3), 1]);
