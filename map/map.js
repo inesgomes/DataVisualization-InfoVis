@@ -25,7 +25,7 @@ var color = d3.scaleLinear()
   .range(rangeColor[numRangeColor])
   .interpolate(d3.interpolateHcl);
 
-  var tooltip = body //for hover
+var tooltip = body //for hover
   .append("div")
   .attr("class", "tooltip hidden");
 

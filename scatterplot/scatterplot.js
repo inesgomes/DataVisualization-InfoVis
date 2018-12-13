@@ -20,6 +20,69 @@ var chart = d3.select("#scatterplot")
 
 
 
+
+
+var body=d3.select("body");
+
+var tooltipS = body //for hover
+            .append("div")
+            .attr("class", "tooltip hidden");
+
+
+
+
+
+
+
+/*var tip = d3.select('body')
+            .append('div')
+            .attr('class', 'tip')
+            .html('I am a tooltip...')
+            .style('border', '1px solid steelblue')
+            .style('padding', '5px')
+            .style('position', 'absolute')
+            .style('display', 'none')
+            .on('mouseover', function(d, i) {
+                tip.transition().duration(0);
+            })
+            .on('mouseout', function(d, i) {
+                tip.style('display', 'none');
+            });*/
+
+
+
+
+
+
+/*var tooltipS = d3.select("#vis-container").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+var tipMouseover = function(d) {
+    var color = colorScale(d.manufacturer);
+    var html  = d.properties.NAME
+
+tooltipS.html(html)
+        .style("left", (d3.event.pageX + 15) + "px")
+        .style("top", (d3.event.pageY - 28) + "px")
+        .transition()
+        .duration(200) // ms
+        .style("opacity", .9) // started as 0!
+
+        var tipMouseout = function(d) {
+            tooltipS.transition()
+                .duration(300) // ms
+                .style("opacity", 0); // don't care about position!*/
+
+
+
+
+
+
+
+
+
+
 function getArray(valueName) {
     if (valueName == "assault")
         return assaults;
@@ -102,7 +165,7 @@ function initXY(v1,v2,v3,labelX,labelY){
    
 }
 
-function drawScatterplot(v1, v2, v3, labelX, labelY,selectedC) {
+function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
 
     initXY(v1, v2, v3, labelX, labelY)
         
@@ -120,6 +183,10 @@ function drawScatterplot(v1, v2, v3, labelX, labelY,selectedC) {
         points.remove()
     }
 
+    else{
+        selectedC = v1
+    }
+
     points = chart.selectAll("scatter-dots")
         .data(xValues)
         .enter().append("svg:circle")  // create a new circle for each value
@@ -127,7 +194,19 @@ function drawScatterplot(v1, v2, v3, labelX, labelY,selectedC) {
         .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
         .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
         .attr("r", 5) // radius of circle
-        .style("opacity", 0.6); // opacity of circle
+        .style("opacity", 0.6) // opacity of circle
+        .on("mousemove", function(d, i){
+            var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
+             tooltipS.classed('hidden', false) //make tooltip visible
+                        .html(selectedC[i]['country']) //display the name of point
+                        .attr('style', //set size of the tooltip
+                                'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
+        }) //hover in
+
+        .on("mouseout", function(){
+            tooltipS.classed('hidden', true); //hide tooltip
+        }) //hover out
+       
 }
 
 function updatePoints(v1, v2, v3, labelX, labelY) {
@@ -170,11 +249,6 @@ function selectVariable(id) {
         var e = document.getElementById("yAxisItem");
         defaultY = e.options[e.selectedIndex].value;
     }
-
-   /* if (id === 2) {
-        var e = document.getElementById("Year");
-        defaultYear = e.options[e.selectedIndex].value;
-    }*/
 
     updatePoints(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY);
 }

@@ -68,8 +68,6 @@ function sliderYears() {
 
     console.log(h)
   }
-
-    
 }
 
 var assaults = assault.countries;
