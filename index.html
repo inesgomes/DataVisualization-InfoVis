@@ -3,9 +3,17 @@
 
 <head>
 	<title></title>
-	<link rel=stylesheet href=map/map.css> <link rel=stylesheet href=pcp/pcp.css> <link rel=stylesheet href=main/main.css>
-	 <link rel=stylesheet href=scatterplot/scatterplot.css> <script type="text/javascript" src="lib/d3.v4.min.js" charset="utf-8">
-	</script>
+	<!--our css-->
+	<link rel=stylesheet href=map/map.css> 
+	<link rel=stylesheet href=pcp/pcp.css> 
+	<link rel=stylesheet href=main/main.css>
+	<link rel=stylesheet href=scatterplot/scatterplot.css> 
+	<!--bootstrap-->
+	<link href="lib/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<!--libraries-->
+	<script type="text/javascript" src="lib/d3.v4.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="lib/topojson.v1.min.js" charset="utf-8"></script>
 </head>
 
@@ -24,7 +32,7 @@
 						<option value="robbery"> Robbery</option>
 						<option value="sexualviolence" selected="selected"> Sexual Violence</option>
 					</select>
-					
+
 				</div>
 			</div>
 		</div>
@@ -32,12 +40,12 @@
 		<div id="right" class="container">
 			<svg id="map"></svg>
 			<select id="botton" onchange="selectBotton(0)">
-					<option value="assault" selected="selected">Assault</option>
-					<option value="burglary">Burglary</option>
-					<option value="homicide"> Homicide</option>
-					<option value="robbery"> Robbery</option>
-					<option value="sexualviolence"> Sexual Violence</option>
-				</select>
+				<option value="assault" selected="selected">Assault</option>
+				<option value="burglary">Burglary</option>
+				<option value="homicide"> Homicide</option>
+				<option value="robbery"> Robbery</option>
+				<option value="sexualviolence"> Sexual Violence</option>
+			</select>
 		</div>
 		<!--down-->
 		<div id="bottom"></div>
