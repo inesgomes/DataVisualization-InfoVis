@@ -1,5 +1,5 @@
 d3.select("#containerSP")
-    .style('width', rightContW + 'px')
+    .style('width', leftContW + 'px')
     .style('height', scontainerH + 'px')
     .style('display','block')
     .style('background', 'lightblue')
@@ -7,9 +7,10 @@ d3.select("#containerSP")
 var chart = d3.select("#scatterplot")
     .attr('width', scatterW)
     .attr('height', scatterH + 50)
+    .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
     .style("margin-bottom",margin.bottom+"px")
-    .append('g')
+    
 
 d3.select("#selectionUI")
     .style("margin-left",margin.left+"px")

@@ -15,17 +15,11 @@ var tooltip = body //for hover
   .append("div")
   .attr("class", "tooltip hidden");
 
+var legend;
+var countries;
 function drawMap(crimes, year) {
 
-  var countries;
   var center = [50, 50];
-
-  //make array with values of crime in one year and finding max for color diff
-  let i, maxValues = [];
-  for (i = 0; i < crimes.length; i++) {
-    maxValues[i] = crimes[i][year]
-  }
-  var max = d3.max(maxValues);
 
   //begin map
   var projection = d3.geoMercator()
@@ -45,15 +39,6 @@ function drawMap(crimes, year) {
       .append('path')
       .attr('class', 'country')
       .attr('d', path)
-      .attr("fill", function (d) {
-        //find country name in map list and color it
-        c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
-        if (c.length != 0) {
-          let diff = c[0][year] * 1 / max;
-          return color(diff);
-        }
-        return 'lightgray';
-      })
       .on("click", function (d) {
         let elem = d3.select(this);
         //TODO retirar clicked do elem
@@ -72,33 +57,60 @@ function drawMap(crimes, year) {
 
     //Fazer legenda
     var legend_labels = ["<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
-    var legend = map.selectAll("g.legend")
+    legend = map.selectAll("g.legend")
       .data([0, 0.2, 0.4, 0.6, 0.8, 1])
       .enter().append("g")
       .attr("class", "legend");
-
-    var ls_w = 15, ls_h = 15;
 
     legend.append("rect")
       .attr("x", mapW * 0.2)
       .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - 2 * ls_h; })
       .attr("width", ls_w)
       .attr("height", ls_h)
-      .style("fill", function (d, i) { return color(d); })
       .style("opacity", 0.8)
+      //.style("fill", function (d, i) { return color(d); })
     // .attr("transform", "translate(0," + margin_map.top*2  + ")");
+
+    updateMap(crimes, year);
 
     legend.append("text")
       .attr("x", mapW * 0.2 + 20)
       .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - ls_h - 4; })
       .text(function (d, i) { return legend_labels[i]; });
-
+    
     return;
   });
 
   this.map = map;
   this.projection = projection;
 
+}
+
+function updateMap(crimes, year){
+  let i, maxValues = [];
+  for (i = 0; i < crimes.length; i++) {
+    maxValues[i] = crimes[i][year]
+  }
+  var max = d3.max(maxValues);
+
+    countries.selectAll('.country')
+      .attr("fill", function (d) {
+          //find country name in map list and color it
+          c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
+          if (c.length != 0) {
+            let diff = c[0][year] * 1 / max;
+            return color(diff);
+          }
+          return 'lightgray';
+        })
+        legend.append("rect")
+        .attr("x", mapW * 0.2)
+        .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - 2 * ls_h; })
+        .attr("width", ls_w)
+        .attr("height", ls_h)
+        .style("fill", function (d, i) { return color(d); })
+        .style("opacity", 0.8)
+      // .attr("transform", "translate(0," + margin_map.top*2  + ")");
 }
 
 function selectBotton() {
@@ -110,13 +122,12 @@ function selectBotton() {
     console.log(e.selectedIndex)
 
   color = d3.scaleLinear()
-  .clamp(true)
-  .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
-  .range(rangeColor[e.selectedIndex])
-  .interpolate(d3.interpolateHcl);
-
-    drawMap(getArray(defaultB),ano);
-}
+    .clamp(true)
+    .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
+    .range(rangeColor[e.selectedIndex])
+    .interpolate(d3.interpolateHcl);
+    updateMap(getArray(defaultB), ano)
+ }
 
 function showTooltipPoint(d) {
   var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });

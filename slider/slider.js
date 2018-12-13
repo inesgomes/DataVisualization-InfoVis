@@ -1,9 +1,9 @@
 d3.select("#left")
-    .style('width', rightContW + 'px')
+    .style('width', leftContW + 'px')
     .style('height', sliderH + scatterH + 'px')
 
 var svg = d3.select("#slider")
-    .attr("width", rightContW)
+    .attr("width", leftContW)
     .attr("height", sliderH)
     .style('background', '#C1E1EC')
     //.attr("transform", "translate(0," + margin.top  + ")")
@@ -57,7 +57,7 @@ function sliderYears() {
     function f(h) {
         var ano = Math.round(h);
         handle.attr("cx", x(ano));
-        drawMap(getArray(defaultB), ano)
+        updateMap(getArray(defaultB), ano)
         
         updatePCP(drawCountries, ano)
     }
