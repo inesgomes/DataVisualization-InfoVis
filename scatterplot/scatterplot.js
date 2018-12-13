@@ -120,9 +120,8 @@ function filterCountries(xVar, yVar, year, selectedC) {
 }
 
 function drawScatterplot(xName, yName, year, selectedC) {
-    //new countries added or removed
-    if(selectedC.length != 0){
-        //remove old points
+     //remove old points
+    if(points != null){
         points.remove()
     }
 

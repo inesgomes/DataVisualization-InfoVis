@@ -46,3 +46,5 @@ var color = d3.scaleLinear()
     .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[numRangeColor])
     .interpolate(d3.interpolateHcl);
+
+selectedColor = 'black';
