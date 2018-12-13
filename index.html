@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title></title>
-		<link rel=stylesheet href=map/map.css>
-		<link rel=stylesheet href=pcp/pcp.css>
-		<link rel=stylesheet href=main/main.css>
-		<link rel=stylesheet href=scatterplot/scatterplot.css>
-		<script type="text/javascript" src="lib/d3.v4.min.js" charset="utf-8"></script>
-		<script type="text/javascript" src="lib/topojson.v1.min.js" charset="utf-8"></script>
-	</head>
-	<body>
-		<div id="main">
+
+<head>
+	<title></title>
+	<link rel=stylesheet href=map/map.css> <link rel=stylesheet href=pcp/pcp.css> <link rel=stylesheet href=main/main.css>
+	 <link rel=stylesheet href=scatterplot/scatterplot.css> <script type="text/javascript" src="lib/d3.v4.min.js" charset="utf-8">
+	</script>
+	<script type="text/javascript" src="lib/topojson.v1.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div id="main">
+		<div id="left" class="container">
 			<svg id="slider"></svg>
-			<svg id="map"></svg>
 			<div id="containerSP">
 				<svg id="scatterplot"></svg>
 				<div id="selectionUI">
@@ -30,35 +30,43 @@
 						<option value="burglary">Burglary</option>
 						<option value="homicide"> Homicide</option>
 						<option value="robbery"> Robbery</option>
-						<option value="sexualviolence"selected="selected"> Sexual Violence</option>
+						<option value="sexualviolence" selected="selected"> Sexual Violence</option>
 					</select>
 					Year:
 					<select id="Year" onchange="selectVariable(2)">
-						<option value="2010">2010</option>
-						<option value="2011"selected="selected">2011</option>
+						<option value="2010" selected="selected">2010</option>
+						<option value="2011">2011</option>
 						<option value="2012">2012</option>
 						<option value="2013">2013</option>
 						<option value="2014">2014</option>
-						<option value="2015" >2015</option>
+						<option value="2015">2015</option>
 					</select>
 				</div>
+			</div>
 		</div>
-		<!--external-->
-		<script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>	
-		<!--data-->
-		<script type="text/javascript" src="data/assault.js"></script>
-		<script type="text/javascript" src="data/burglary.js"></script>
-		<script type="text/javascript" src="data/homicide.js"></script>
-		<script type="text/javascript" src="data/robbery.js"></script>
-		<script type="text/javascript" src="data/sexualviolence.js"></script>
-		<script type="text/json" src="data/europe.json"></script>
-		<!--constants-->
-		<script type="text/javascript" src="main/constants.js"></script>
-		<!--js files-->
-		<script type="text/javascript" src="map/map.js"></script>
-		<script type="text/javascript" src="scatterplot/scatterplot.js"></script>	
-		<script type="text/javascript" src="pcp/pcp.js"></script>
-		<script type="text/javascript" src="main/main.js"></script>
+		<!--left-->
+		<div id="right" class="container"><svg id="map"></svg></div>
+		<!--down-->
+		<div id="bottom"></div>
+	</div>
+	<!--external-->
+	<script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
+	<!--data-->
+	<script type="text/javascript" src="data/assault.js"></script>
+	<script type="text/javascript" src="data/burglary.js"></script>
+	<script type="text/javascript" src="data/homicide.js"></script>
+	<script type="text/javascript" src="data/robbery.js"></script>
+	<script type="text/javascript" src="data/sexualviolence.js"></script>
+	<script type="text/json" src="data/europe.json"></script>
+	<!--constants-->
+	<script type="text/javascript" src="main/constants.js"></script>
+	<!--js files-->
+	<script type="text/javascript" src="slider/slider.js"></script>
+	<script type="text/javascript" src="scatterplot/scatterplot.js"></script>
+	<script type="text/javascript" src="map/map.js"></script>
+	<script type="text/javascript" src="pcp/pcp.js"></script>
+	<script type="text/javascript" src="main/main.js"></script>
 
-	</body>
+</body>
+
 </html>

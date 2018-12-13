@@ -49,3 +49,13 @@ select {
   stroke-opacity: 0.5;
   stroke-width: 1.25px;
 }
+
+#right{
+  float: right;
+  position: relative;
+}
+
+#left{
+  float: left;
+  position: relative;
+}

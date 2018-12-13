@@ -13,8 +13,8 @@
     display: inline-block;
   }
   
-/*
-  div#containerSP{
-    display:block;
+
+  #containerSP{
+    overflow: visible;
   }
-  */
+  

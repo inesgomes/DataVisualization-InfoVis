@@ -1,37 +1,19 @@
-// PERGUNTAR BÁRBARA: como limpar o scatterplot quando quisermos selecionar paises (e como des'selecionar paises)
-
-
-/*
-var marginChart = { top: 20, right: 20, bottom: 30, left: 40 };
-var widthChart = width*0.65 //(window.innerWidth - marginChart.left - marginChart.right)/2
-var heightChart = height    //(window.innerHeight/2 - marginChart.top - marginChart.bottom)*/
-
-var defaultX = "assault";
-var defaultY = "sexualviolence";
-var defaultYear = 2011;
-var points,x,y,xAxis,yAxis;
-var xValues = [];
-var yValues = [];  
-/*
-var selectionUI = d3.select("#selectionUI")
-    .attr('width', widthChart + 50)
-   .attr('height', heightChart + 50)
-    .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
-   // .style('background', 'red')
-  */  
- console.log(scatterW)
-var container = d3.select("#containerSP")
-    .style('width', scatterW + 'px')
-    .style('height', scatterH + 'px')
-    .style('background', 'red')
+d3.select("#containerSP")
+    .style('width', rightContW + 'px')
+    .style('height', scontainerH + 'px')
     .style('display','block')
-    //.attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
+    .style('background', 'lightblue')
 
-var chart = container.select("#scatterplot")
+var chart = d3.select("#scatterplot")
     .attr('width', scatterW)
-    .attr('height', scatterH)
+    .attr('height', scatterH + 50)
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+    .style("margin-bottom",margin.bottom+"px")
     .append('g')
+
+d3.select("#selectionUI")
+    .style("margin-left",margin.left+"px")
+    .style("margin-bottom",margin.bottom+"px")
 
 function getArray(valueName) {
     if (valueName == "assault")
@@ -50,7 +32,6 @@ function initXY(v1,v2,v3,labelX,labelY){
     // draw the graph object
  
     let index = 0;
-    // TODO compor para os indices serem de acordo com o array que recebe
     for (index = 0; index < v1.length; index++) {
         xValues[index] = v1[index][v3];
         yValues[index] = v2[index][v3];
@@ -96,7 +77,7 @@ function initXY(v1,v2,v3,labelX,labelY){
 
     //legenda eixo X
     legend.append("text")
-      .attr("x", scatterW )
+      .attr("x", scatterW)
       .attr("y", scatterH - 10)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
@@ -110,7 +91,6 @@ function initXY(v1,v2,v3,labelX,labelY){
       .style("text-anchor", "middle")
       .text(dataName(labelY));
 
-   
 }
 
 function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {

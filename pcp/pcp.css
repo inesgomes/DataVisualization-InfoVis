@@ -1,6 +1,7 @@
   
   .parcoords {
-    display: block;
+    /*display: block;*/
+    float: left;
   }
   
   .parcoords svg,

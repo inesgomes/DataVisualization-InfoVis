@@ -91,7 +91,7 @@ function getData(selectedC,year) {
 
   var yAxis = d3.axisLeft();
 
-  var container = d3.select("#main").append("div")
+  var container = d3.select("#bottom").append("div")
     .attr("class", "parcoords")
     .style("width", pcpW + margin.left + margin.right + "px")
     .style("height", pcpH + margin.top + margin.bottom + "px")
