@@ -13,7 +13,26 @@ function getArray(valueName) {
       return robberies;
 }
 
+function sortJsons(){
+  assaults.sort(function(a, b) {
+    return a.country > b.country;
+  });
+  burglaries.sort(function(a, b) {
+    return a.country > b.country;
+  });
+  homicides.sort(function(a, b) {
+    return a.country > b.country;
+  });
+  sexviolences.sort(function(a, b) {
+    return a.country > b.country;
+  });
+  robberies.sort(function(a, b) {
+    return a.country > b.country;
+  });
+}
+
 function draw() {
+  sortJsons()
   sliderYears()
   drawScatterplot(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY, drawCountries)
   drawMap(getArray(defaultB), defaultYear)

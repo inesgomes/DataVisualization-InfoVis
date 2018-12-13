@@ -5,12 +5,12 @@ d3.select("#containerSP")
     .style('background', 'lightblue')
 
 var chart = d3.select("#scatterplot")
-    .attr('width', scatterW +  60)
+    .attr('width', scatterW + 60)
     .attr('height', scatterH + 50)
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-    .style("margin-bottom",margin.bottom +"px")
-    
+    .style("margin-bottom", margin.bottom + "px")
+
 
 d3.select("#selectionUI")
     .style("margin-left", margin.left + "px")
@@ -23,25 +23,21 @@ var tooltipS = body //for hover
     .attr("class", "tooltip hidden");
 
 function initXY(v1, v2, v3, labelX, labelY) {
-    // draw the graph object
-
-    let index = 0;
-    for (index = 0; index < v1.length; index++) {
-        xValues[index] = v1[index][v3];
-        yValues[index] = v2[index][v3];
-    }
-
-
+    //update
     chart.selectAll("g").remove()
     chart.selectAll("scatter-dots").remove();
 
+    xValues = v1.map(element => element[v3] );
+    yValues = v2.map(element => element[v3] );
+    let xMax = d3.max(xValues)
+    let yMax = d3.max(yValues)
 
     x = d3.scaleLinear()
-        .domain([0, d3.max(xValues)])  // the range of the values to plot
+        .domain([0, xMax])  // the range of the values to plot
         .range([0, scatterW]);        // the pixel range of the x-axis
 
     y = d3.scaleLinear()
-        .domain([0, d3.max(yValues)])
+        .domain([0, yMax])
         .range([scatterH, 0]);
 
     xAxis = d3.axisBottom()
@@ -87,28 +83,32 @@ function initXY(v1, v2, v3, labelX, labelY) {
         .style("text-anchor", "middle")
         .text(dataName(labelY));
 
+    return xMax;
 }
 
 function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
 
-    initXY(v1, v2, v3, labelX, labelY)
+    xMax = initXY(v1, v2, v3, labelX, labelY)
 
+    //there are selected countries to display
     if (selectedC.length != 0) {
-        filtered_v1 = [], filtered_v2 = []
+        //filter countries
+        selectedC.sort(function(a, b) {
+            return a > b;
+        });
         filtered_v1 = v1.filter(function (obj) { return selectedC.includes(obj['country']) })
         filtered_v2 = v2.filter(function (obj) { return selectedC.includes(obj['country']) })
 
-        let ind = 0
-        xValues = [], yValues = []
-        for (ind = 0; ind < filtered_v1.length; ind++) {
-            xValues[ind] = filtered_v1[ind][v3]
-            yValues[ind] = filtered_v2[ind][v3]
-        }
+        //create new arrays
+        xValues = filtered_v1.map(element => element[v3] );
+        yValues = filtered_v2.map(element => element[v3] );
+
+        //remove old points
         points.remove()
     }
-
+    //no countries means all countries!
     else {
-        selectedC = v1
+        selectedC = v1.map(element => element.country );
     }
 
     points = chart.selectAll("scatter-dots")
@@ -120,25 +120,21 @@ function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
         .attr("r", 5) // radius of circle
         .style("opacity", 0.6) // opacity of circle
         .style("stroke", color(1))
-        .style("fill", function (d, i) { return color(xValues[i] / d3.max(xValues)); })
+        .style("fill", function (d, i) { return color(xValues[i] / xMax); })
         .on("mousemove", function (d, i) {
-            console.log(selectedC[i]['country'])
             var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
             tooltipS.classed('hidden', false) //make tooltip visible
-                .html(selectedC[i]['country']) //display the name of point
+                .html(selectedC[i]) //display the name of point
                 .attr('style', //set size of the tooltip
-                'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
+                    'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
         }) //hover in
-
         .on("mouseout", function () {
             tooltipS.classed('hidden', true); //hide tooltip
         }) //hover out
-
-
 }
 
 function updatePoints(v1, v2, v3, labelX, labelY) {
-    console.log(xValues)
+
     initXY(v1, v2, v3, labelX, labelY)
 
     var transition = d3.transition()
@@ -167,8 +163,6 @@ function dataName(v) {
 }
 
 function selectVariable(id) {
-
-    var variable;
 
     if (id === 1) {
         var e = document.getElementById("yAxisItem");

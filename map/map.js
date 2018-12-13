@@ -68,7 +68,7 @@ function drawMap(crimes, year) {
       .attr("width", ls_w)
       .attr("height", ls_h)
       .style("opacity", 0.8)
-      //.style("fill", function (d, i) { return color(d); })
+    //.style("fill", function (d, i) { return color(d); })
     // .attr("transform", "translate(0," + margin_map.top*2  + ")");
 
     updateMap(crimes, year);
@@ -77,7 +77,7 @@ function drawMap(crimes, year) {
       .attr("x", mapW * 0.2 + 20)
       .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - ls_h - 4; })
       .text(function (d, i) { return legend_labels[i]; });
-    
+
     return;
   });
 
@@ -86,49 +86,45 @@ function drawMap(crimes, year) {
 
 }
 
-function updateMap(crimes, year){
+function updateMap(crimes, year) {
   let i, maxValues = [];
   for (i = 0; i < crimes.length; i++) {
     maxValues[i] = crimes[i][year]
   }
   var max = d3.max(maxValues);
 
-    countries.selectAll('.country')
-      .attr("fill", function (d) {
-          //find country name in map list and color it
-          c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
-          if (c.length != 0) {
-            let diff = c[0][year] * 1 / max;
-            return color(diff);
-          }
-          return 'lightgray';
-        })
-        legend.append("rect")
-        .attr("x", mapW * 0.2)
-        .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - 2 * ls_h; })
-        .attr("width", ls_w)
-        .attr("height", ls_h)
-        .style("fill", function (d, i) { return color(d); })
-        //.style("opacity", 0.8)
-      // .attr("transform", "translate(0," + margin_map.top*2  + ")");
+  countries.selectAll('.country')
+    .attr("fill", function (d) {
+      //find country name in map list and color it
+      c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
+      if (c.length != 0) {
+        let diff = c[0][year] * 1 / max;
+        return color(diff);
+      }
+      return 'lightgray';
+    })
+  legend.append("rect")
+    .attr("x", mapW * 0.2)
+    .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - 2 * ls_h; })
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function (d, i) { return color(d); })
+  //.style("opacity", 0.8)
+  // .attr("transform", "translate(0," + margin_map.top*2  + ")");
 }
 
 function selectBotton() {
-
-    var e = document.getElementById("botton");
-    console.log(e)
-    defaultB = e.options[e.selectedIndex].value;
-    console.log(defaultB)
-    console.log(e.selectedIndex)
+  var e = document.getElementById("botton");
+  defaultB = e.options[e.selectedIndex].value;
 
   color = d3.scaleLinear()
     .clamp(true)
     .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[e.selectedIndex])
     .interpolate(d3.interpolateHcl);
-    updateMap(getArray(defaultB), defaultYear)
-    updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY)
- }
+  updateMap(getArray(defaultB), defaultYear)
+  updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY)
+}
 
 function showTooltipPoint(d) {
   var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
