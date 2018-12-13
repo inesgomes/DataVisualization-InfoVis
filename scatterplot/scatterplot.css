@@ -9,6 +9,12 @@
     stroke: #555;
   }
 
+  #selectionUI {
+    display: inline-block;
+  }
+  
+/*
   div#containerSP{
     display:block;
   }
+  */

@@ -1,10 +1,6 @@
-var margin_map = { top: 20, right: 20, bottom: 30, left: 40 };
-var width_map = window.innerWidth/2  - margin_map.left - margin_map.right;;
-var height_map = window.innerHeight - margin_map.top - margin_map.bottom;
-
 var map = d3.select("#map")
-  .attr("width", width_map)
-  .attr("height", height_map)
+  .attr("width", mapW)
+  .attr("height", mapH)
   .style('background', '#fdae6b')
   //.attr("transform", "translate(0," + margin_map.top + ")")
   .append("g");
@@ -32,7 +28,7 @@ var color = d3.scaleLinear()
 function drawMap(crimes, year) {
 
   var countries;
-  var center = [40, 50];
+  var center = [50, 50];
 
   //make array with values of crime in one year and finding max for color diff
   let i, maxValues = [];
@@ -66,20 +62,18 @@ function drawMap(crimes, year) {
           let diff = c[0][year] * 1 / max;
           return color(diff);
         }
-        return 'aliceblue';
-     
+        return 'lightgray';
       })
       .on("click", function (d) {
         let elem = d3.select(this);
         //TODO retirar clicked do elem
         elem.classed("clicked", true)
-          .attr("fill", "blue");
+          .attr("fill", "gray");
         //add name
         let name = d.properties.NAME
         if (!(drawCountries.includes(name))) {
           drawCountries.push(name)
         }
-
         drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
         updatePCP(drawCountries,defaultYear)
       })
@@ -96,8 +90,8 @@ function drawMap(crimes, year) {
     var ls_w = 15, ls_h = 15;
 
     legend.append("rect")
-      .attr("x", width_map/4)
-      .attr("y", function (d, i) { return height_map*7/10 - (i * ls_h) - 2 * ls_h; })
+      .attr("x", mapW*0.2) 
+      .attr("y", function (d, i) { return mapH*0.75 - (i * ls_h) - 2 * ls_h; })
       .attr("width", ls_w)
       .attr("height", ls_h)
       .style("fill", function (d, i) { return color(d); })
@@ -105,8 +99,8 @@ function drawMap(crimes, year) {
      // .attr("transform", "translate(0," + margin_map.top*2  + ")");
 
     legend.append("text")
-      .attr("x", width_map/4+20)
-      .attr("y", function (d, i) { return height_map*7/10 - (i * ls_h) - ls_h - 4; })
+      .attr("x", mapW*0.2+20) 
+      .attr("y", function (d, i) { return mapH*0.75 - (i * ls_h) - ls_h - 4; })
       .text(function (d, i) { return legend_labels[i]; });
 
     return;

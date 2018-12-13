@@ -1,10 +1,10 @@
 // PERGUNTAR BÁRBARA: como limpar o scatterplot quando quisermos selecionar paises (e como des'selecionar paises)
 
 
-
+/*
 var marginChart = { top: 20, right: 20, bottom: 30, left: 40 };
-var widthChart = (window.innerWidth/2 - marginChart.left - marginChart.right)
-var heightChart = (window.innerHeight/2 - marginChart.top - marginChart.bottom)
+var widthChart = width*0.65 //(window.innerWidth - marginChart.left - marginChart.right)/2
+var heightChart = height    //(window.innerHeight/2 - marginChart.top - marginChart.bottom)*/
 
 var defaultX = "assault";
 var defaultY = "sexualviolence";
@@ -19,12 +19,19 @@ var selectionUI = d3.select("#selectionUI")
     .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
    // .style('background', 'red')
   */  
-var chart = d3.select("#scatterplot")
-    .attr('width', widthChart + 50)
-    .attr('height', heightChart + 50)
-    .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
+ console.log(scatterW)
+var container = d3.select("#containerSP")
+    .style('width', scatterW + 'px')
+    .style('height', scatterH + 'px')
+    .style('background', 'red')
+    .style('display','block')
+    //.attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
+
+var chart = container.select("#scatterplot")
+    .attr('width', scatterW)
+    .attr('height', scatterH)
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
     .append('g')
-   
 
 function getArray(valueName) {
     if (valueName == "assault")
@@ -54,11 +61,11 @@ function initXY(v1,v2,v3,labelX,labelY){
 
     x = d3.scaleLinear()
         .domain([0, d3.max(xValues)])  // the range of the values to plot
-        .range([0, widthChart]);        // the pixel range of the x-axis
+        .range([0, scatterW]);        // the pixel range of the x-axis
 
     y = d3.scaleLinear()
         .domain([0, d3.max(yValues)])
-        .range([heightChart, 0]);
+        .range([scatterH, 0]);
 
     xAxis = d3.axisBottom()
         .scale(x);
@@ -76,7 +83,7 @@ function initXY(v1,v2,v3,labelX,labelY){
     chart.append("g")
       .attr("id", "xAxis")
       .attr("class", "x axis")
-      .attr('transform', 'translate(0,' + heightChart + ')')
+      .attr('transform', 'translate(0,' + scatterH + ')')
       .call(xAxis)  
 
     chart.append("g")
@@ -89,8 +96,8 @@ function initXY(v1,v2,v3,labelX,labelY){
 
     //legenda eixo X
     legend.append("text")
-      .attr("x", widthChart )
-      .attr("y", heightChart - 10)
+      .attr("x", scatterW )
+      .attr("y", scatterH - 10)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
       .text(dataName(labelX));

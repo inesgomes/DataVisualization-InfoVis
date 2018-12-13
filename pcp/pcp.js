@@ -1,8 +1,3 @@
-var margin_pcp = { top: 66, right: 110, bottom: 20, left: 188 },
-  width_pcp = document.body.clientWidth - margin_pcp.left - margin_pcp.right,
-  height_pcp = 340 - margin_pcp.top - margin_pcp.bottom,
-  innerHeight_pcp = height_pcp - 2;
-
 /*
     TODO meter regioes da europa com estas cores ?
     var color = d3.scaleOrdinal()
@@ -48,14 +43,14 @@ function getData(selectedC,year) {
       coerce: function (d) { return +d; },
       extent: d3.extent,
       within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
-      defaultScale: d3.scaleLinear().range([innerHeight_pcp - 2, 0])
+      defaultScale: d3.scaleLinear().range([pcpH - 2, 0])
     },
     "String": {
       key: "String",
       coerce: String,
       extent: function (data) { return data.sort(); },
       within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
-      defaultScale: d3.scalePoint().range([0, innerHeight_pcp - 2])
+      defaultScale: d3.scalePoint().range([0, pcpH - 2])
     }
   };
 
@@ -92,28 +87,28 @@ function getData(selectedC,year) {
 
   var xscale = d3.scalePoint()
     .domain(d3.range(dimensions.length))
-    .range([0, width_pcp]);
+    .range([0, pcpW]);
 
   var yAxis = d3.axisLeft();
 
   var container = d3.select("#main").append("div")
     .attr("class", "parcoords")
-    .style("width", width_pcp + margin_pcp.left + margin_pcp.right + "px")
-    .style("height", height_pcp + margin_pcp.top + margin_pcp.bottom + "px")
+    .style("width", pcpW + margin.left + margin.right + "px")
+    .style("height", pcpH + margin.top + margin.bottom + "px")
 
   var pcp = container.append("svg")
-    .attr("width", width_pcp + margin_pcp.left + margin_pcp.right)
-    .attr("height", height_pcp + margin_pcp.top + margin_pcp.bottom)
+    .attr("width", pcpW + margin.left + margin.right)
+    .attr("height", pcpH + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", "translate(" + margin_pcp.left + "," + margin_pcp.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var canvas = container.append("canvas")
-    .attr("width", width_pcp)
-    .attr("height", height_pcp)
-    .style("width", width_pcp + "px")
-    .style("height", height_pcp + "px")
-    .style("margin-top", margin_pcp.top + "px")
-    .style("margin-left", margin_pcp.left + "px");
+    .attr("width", pcpW)
+    .attr("height", pcpH)
+    .style("width", pcpW + "px")
+    .style("height", pcpH + "px")
+    .style("margin-top", margin.top + "px")
+    .style("margin-left", margin.left + "px");
 
   var ctx = canvas.node()
     .getContext("2d");
@@ -171,7 +166,7 @@ function drawPCP(selectedC,year) {
     .attr("class", "brush")
     .each(function (d) {
       d3.select(this).call(d.brush = d3.brushY()
-        .extent([[-10, 0], [10, height_pcp]])
+        .extent([[-10, 0], [10, pcpH]])
         .on("start", brushstart)
         .on("brush", brush)
         .on("end", brush)
@@ -191,7 +186,7 @@ function drawPCP(selectedC,year) {
 function updatePCP(selectedC,year){
   let data = getData(selectedC,year)
   let render = renderQueue(draw_pcp).rate(30);
-  ctx.clearRect(0, 0, width_pcp, height_pcp);
+  ctx.clearRect(0, 0, pcpW, pcpH);
   ctx.globalAlpha = d3.min([1.15 / Math.pow(data.length, 0.3), 1]);
   render(data);
 }
@@ -209,7 +204,7 @@ function project(d) {
 };
 
 function draw_pcp(d) {
-  //ctx.strokeStyle = color(d.pl_discmethod);
+  ctx.strokeStyle = color(1);
   ctx.beginPath();
   var coords = project(d);
   coords.forEach(function (p, i) {
@@ -275,7 +270,7 @@ function brush() {
 
   //aquele comentario gigante estava aqui
 
-  ctx.clearRect(0, 0, width_pcp, height_pcp);
+  ctx.clearRect(0, 0, pcpW, pcpH);
   ctx.globalAlpha = d3.min([0.85 / Math.pow(selected.length, 0.3), 1]);
   render(selected);
 }
@@ -283,31 +278,3 @@ function brush() {
 function d3_functor(v) {
   return typeof v === "function" ? v : function () { return v; };
 };
-
- // show ticks for active brush dimensions
-      // and filter ticks to only those within brush extents
-      /*
-      pcp.selectAll(".axis")
-          .filter(function(d) {
-            return actives.indexOf(d) > -1 ? true : false;
-          })
-          .classed("active", true)
-          .each(function(dimension, i) {
-            var extent = extents[i];
-            d3.select(this)
-              .selectAll(".tick text")
-              .style("display", function(d) {
-                var value = dimension.type.coerce(d);
-                return dimension.type.within(value, extent, dimension) ? null : "none";
-              });
-          });
-  
-      // reset dimensions without active brushes
-      pcp.selectAll(".axis")
-          .filter(function(d) {
-            return actives.indexOf(d) > -1 ? false : true;
-          })
-          .classed("active", false)
-          .selectAll(".tick text")
-            .style("display", null);
-      */

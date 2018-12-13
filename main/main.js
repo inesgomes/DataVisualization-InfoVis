@@ -1,14 +1,9 @@
-var viewWidth = window.innerWidth;
-var viewHeight = window.innerHeight;
 d3.select(window).on("resize", resize);
 
-var margin = { top: 20, right: 20, bottom: 30, left: 40 };
-var width = viewWidth - margin.left - margin.right;
-var height = viewHeight - margin.top - margin.bottom;
-
+console.log(sliderW)
 var svg = d3.select("#slider")
-  .attr("width", viewWidth/2)
-  .attr("height", height/5)
+  .attr("width", sliderW)
+  .attr("height", sliderH)
   .style('background', '#C1E1EC') 
   //.attr("transform", "translate(0," + margin.top  + ")")
   .append("g");
@@ -17,13 +12,13 @@ function sliderYears() {
 
   var x = d3.scaleLinear()
     .domain([2010, 2015])
-    .range([0, width / 4])
+    .range([0, width / 4])  //????
     .clamp(true);
 
   //cria 'eixo'
   var slider = svg.append("g")
     .attr("class", "slider")
-    .attr("transform", "translate(" + width / 8 + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   slider.append("line")
     .attr("class", "track")
@@ -55,7 +50,7 @@ function sliderYears() {
     .attr("class", "handle")
     .attr("r", 9);
 
-    slider.transition()
+  slider.transition()
     .duration(750)
 
   function f(h) {
@@ -67,12 +62,6 @@ function sliderYears() {
   }    
 }
 
-var assaults = assault.countries;
-var burglaries = burglary.countries;
-var homicides = homicide.countries;
-var robberies = robbery.countries;
-var sexviolences = sexualviolence.countries;
-var drawCountries=[];
 
 function draw() {
   sliderYears()
