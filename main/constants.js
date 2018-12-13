@@ -9,7 +9,7 @@ var scontainerH = window.innerHeight * 0.7;
 var scatterW = rightContW * 0.95 - margin.left
 var scatterH = scontainerH * 0.75 - margin.top - margin.bottom
 var mapW = window.innerWidth * 0.4 - margin.right;
-var mapH = window.innerHeight * 0.8;
+var mapH = window.innerHeight * 0.8 - margin.bottom;
 var pcpW = window.innerWidth * 0.8;
 var pcpH = window.innerHeight * 0.4;
 

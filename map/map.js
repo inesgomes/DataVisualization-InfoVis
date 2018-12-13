@@ -1,6 +1,6 @@
 d3.select("#right")
   .style('width', mapW + 'px')
-  .style('height', mapH + 'px')
+  .style('height', mapH + margin.bottom + 'px')
 
 var map = d3.select("#map")
   .attr("width", mapW)
