@@ -18,70 +18,11 @@ var chart = d3.select("#scatterplot")
     .append('g')
         .attr('transform', 'translate(' + marginChart.left + ',' + marginChart.top + ')')
 
-
-
-
-
 var body=d3.select("body");
 
 var tooltipS = body //for hover
             .append("div")
             .attr("class", "tooltip hidden");
-
-
-
-
-
-
-
-/*var tip = d3.select('body')
-            .append('div')
-            .attr('class', 'tip')
-            .html('I am a tooltip...')
-            .style('border', '1px solid steelblue')
-            .style('padding', '5px')
-            .style('position', 'absolute')
-            .style('display', 'none')
-            .on('mouseover', function(d, i) {
-                tip.transition().duration(0);
-            })
-            .on('mouseout', function(d, i) {
-                tip.style('display', 'none');
-            });*/
-
-
-
-
-
-
-/*var tooltipS = d3.select("#vis-container").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
-var tipMouseover = function(d) {
-    var color = colorScale(d.manufacturer);
-    var html  = d.properties.NAME
-
-tooltipS.html(html)
-        .style("left", (d3.event.pageX + 15) + "px")
-        .style("top", (d3.event.pageY - 28) + "px")
-        .transition()
-        .duration(200) // ms
-        .style("opacity", .9) // started as 0!
-
-        var tipMouseout = function(d) {
-            tooltipS.transition()
-                .duration(300) // ms
-                .style("opacity", 0); // don't care about position!*/
-
-
-
-
-
-
-
-
-
 
 function getArray(valueName) {
     if (valueName == "assault")
@@ -195,6 +136,8 @@ function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
         .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
         .attr("r", 5) // radius of circle
         .style("opacity", 0.6) // opacity of circle
+        .style("stroke", color(1))
+        .style("fill", function(d, i) { return color(xValues[i]/d3.max(xValues)); })
         .on("mousemove", function(d, i){
             var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
              tooltipS.classed('hidden', false) //make tooltip visible
@@ -206,6 +149,7 @@ function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
         .on("mouseout", function(){
             tooltipS.classed('hidden', true); //hide tooltip
         }) //hover out
+        
        
 }
 
