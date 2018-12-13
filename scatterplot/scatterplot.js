@@ -15,18 +15,7 @@ d3.select("#selectionUI")
     .style("margin-left",margin.left+"px")
     .style("margin-bottom",margin.bottom+"px")
 
-function getArray(valueName) {
-    if (valueName == "assault")
-        return assaults;
-    if (valueName == "burglary")
-        return burglaries;
-    if (valueName == "homicide")
-        return homicides;
-    if (valueName == "sexualviolence")
-        return sexviolences;
-    if (valueName == "robbery")
-        return robberies;
-}
+
 
 function initXY(v1,v2,v3,labelX,labelY){
     // draw the graph object
@@ -167,11 +156,6 @@ function selectVariable(id) {
     if (id === 1) {
         var e = document.getElementById("yAxisItem");
         defaultY = e.options[e.selectedIndex].value;
-    }
-
-    if (id === 2) {
-        var e = document.getElementById("Year");
-        defaultYear = e.options[e.selectedIndex].value;
     }
 
     updatePoints(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY);

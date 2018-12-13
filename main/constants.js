@@ -24,6 +24,7 @@ var sexviolences = sexualviolence.countries;
 var defaultX = "assault";
 var defaultY = "sexualviolence";
 var defaultYear = 2010;
+var defaultB = defaultX;
 
 //OTHER variables
 var drawCountries = [];

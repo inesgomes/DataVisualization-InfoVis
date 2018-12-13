@@ -100,6 +100,24 @@ function drawMap(crimes, year) {
   this.projection = projection;
 
 }
+
+function selectBotton() {
+
+    var e = document.getElementById("botton");
+    console.log(e)
+    defaultB = e.options[e.selectedIndex].value;
+    console.log(defaultB)
+    console.log(e.selectedIndex)
+
+  color = d3.scaleLinear()
+  .clamp(true)
+  .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
+  .range(rangeColor[e.selectedIndex])
+  .interpolate(d3.interpolateHcl);
+
+    drawMap(getArray(defaultB),ano);
+}
+
 function showTooltipPoint(d) {
   var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
   tooltip.classed('hidden', false) //make tooltip visible

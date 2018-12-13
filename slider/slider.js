@@ -57,8 +57,8 @@ function sliderYears() {
     function f(h) {
         var ano = Math.round(h);
         handle.attr("cx", x(ano));
-        drawMap(sexviolences, ano)
-        //console.log(h)
+        drawMap(getArray(defaultB), ano)
+        
         updatePCP(drawCountries, ano)
     }
 }
