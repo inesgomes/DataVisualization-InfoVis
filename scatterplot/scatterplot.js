@@ -148,6 +148,8 @@ function updatePoints(v1, v2, v3, labelX, labelY) {
     points.transition(transition)
         .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
         .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
+        .style("fill", function (d, i) { return color(xValues[i] / d3.max(xValues)); })
+        .style("stroke", color(1))
 }
 
 function dataName(v) {
