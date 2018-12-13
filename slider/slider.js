@@ -58,7 +58,7 @@ function sliderYears() {
         var ano = Math.round(h);
         handle.attr("cx", x(ano));
         drawMap(getArray(defaultB), ano)
-        
+        updatePoints(getArray(defaultB), getArray(defaultY), ano, defaultB, defaultY)
         updatePCP(drawCountries, ano)
     }
 }

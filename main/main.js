@@ -15,7 +15,7 @@ function getArray(valueName) {
 
 function draw() {
   sliderYears()
-  drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
+  drawScatterplot(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY, drawCountries)
   drawMap(getArray(defaultB), defaultYear)
   drawPCP(drawCountries,defaultYear)
 }

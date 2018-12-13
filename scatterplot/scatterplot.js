@@ -5,7 +5,7 @@ d3.select("#containerSP")
     .style('background', 'lightblue')
 
 var chart = d3.select("#scatterplot")
-    .attr('width', scatterW)
+    .attr('width', scatterW +  60)
     .attr('height', scatterH + 50)
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
@@ -136,7 +136,7 @@ function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
 }
 
 function updatePoints(v1, v2, v3, labelX, labelY) {
-
+    console.log(xValues)
     initXY(v1, v2, v3, labelX, labelY)
 
     var transition = d3.transition()
@@ -166,15 +166,10 @@ function selectVariable(id) {
 
     var variable;
 
-    if (id === 0) {
-        var e = document.getElementById("xAxisItem");
-        defaultX = e.options[e.selectedIndex].value;
-    }
-
     if (id === 1) {
         var e = document.getElementById("yAxisItem");
         defaultY = e.options[e.selectedIndex].value;
     }
 
-    updatePoints(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY);
+    updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY);
 }
