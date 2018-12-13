@@ -56,11 +56,11 @@ function drawMap(crimes, year) {
           //add clicked class
           elem.classed("clicked", true);
           //add name to array of selected countries
-          if (!(drawCountries.includes(name)))  drawCountries.push(name)
+          if (!(drawCountries.includes(name))) drawCountries.push(name)
         }
 
         //update all PCP and ScatterPlot
-        updateMap(crimes,defaultYear)
+        updateMap(crimes, defaultYear)
         drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
         updatePCP(drawCountries, defaultYear)
       })
@@ -105,12 +105,12 @@ function updateMap(crimes, year) {
   var max = d3.max(maxValues);
 
   countries.selectAll('.country').attr("fill", function (d) {
-      //find country name in map list and color it
-      c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
-      if (c.length != 0) return color(c[0][year] / max);
-      return 'lightgray';
-    })
-  
+    //find country name in map list and color it
+    c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
+    if (c.length != 0) return color(c[0][year] / max);
+    return 'lightgray';
+  })
+
   //paint selected countries
   countries.selectAll('.clicked').attr("fill", selectedColor);
 
@@ -133,6 +133,8 @@ function selectBotton() {
     .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[e.selectedIndex])
     .interpolate(d3.interpolateHcl);
+
+  updatePCP(drawCountries, defaultYear)
   updateMap(getArray(defaultB), defaultYear)
   updatePoints(defaultB, defaultY, defaultYear, drawCountries)
 }
