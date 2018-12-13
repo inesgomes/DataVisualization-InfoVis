@@ -21,10 +21,9 @@ var robberies = robbery.countries;
 var sexviolences = sexualviolence.countries;
 
 //INIT values
-var defaultX = "assault";
+var defaultB = "assault";
 var defaultY = "sexualviolence";
-var defaultYear = 2010;
-var defaultB = defaultX;
+var defaultYear = 2010; 
 var ls_w = 15, ls_h = 15;
 
 //OTHER variables

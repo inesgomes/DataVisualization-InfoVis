@@ -49,7 +49,7 @@ function drawMap(crimes, year) {
         if (!(drawCountries.includes(name))) {
           drawCountries.push(name)
         }
-        drawScatterplot(getArray(defaultX), getArray(defaultY), defaultYear, defaultX, defaultY, drawCountries)
+        drawScatterplot(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY, drawCountries)
         updatePCP(drawCountries, defaultYear)
       })
       .on("mousemove", showTooltipPoint) //hover in
@@ -109,7 +109,7 @@ function updateMap(crimes, year){
         .attr("width", ls_w)
         .attr("height", ls_h)
         .style("fill", function (d, i) { return color(d); })
-        .style("opacity", 0.8)
+        //.style("opacity", 0.8)
       // .attr("transform", "translate(0," + margin_map.top*2  + ")");
 }
 
@@ -126,7 +126,8 @@ function selectBotton() {
     .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[e.selectedIndex])
     .interpolate(d3.interpolateHcl);
-    updateMap(getArray(defaultB), ano)
+    updateMap(getArray(defaultB), defaultYear)
+    updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY)
  }
 
 function showTooltipPoint(d) {

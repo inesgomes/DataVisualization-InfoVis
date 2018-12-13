@@ -55,10 +55,10 @@ function sliderYears() {
         .duration(750)
 
     function f(h) {
-        var ano = Math.round(h);
-        handle.attr("cx", x(ano));
-        updateMap(getArray(defaultB), ano)
-        
-        updatePCP(drawCountries, ano)
+        defaultYear = Math.round(h);
+        handle.attr("cx", x(defaultYear));
+        updateMap(getArray(defaultB), defaultYear)
+        updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY)        
+        updatePCP(drawCountries, defaultYear)
     }
 }
