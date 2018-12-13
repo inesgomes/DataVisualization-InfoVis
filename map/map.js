@@ -47,26 +47,20 @@ function drawMap(crimes, year) {
         //verify if element has been already clicked to unselect
         if (elem.classed("clicked")) {
           //remove clicked class
-          elem.classed("clicked", false).attr("fill", color(1));; //TODO preencher com a cor certa
-
+          elem.classed("clicked", false)
           //remove name to array of selected countries
           let index = drawCountries.indexOf(name);
-          if (index > -1) {
-            drawCountries.splice(index, 1);
-            console.log(drawCountries)
-          }
+          if (index > -1) drawCountries.splice(index, 1);
         }
         else {
           //add clicked class
-          elem.classed("clicked", true).attr("fill", selectedColor);
-
+          elem.classed("clicked", true);
           //add name to array of selected countries
-          if (!(drawCountries.includes(name))) {
-            drawCountries.push(name)
-          }
+          if (!(drawCountries.includes(name)))  drawCountries.push(name)
         }
 
-        //update PCP and ScatterPlot
+        //update all PCP and ScatterPlot
+        updateMap(crimes,defaultYear)
         drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
         updatePCP(drawCountries, defaultYear)
       })
@@ -87,7 +81,7 @@ function drawMap(crimes, year) {
       .attr("height", ls_h)
       .style("opacity", 0.8)
     //.style("fill", function (d, i) { return color(d); })
-    // .attr("transform", "translate(0," + margin_map.top*2  + ")");
+    //.attr("transform", "translate(0," + margin_map.top*2  + ")");
 
     updateMap(crimes, year);
 
@@ -101,7 +95,6 @@ function drawMap(crimes, year) {
 
   this.map = map;
   this.projection = projection;
-
 }
 
 function updateMap(crimes, year) {
@@ -111,14 +104,15 @@ function updateMap(crimes, year) {
   }
   var max = d3.max(maxValues);
 
-  countries.selectAll('.country')
-    .attr("fill", function (d) {
+  countries.selectAll('.country').attr("fill", function (d) {
       //find country name in map list and color it
       c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
       if (c.length != 0) return color(c[0][year] / max);
       return 'lightgray';
     })
-
+  
+  //paint selected countries
+  countries.selectAll('.clicked').attr("fill", selectedColor);
 
   legend.append("rect")
     .attr("x", mapW * 0.2)

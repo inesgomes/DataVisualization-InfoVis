@@ -166,10 +166,6 @@ function updatePoints(xName, yName, year, selectedC) {
     //filter per selected countries
     selectedC = filterCountries(xVar, yVar, year, selectedC)
 
-    console.log("UPDATE POINTS")
-    console.log(xValues)
-    console.log(yValues)
-
     //draw
     var transition = d3.transition()
         .duration(750)
