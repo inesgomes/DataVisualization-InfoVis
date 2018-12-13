@@ -34,7 +34,7 @@ function sortJsons(){
 function draw() {
   sortJsons()
   sliderYears()
-  drawScatterplot(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY, drawCountries)
+  drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
   drawMap(getArray(defaultB), defaultYear)
   drawPCP(drawCountries,defaultYear)
 }

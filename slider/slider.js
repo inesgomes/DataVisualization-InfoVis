@@ -58,7 +58,7 @@ function sliderYears() {
         defaultYear = Math.round(h);
         handle.attr("cx", x(defaultYear));
         updateMap(getArray(defaultB), defaultYear)
-        updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY)        
+        updatePoints(defaultB, defaultY, defaultYear,drawCountries)        
         updatePCP(drawCountries, defaultYear)
     }
 }

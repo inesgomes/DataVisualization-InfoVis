@@ -22,16 +22,23 @@ var tooltipS = body //for hover
     .append("div")
     .attr("class", "tooltip hidden");
 
-function initXY(v1, v2, v3, labelX, labelY) {
-    //update
-    chart.selectAll("g").remove()
-    chart.selectAll("scatter-dots").remove();
+function initXY(xVar, yVar, xName, yName, year) {
 
-    xValues = v1.map(element => element[v3] );
-    yValues = v2.map(element => element[v3] );
+    //some computations
+    xValues = xVar.map(element => element[year]);
+    yValues = yVar.map(element => element[year]);
+
     let xMax = d3.max(xValues)
     let yMax = d3.max(yValues)
 
+    //scale Axis
+    scaleAxis(xMax, yMax, xName, yName)
+    return xMax;
+}
+
+function scaleAxis(xMax, yMax, xName, yName) {
+
+    //scales and axis
     x = d3.scaleLinear()
         .domain([0, xMax])  // the range of the values to plot
         .range([0, scatterW]);        // the pixel range of the x-axis
@@ -48,11 +55,15 @@ function initXY(v1, v2, v3, labelX, labelY) {
 
     /*var xExtent = d3.extent(xValues, function(d) { return d[xValues]; });
     var yExtent = d3.extent(yValues, function(d) { return d[yValues]; });
-      
+    
     x.domain(xExtent).nice();
     y.domain(yExtent).nice();*/
 
-    //TODO compor legendas
+    //update chart
+    chart.selectAll("g").remove()
+    chart.selectAll("scatter-dots").remove();
+
+    //create axis
     chart.append("g")
         .attr("id", "xAxis")
         .attr("class", "x axis")
@@ -64,6 +75,7 @@ function initXY(v1, v2, v3, labelX, labelY) {
         .attr("class", "y axis")
         .call(yAxis)
 
+    //create legends
     var legend = chart.append("g")
         .attr("class", "legend");
 
@@ -73,7 +85,7 @@ function initXY(v1, v2, v3, labelX, labelY) {
         .attr("y", scatterH - 10)
         .attr("dy", ".35em")
         .style("text-anchor", "end")
-        .text(dataName(labelX));
+        .text(dataName(xName));
 
     //legenda eixo Y
     legend.append("text")
@@ -81,36 +93,48 @@ function initXY(v1, v2, v3, labelX, labelY) {
         .attr("y", -5)
         .attr("dy", ".35em")
         .style("text-anchor", "middle")
-        .text(dataName(labelY));
-
-    return xMax;
+        .text(dataName(yName));
 }
 
-function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
+function filterCountries(xVar, yVar, year, selectedC) {
 
-    xMax = initXY(v1, v2, v3, labelX, labelY)
-
-    //there are selected countries to display
+    //filter: when there are selected countries
     if (selectedC.length != 0) {
-        //filter countries
-        selectedC.sort(function(a, b) {
+        //sort
+        selectedC.sort(function (a, b) {
             return a > b;
         });
-        filtered_v1 = v1.filter(function (obj) { return selectedC.includes(obj['country']) })
-        filtered_v2 = v2.filter(function (obj) { return selectedC.includes(obj['country']) })
+        //filter values
+        filtered_X = xVar.filter(function (obj) { return selectedC.includes(obj['country']) })
+        filtered_Y = yVar.filter(function (obj) { return selectedC.includes(obj['country']) })
 
-        //create new arrays
-        xValues = filtered_v1.map(element => element[v3] );
-        yValues = filtered_v2.map(element => element[v3] );
+        //update displayed values
+        xValues = filtered_X.map(element => element[year]);
+        yValues = filtered_Y.map(element => element[year]);
+    }
+    //no selected countries means all countries!
+    else {
+        selectedC = xVar.map(element => element.country);
+    }
+    return selectedC;
+}
 
+function drawScatterplot(xName, yName, year, selectedC) {
+    //new countries added or removed
+    if(selectedC.length != 0){
         //remove old points
         points.remove()
     }
-    //no countries means all countries!
-    else {
-        selectedC = v1.map(element => element.country );
-    }
 
+    //get variables (not labels)
+    xVar = getArray(xName);
+    yVar = getArray(yName);
+    //transform variables and create/update axis
+    xMax = initXY(xVar, yVar, xName, yName, year, selectedC)
+    //filter per selected countries
+    selectedC = filterCountries(xVar, yVar, year, selectedC)
+
+    //draw
     points = chart.selectAll("scatter-dots")
         .data(xValues)
         .enter().append("svg:circle")  // create a new circle for each value
@@ -133,10 +157,21 @@ function drawScatterplot(v1, v2, v3, labelX, labelY, selectedC) {
         }) //hover out
 }
 
-function updatePoints(v1, v2, v3, labelX, labelY) {
+function updatePoints(xName, yName, year, selectedC) {
 
-    initXY(v1, v2, v3, labelX, labelY)
+    //get variables (not labels)
+    xVar = getArray(xName);
+    yVar = getArray(yName);
+    //transform variables and create/update axis
+    xMax = initXY(xVar, yVar, xName, yName, year, selectedC)
+    //filter per selected countries
+    selectedC = filterCountries(xVar, yVar, year, selectedC)
 
+    console.log("UPDATE POINTS")
+    console.log(xValues)
+    console.log(yValues)
+
+    //draw
     var transition = d3.transition()
         .duration(750)
         .ease(d3.easeCubic);
@@ -144,7 +179,7 @@ function updatePoints(v1, v2, v3, labelX, labelY) {
     points.transition(transition)
         .attr("cx", function (d, i) { return x(xValues[i]); }) // translate y value to a pixel
         .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
-        .style("fill", function (d, i) { return color(xValues[i] / d3.max(xValues)); })
+        .style("fill", function (d, i) { return color(xValues[i] / xMax); })    //if X changes, must update color
         .style("stroke", color(1))
 }
 
@@ -169,5 +204,5 @@ function selectVariable(id) {
         defaultY = e.options[e.selectedIndex].value;
     }
 
-    updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY);
+    updatePoints(defaultB, defaultY, defaultYear, drawCountries);
 }

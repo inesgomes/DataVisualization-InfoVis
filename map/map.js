@@ -49,7 +49,7 @@ function drawMap(crimes, year) {
         if (!(drawCountries.includes(name))) {
           drawCountries.push(name)
         }
-        drawScatterplot(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY, drawCountries)
+        drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
         updatePCP(drawCountries, defaultYear)
       })
       .on("mousemove", showTooltipPoint) //hover in
@@ -123,7 +123,7 @@ function selectBotton() {
     .range(rangeColor[e.selectedIndex])
     .interpolate(d3.interpolateHcl);
   updateMap(getArray(defaultB), defaultYear)
-  updatePoints(getArray(defaultB), getArray(defaultY), defaultYear, defaultB, defaultY)
+  updatePoints(defaultB, defaultY, defaultYear,drawCountries)
 }
 
 function showTooltipPoint(d) {
