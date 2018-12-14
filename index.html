@@ -39,6 +39,21 @@
 		<!--left-->
 		<div id="right" class="container">
 			<svg id="map"></svg>
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					Crimes
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li><a href="assault">Assault</a></li>
+					<li><a href="burglary">Burglary</a></li>
+					<li><a href="homicide">Homicide</a></li>
+					<li><a href="robbery">Robbery</a></li>
+					<li><a href="sexualviolence">Sexual Violence</a></li>
+								
+				</ul>
+			</div>
+			<!--
 			<select id="botton" onchange="selectBotton(0)">
 				<option value="assault" selected="selected">Assault</option>
 				<option value="burglary">Burglary</option>
@@ -46,6 +61,7 @@
 				<option value="robbery"> Robbery</option>
 				<option value="sexualviolence"> Sexual Violence</option>
 			</select>
+			-->
 		</div>
 		<!--down-->
 		<div id="bottom"></div>
