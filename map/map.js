@@ -124,6 +124,33 @@ function updateMap(crimes, year) {
   //.attr("transform", "translate(0," + margin_map.top*2  + ")");
 }
 
+
+
+function content(v) {
+
+  if (v == "assault")
+      return `Physical attack against the body of another person resulting in serious bodily injury,
+       excluding indecent/sexual assault, threats and slapping/punching. 'Assault' leading to death should also 
+       be excluded.`
+  else if (v == "burglary")
+      return `Gaining unauthorised access to a part of a building/dwelling or other premises, 
+      including by use of force, with the intent to steal goods (breaking and entering). 
+      “Burglary” should include, where possible, theft from a house, appartment or other dwelling place, 
+      factory, shop or office, from a military establishment, or by using false keys. It should exclude theft 
+      from a car, from a container, from a vending machine, from a parking meter and from fenced meadow/compound.`
+  else if (v == "homicide")
+      return `Unlawful death purposefully inflicted on a person by another person. Data on intentional homicide
+       should also include serious assault leading to death and death as a result of a terrorist attack. 
+       It should exclude attempted homicide, manslaughter, death due to legal intervention, justifiable homicide 
+       in self-defence and death due to armed conflict.`
+  else if (v == "robbery")
+      return `Theft of property from a person, overcoming resistance by force or threat of force.
+       Where possible, the category “Robbery” should include muggings (bag-snatching) and theft with violence,
+        but should exclude pick pocketing and extortion.`
+  else if (v == "sexualviolence")
+      return `Rape and sexual assault, including Sexual Offences against Children.`
+}
+
 function selectCrime(type, id){
   console.log("entrei")
   console.log(type)
@@ -133,6 +160,8 @@ function selectCrime(type, id){
     .range(rangeColor[id])
     .interpolate(d3.interpolateHcl);
   defaultB=type
+  document.getElementById('header').textContent=dataName(defaultB)
+  document.getElementById('content').textContent=content(defaultB)
   updatePCP(drawCountries, defaultYear)
   updateMap(getArray(defaultB), defaultYear)
   updatePoints(defaultB, defaultY, defaultYear, drawCountries)

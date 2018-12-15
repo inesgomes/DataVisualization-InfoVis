@@ -18,6 +18,19 @@ function getArray(valueName) {
       return robberies;
 }
  
+function dataName(v) {
+
+  if (v == "assault")
+      return "Assault";
+  else if (v == "burglary")
+      return "Burglary";
+  else if (v == "homicide")
+      return "Homicide";
+  else if (v == "robbery")
+      return "Robbery";
+  else if (v == "sexualviolence")
+      return "Sexual Violence";
+}
 
 function sortJsons(){
   assaults.sort(function(a, b) {
@@ -38,6 +51,9 @@ function sortJsons(){
 }
 
 function draw() {
+  
+  document.getElementById('header').textContent=dataName(defaultB)
+  document.getElementById('content').textContent=content(defaultB)
   sortJsons()
   sliderYears()
   drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)

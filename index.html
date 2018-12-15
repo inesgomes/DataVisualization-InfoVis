@@ -19,13 +19,15 @@
 
 <body>
 	<div id="main">
-		<!--
-			<div id="text">
-				<h4> Assault </h4>
-				<p> Definition: physical attack against the body of another person resulting in serious bodily injury, excluding indecent/sexual assault, threats and slapping/punching. 'Assault' leading to death should also be excluded.  </p>
-
+			<div id="text" class="panel panel-default">
+					<div class="panel-heading">
+					
+					  <p class="panel-title" id="header" >Crime</p>
+					</div>
+					<div class="panel-body" id="content">
+					  Definition
+					</div>
 			</div>
-		-->
 			<div id="left" class="container">
 			<svg id="slider"></svg>
 			<div id="containerSP">
@@ -45,27 +47,12 @@
 											
 							</ul>
 						</div>	
-
-
-
-
-				<!--	
-					yAxis:
-					<select id="yAxisItem" onchange="selectVariable(1)">
-						<option value="assault">Assault</option>
-						<option value="burglary">Burglary</option>
-						<option value="homicide"> Homicide</option>
-						<option value="robbery"> Robbery</option>
-						<option value="sexualviolence" selected="selected"> Sexual Violence</option>
-					</select>
-				-->
 				</div>
 			</div>
 		</div>
 		<!--left-->
 		<div id="right" class="container">
 			<svg id="map"></svg>
-
 			<div class="dropdown">
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					Crimes
@@ -80,15 +67,6 @@
 								
 				</ul>
 			</div>
-			<!--
-			<select id="botton" onchange="selectBotton(0)">
-				<option value="assault" selected="selected">Assault</option>
-				<option value="burglary">Burglary</option>
-				<option value="homicide"> Homicide</option>
-				<option value="robbery"> Robbery</option>
-				<option value="sexualviolence"> Sexual Violence</option>
-			</select>
-			-->
 		</div>
 		<!--down-->
 		<div id="bottom"></div>

@@ -178,19 +178,6 @@ function updatePoints(xName, yName, year, selectedC) {
         .style("stroke", color(1))
 }
 
-function dataName(v) {
-
-    if (v == "assault")
-        return "Assault";
-    else if (v == "burglary")
-        return "Burglary";
-    else if (v == "homicide")
-        return "Homicide";
-    else if (v == "robbery")
-        return "Robbery";
-    else if (v == "sexualviolence")
-        return "Sexual Violence";
-}
 
 
 function selectYaxis(name, id){
