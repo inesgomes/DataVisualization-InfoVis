@@ -28,39 +28,43 @@
 			</div>
 			<!--scatterplot-->
 			<div class="panel panel-default col-xs-5">
-				<div class="panel-body"  id="containerSP">
+				<div class="panel-body" id="containerSP">
 					<div id="selectionUI">
-						<div class="dropdown">
+						Yaxis:
+						<div class="btn-group">
+							<button class="btn btn-default" type="button" id="bscatter">Crimes</button>
 							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="true">
-									Crimes
-									<span class="caret"></span>
-								</button>
-								<ul id="yAxis" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li><a href="#" onclick="selectYaxis('assault', 0)">Assault</a></li>
-									<li><a href="#" onclick="selectYaxis('burglary', 1)">Burglary</a></li>
-									<li><a href="#" onclick="selectYaxis('homicide'), 2">Homicide</a></li>
-									<li><a href="#" onclick="selectYaxis('robbery', 3)">Robbery</a></li>
-									<li><a href="#" onclick="selectYaxis('sexualviolence', 4)">Sexual Violence</a></li>
-								</ul>
-							</div>
+							 aria-haspopup="true" aria-expanded="true">
+								<span class="caret"></span>
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul id="yAxis" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+								<li><a href="#" onclick="selectYaxis('assault', 0)">Assault</a></li>
+								<li><a href="#" onclick="selectYaxis('burglary', 1)">Burglary</a></li>
+								<li><a href="#" onclick="selectYaxis('homicide'), 2">Homicide</a></li>
+								<li><a href="#" onclick="selectYaxis('robbery', 3)">Robbery</a></li>
+								<li><a href="#" onclick="selectYaxis('sexualviolence', 4)">Sexual Violence</a></li>
+							</ul>
 						</div>
 					</div>
-					<svg id="scatterplot"></svg>
+				</div>
+				<svg id="scatterplot"></svg>
 			</div>
 			<!--map-->
 			<div class="panel panel-default col-xs-5">
 				<div class="panel-body">
-					<div class="dropdown">
+						Crimes:
+					<div class="btn-group">
+						<button class="btn btn-default" type="button" id="bmap">Crimes</button>
 						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="true">
-							Crimes
+						 aria-haspopup="true" aria-expanded="false">
 							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul id="crimes" class="dropdown-menu" aria-labelledby="dropdownMenu1">
 							<li><a href="#" onclick="selectCrime('assault', 0)">Assault</a></li>
 							<li><a href="#" onclick="selectCrime('burglary', 1)">Burglary</a></li>
-							<li><a href="#" onclick="selectCrime('homicide'), 2">Homicide</a></li>
+							<li><a href="#" onclick="selectCrime('homicide', 2)">Homicide</a></li>
 							<li><a href="#" onclick="selectCrime('robbery', 3)">Robbery</a></li>
 							<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
 						</ul>
@@ -77,7 +81,7 @@
 		</div>
 		<!--pcp-->
 		<div class="panel panel-default">
-			<div class="panel-body"  id="bottom"></div>
+			<div class="panel-body" id="bottom"></div>
 		</div>
 	</div>
 	<!--external-->

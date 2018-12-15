@@ -1,9 +1,5 @@
 d3.select(window).on("resize", resize);
 
-d3.select("#text")
-  .style('width', textW + 'px')
-  .style('height', textH + 'px')
-  .attr('transform', 'translate(20,20)')
 
 function getArray(valueName) {
   if (valueName == "assault")
@@ -54,6 +50,8 @@ function draw() {
   
   document.getElementById('header').textContent=dataName(defaultB)
   document.getElementById('content').textContent=content(defaultB)
+  document.getElementById('bmap').textContent=dataName(defaultB)
+  document.getElementById('bscatter').textContent=dataName(defaultY)
   sortJsons()
   sliderYears()
   drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
