@@ -1,14 +1,15 @@
-var legScaleW = mapW*0.13;
-var legScaleH =  panelH * 0.83;
+var legScaleW = mapW*0.05;
+var legScaleH =  panelH * 0.945;
 
 d3.select("#right")
-  .style('width', mapW + 'px')
+  //.style('width', mapW + 'px')
   .style('height', panelH + 'px')
 
 var map = d3.select("#map")
   .attr("width", mapW)
   .attr("height", mapH)
-  //.attr("transform", "translate(0," + margin_map.top + ")")
+  .style('position','absolute')
+  .attr("transform", "translate(-"+ 130 +", 0)")
   .append("g");
 
 var body = d3.select("body");
@@ -22,12 +23,12 @@ var countries;
 
 function drawMap(crimes, year) {
 
-  var center = [55, 48];
+  var center = [55, 50];
 
   //begin map
   var projection = d3.geoMercator()
     // .translate([width_map,height_map])
-    .scale(300)
+    .scale(328)
     .center(center);
 
   var path = d3.geoPath()

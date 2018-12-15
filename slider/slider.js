@@ -5,7 +5,6 @@ d3.select("#left")
 var svg = d3.select("#slider")
     .attr("width", leftContW)
     .attr("height", sliderH)
-    .style('background', '#C1E1EC')
     //.attr("transform", "translate(0," + margin.top  + ")")
     .append("g");
 

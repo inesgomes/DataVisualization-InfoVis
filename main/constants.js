@@ -3,18 +3,17 @@ var margin = { top: 30, right: 20, bottom: 30, left: 20 };
 var width = window.innerWidth - margin.left - margin.right;
 var height = window.innerHeight - margin.top - margin.bottom;
 
-var panelH = window.innerHeight*0.7
+var panelH = window.innerHeight*0.65
 var mapH =  window.innerHeight*0.7-margin.top
+var scatterH = panelH * 0.5
+var pcpH = window.innerHeight * 0.4;
+var sliderH = window.innerHeight * 0.1;
 
 var textW= window.innerWidth * 0.2;
 var leftContW = window.innerWidth * 0.4; //need to have some margin between 
-var sliderH = window.innerHeight * 0.1;
-var scatterW = leftContW * 0.95 - margin.left
-var scatterH = panelH * 0.7
+var scatterW = leftContW * 0.85;
 var mapW = window.innerWidth * 0.4;
 var pcpW = window.innerWidth * 0.8;
-var pcpH = window.innerHeight * 0.4;
-
 
 //JSONS
 var assaults = assault.countries;
