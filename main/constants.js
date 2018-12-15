@@ -3,13 +3,15 @@ var margin = { top: 20, right: 20, bottom: 30, left: 40 };
 var width = window.innerWidth - margin.left - margin.right;
 var height = window.innerHeight - margin.top - margin.bottom;
 
-var leftContW = window.innerWidth * 0.6 - margin.right; //need to have some margin between 
+var textW= window.innerWidth * 0.15 - margin.right;
+var textH= window.innerHeight - margin.top;
+var leftContW = window.innerWidth * 0.45 - margin.right; //need to have some margin between 
 var sliderH = window.innerHeight * 0.1;
 var scontainerH = window.innerHeight * 0.7;
 var scatterW = leftContW * 0.95 - margin.left
 var scatterH = scontainerH * 0.75 - margin.top - margin.bottom
 var mapW = window.innerWidth * 0.4 - margin.right;
-var mapH = window.innerHeight * 0.8 - margin.bottom;
+var mapH = window.innerHeight * 0.7 - margin.bottom;
 var pcpW = window.innerWidth * 0.8;
 var pcpH = window.innerHeight * 0.4;
 

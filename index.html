@@ -19,11 +19,35 @@
 
 <body>
 	<div id="main">
-		<div id="left" class="container">
+			<div id="text">
+				<h4> Assault </h4>
+				<p> Definition: physical attack against the body of another person resulting in serious bodily injury, excluding indecent/sexual assault, threats and slapping/punching. 'Assault' leading to death should also be excluded.  </p>
+
+			</div>
+			<div id="left" class="container">
 			<svg id="slider"></svg>
 			<div id="containerSP">
 				<svg id="scatterplot"></svg>
 				<div id="selectionUI">
+					<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								Crimes
+								<span class="caret"></span>
+							</button>
+							<ul id="yAxis" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a href="#" onclick="selectCrime('assault', 0)">Assault</a></li>
+								<li><a href="#" onclick="selectCrime('burglary', 1)">Burglary</a></li>
+								<li><a href="#" onclick="selectCrime('homicide'), 2">Homicide</a></li>
+								<li><a href="#" onclick="selectCrime('robbery', 3)">Robbery</a></li>
+								<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
+											
+							</ul>
+						</div>	
+
+
+
+
+				<!--	
 					yAxis:
 					<select id="yAxisItem" onchange="selectVariable(1)">
 						<option value="assault">Assault</option>
@@ -32,24 +56,25 @@
 						<option value="robbery"> Robbery</option>
 						<option value="sexualviolence" selected="selected"> Sexual Violence</option>
 					</select>
-
+				-->
 				</div>
 			</div>
 		</div>
 		<!--left-->
 		<div id="right" class="container">
 			<svg id="map"></svg>
+
 			<div class="dropdown">
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					Crimes
 					<span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="assault">Assault</a></li>
-					<li><a href="burglary">Burglary</a></li>
-					<li><a href="homicide">Homicide</a></li>
-					<li><a href="robbery">Robbery</a></li>
-					<li><a href="sexualviolence">Sexual Violence</a></li>
+				<ul id="crimes" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li><a href="#" onclick="selectCrime('assault', 0)">Assault</a></li>
+					<li><a href="#" onclick="selectCrime('burglary', 1)">Burglary</a></li>
+					<li><a href="#" onclick="selectCrime('homicide'), 2">Homicide</a></li>
+					<li><a href="#" onclick="selectCrime('robbery', 3)">Robbery</a></li>
+					<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
 								
 				</ul>
 			</div>

@@ -1,5 +1,10 @@
 d3.select(window).on("resize", resize);
 
+d3.select("#text")
+  .style('width', textW + 'px')
+  .style('height', textH + 'px')
+  .attr('transform', 'translate(20,20)')
+
 function getArray(valueName) {
   if (valueName == "assault")
       return assaults;
@@ -12,6 +17,7 @@ function getArray(valueName) {
   if (valueName == "robbery")
       return robberies;
 }
+ 
 
 function sortJsons(){
   assaults.sort(function(a, b) {

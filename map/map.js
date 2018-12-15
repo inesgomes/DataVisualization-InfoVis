@@ -124,7 +124,26 @@ function updateMap(crimes, year) {
   //.attr("transform", "translate(0," + margin_map.top*2  + ")");
 }
 
-function selectBotton() {
+function selectCrime(type, id){
+  console.log("entrei")
+  console.log(type)
+  color = d3.scaleLinear()
+    .clamp(true)
+    .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
+    .range(rangeColor[id])
+    .interpolate(d3.interpolateHcl);
+
+  updatePCP(drawCountries, defaultYear)
+  updateMap(getArray(type), defaultYear)
+  updatePoints(type, defaultY, defaultYear, drawCountries)
+  
+
+}
+/*
+
+function selectBotton(){
+
+  //console.log($('.dropdown-toggle').dropdown())
   var e = document.getElementById("botton");
   defaultB = e.options[e.selectedIndex].value;
 
@@ -138,7 +157,7 @@ function selectBotton() {
   updateMap(getArray(defaultB), defaultYear)
   updatePoints(defaultB, defaultY, defaultYear, drawCountries)
 }
-
+*/
 function showTooltipPoint(d) {
   var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
   tooltip.classed('hidden', false) //make tooltip visible
