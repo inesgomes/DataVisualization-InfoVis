@@ -132,10 +132,10 @@ function selectCrime(type, id){
     .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[id])
     .interpolate(d3.interpolateHcl);
-
+  defaultB=type
   updatePCP(drawCountries, defaultYear)
-  updateMap(getArray(type), defaultYear)
-  updatePoints(type, defaultY, defaultYear, drawCountries)
+  updateMap(getArray(defaultB), defaultYear)
+  updatePoints(defaultB, defaultY, defaultYear, drawCountries)
   
 
 }

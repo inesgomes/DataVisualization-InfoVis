@@ -192,12 +192,8 @@ function dataName(v) {
         return "Sexual Violence";
 }
 
-function selectVariable(id) {
 
-    if (id === 1) {
-        var e = document.getElementById("yAxisItem");
-        defaultY = e.options[e.selectedIndex].value;
-    }
-
-    updatePoints(defaultB, defaultY, defaultYear, drawCountries);
+function selectYaxis(name, id){
+    updatePoints(defaultB, name, defaultYear, drawCountries);
+      
 }
