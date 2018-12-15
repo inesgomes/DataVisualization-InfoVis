@@ -4,11 +4,8 @@
 <head>
 	<title></title>
 	<!--our css-->
-	<link rel=stylesheet href=map/map.css> 
-	<link rel=stylesheet href=pcp/pcp.css> 
-	<link rel=stylesheet href=main/main.css>
-	<link rel=stylesheet href=scatterplot/scatterplot.css> 
-	<!--bootstrap-->
+	<link rel=stylesheet href=map/map.css> <link rel=stylesheet href=pcp/pcp.css> <link rel=stylesheet href=main/main.css>
+	 <link rel=stylesheet href=scatterplot/scatterplot.css> <!--bootstrap-->
 	<link href="lib/bootstrap.min.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="lib/bootstrap.min.js"></script>
@@ -19,56 +16,69 @@
 
 <body>
 	<div id="main">
-			<div id="text" class="panel panel-default">
-					<div class="panel-heading">
-					  	<p class="panel-title" id="header" >Crime</p>
-					</div>
-					<div class="panel-body" id="content">
-					 	 Definition
-					</div>
+		<div class="row">
+			<!--text-->
+			<div class="panel panel-default col-xs-2">
+				<div class="panel-heading">
+					<p class="panel-title" id="header">Crime</p>
+				</div>
+				<div class="panel-body" id="content">
+					Definition
+				</div>
 			</div>
-			<div id="left" class="container">
-			<svg id="slider"></svg>
-			<div id="containerSP">
-				<svg id="scatterplot"></svg>
-				<div id="selectionUI">
+			<!--scatterplot-->
+			<div class="panel panel-default col-xs-5">
+				<div class="panel-body"  id="containerSP">
+					<div id="selectionUI">
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="true">
+									Crimes
+									<span class="caret"></span>
+								</button>
+								<ul id="yAxis" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li><a href="#" onclick="selectYaxis('assault', 0)">Assault</a></li>
+									<li><a href="#" onclick="selectYaxis('burglary', 1)">Burglary</a></li>
+									<li><a href="#" onclick="selectYaxis('homicide'), 2">Homicide</a></li>
+									<li><a href="#" onclick="selectYaxis('robbery', 3)">Robbery</a></li>
+									<li><a href="#" onclick="selectYaxis('sexualviolence', 4)">Sexual Violence</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<svg id="scatterplot"></svg>
+			</div>
+			<!--map-->
+			<div class="panel panel-default col-xs-5">
+				<div class="panel-body">
 					<div class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								Crimes
-								<span class="caret"></span>
-							</button>
-							<ul id="yAxis" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a href="#" onclick="selectYaxis('assault', 0)">Assault</a></li>
-								<li><a href="#" onclick="selectYaxis('burglary', 1)">Burglary</a></li>
-								<li><a href="#" onclick="selectYaxis('homicide'), 2">Homicide</a></li>
-								<li><a href="#" onclick="selectYaxis('robbery', 3)">Robbery</a></li>
-								<li><a href="#" onclick="selectYaxis('sexualviolence', 4)">Sexual Violence</a></li>
-											
-							</ul>
-						</div>	
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="true">
+							Crimes
+							<span class="caret"></span>
+						</button>
+						<ul id="crimes" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li><a href="#" onclick="selectCrime('assault', 0)">Assault</a></li>
+							<li><a href="#" onclick="selectCrime('burglary', 1)">Burglary</a></li>
+							<li><a href="#" onclick="selectCrime('homicide'), 2">Homicide</a></li>
+							<li><a href="#" onclick="selectCrime('robbery', 3)">Robbery</a></li>
+							<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
+						</ul>
+					</div>
+					<svg id="map"></svg>
 				</div>
 			</div>
 		</div>
-		<!--left-->
-		<div id="right" class="container">
-			<svg id="map"></svg>
-			<div class="dropdown">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-					Crimes
-					<span class="caret"></span>
-				</button>
-				<ul id="crimes" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="#" onclick="selectCrime('assault', 0)">Assault</a></li>
-					<li><a href="#" onclick="selectCrime('burglary', 1)">Burglary</a></li>
-					<li><a href="#" onclick="selectCrime('homicide'), 2">Homicide</a></li>
-					<li><a href="#" onclick="selectCrime('robbery', 3)">Robbery</a></li>
-					<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
-								
-				</ul>
+		<!--slider-->
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<svg id="slider"></svg>
 			</div>
 		</div>
-		<!--down-->
-		<div id="bottom"></div>
+		<!--pcp-->
+		<div class="panel panel-default">
+			<div class="panel-body"  id="bottom"></div>
+		</div>
 	</div>
 	<!--external-->
 	<script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
