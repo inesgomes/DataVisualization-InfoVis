@@ -1,9 +1,9 @@
 d3.select(window).on("resize", resize);
 
 d3.select("#text")
-  .style('width', textW + 'px')
-  .style('height', textH + 'px')
-  .attr('transform', 'translate(20,20)')
+  //.style('width', textW + 'px')
+  .style('height', panelH + 'px')
+  //.attr('transform', 'translate(20,20)')
 
 function getArray(valueName) {
   if (valueName == "assault")

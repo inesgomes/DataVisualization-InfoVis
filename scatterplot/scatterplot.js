@@ -1,20 +1,19 @@
 d3.select("#containerSP")
     .style('width', leftContW + 'px')
-    .style('height', scontainerH + 'px')
+    .style('height', panelH + 'px')
     .style('display', 'block')
-    .style('background', 'lightblue')
 
 var chart = d3.select("#scatterplot")
-    .attr('width', scatterW + 60)
+    .attr('width', scatterW + 50)
     .attr('height', scatterH + 50)
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-    .style("margin-bottom", margin.bottom + "px")
+    .style("margin-top", margin.top + "px")
 
 
 d3.select("#selectionUI")
-    .style("margin-left", margin.left + "px")
-    .style("margin-bottom", margin.bottom + "px")
+    //.style("margin-left", margin.left + "px")
+    //.style("margin-bottom", margin.bottom + "px")
 
 var body = d3.select("body");
 

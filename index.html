@@ -18,7 +18,7 @@
 	<div id="main">
 		<div class="row">
 			<!--text-->
-			<div class="panel panel-default col-xs-2">
+			<div class="panel panel-default col-xs-2" id="text">
 				<div class="panel-heading">
 					<p class="panel-title" id="header">Crime</p>
 				</div>
@@ -43,13 +43,13 @@
 									<li><a href="#" onclick="selectYaxis('robbery', 3)">Robbery</a></li>
 									<li><a href="#" onclick="selectYaxis('sexualviolence', 4)">Sexual Violence</a></li>
 								</ul>
-							</div>
 						</div>
 					</div>
 					<svg id="scatterplot"></svg>
+				</div>
 			</div>
 			<!--map-->
-			<div class="panel panel-default col-xs-5">
+			<div class="panel panel-default col-xs-5" id="right">
 				<div class="panel-body">
 					<div class="dropdown">
 						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"

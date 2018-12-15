@@ -1,11 +1,13 @@
+var legScaleW = mapW*0.13;
+var legScaleH =  panelH * 0.83;
+
 d3.select("#right")
   .style('width', mapW + 'px')
-  .style('height', mapH + margin.bottom + 'px')
+  .style('height', panelH + 'px')
 
 var map = d3.select("#map")
   .attr("width", mapW)
   .attr("height", mapH)
-  .style('background', '#fdae6b')
   //.attr("transform", "translate(0," + margin_map.top + ")")
   .append("g");
 
@@ -20,12 +22,12 @@ var countries;
 
 function drawMap(crimes, year) {
 
-  var center = [50, 50];
+  var center = [55, 48];
 
   //begin map
   var projection = d3.geoMercator()
     // .translate([width_map,height_map])
-    .scale(310)
+    .scale(300)
     .center(center);
 
   var path = d3.geoPath()
@@ -75,8 +77,8 @@ function drawMap(crimes, year) {
       .attr("class", "legend");
 
     legend.append("rect")
-      .attr("x", mapW * 0.2)
-      .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - 2 * ls_h; })
+      .attr("x", legScaleW)
+      .attr("y", function (d, i) { return legScaleH - (i * ls_h) - 2 * ls_h; })
       .attr("width", ls_w)
       .attr("height", ls_h)
       .style("opacity", 0.8)
@@ -86,8 +88,8 @@ function drawMap(crimes, year) {
     updateMap(crimes, year);
 
     legend.append("text")
-      .attr("x", mapW * 0.2 + 20)
-      .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - ls_h - 4; })
+      .attr("x", legScaleW + 20)
+      .attr("y", function (d, i) { return legScaleH - (i * ls_h) - ls_h - 4; })
       .text(function (d, i) { return legend_labels[i]; });
 
     return;
@@ -115,8 +117,8 @@ function updateMap(crimes, year) {
   countries.selectAll('.clicked').attr("fill", selectedColor);
 
   legend.append("rect")
-    .attr("x", mapW * 0.2)
-    .attr("y", function (d, i) { return mapH * 0.75 - (i * ls_h) - 2 * ls_h; })
+    .attr("x", legScaleW)
+    .attr("y", function (d, i) { return legScaleH - (i * ls_h) - 2 * ls_h; })
     .attr("width", ls_w)
     .attr("height", ls_h)
     .style("fill", function (d, i) { return color(d); })
