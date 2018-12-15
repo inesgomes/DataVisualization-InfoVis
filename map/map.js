@@ -164,6 +164,7 @@ function selectCrime(type, id){
   defaultB=type
   document.getElementById('header').textContent=dataName(defaultB)
   document.getElementById('content').textContent=content(defaultB)
+  document.getElementById('bmap').textContent=dataName(defaultB)
   updatePCP(drawCountries, defaultYear)
   updateMap(getArray(defaultB), defaultYear)
   updatePoints(defaultB, defaultY, defaultYear, drawCountries)

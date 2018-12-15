@@ -180,6 +180,7 @@ function updatePoints(xName, yName, year, selectedC) {
 
 
 function selectYaxis(name, id){
+    document.getElementById('bscatter').textContent=dataName(name)
     updatePoints(defaultB, name, defaultYear, drawCountries);
       
 }

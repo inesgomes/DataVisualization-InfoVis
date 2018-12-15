@@ -54,6 +54,8 @@ function draw() {
   
   document.getElementById('header').textContent=dataName(defaultB)
   document.getElementById('content').textContent=content(defaultB)
+  document.getElementById('bmap').textContent=dataName(defaultB)
+  document.getElementById('bscatter').textContent=dataName(defaultY)
   sortJsons()
   sliderYears()
   drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
