@@ -90,7 +90,7 @@ var dimensions = [
 
 var xscale = d3.scalePoint()
   .domain(d3.range(dimensions.length))
-  .range([0, pcpW]);
+  .range([6 * margin.left, pcpW - 4 * margin.left]);
 
 var yAxis = d3.axisLeft();
 
