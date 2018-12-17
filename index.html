@@ -29,31 +29,29 @@
 
 			<!--map-->
 			<div class="panel panel-default col-xs-5" id="right">
-					<div class="panel-body">
-							Crimes:
-						<div class="btn-group" style="z-index:1">
-							<button class="btn btn-default" type="button" id="bmap" >Crimes</button>
-							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-							 aria-haspopup="true" aria-expanded="false" >
-								<span class="caret"></span>
-								<span class="sr-only">Toggle Dropdown</span>
-							</button>
-							<ul id="crimes" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a href="#" onclick="selectCrime('assault', 0)">Assault</a></li>
-								<li><a href="#" onclick="selectCrime('burglary', 1)">Burglary</a></li>
-								<li><a href="#" onclick="selectCrime('homicide', 2)">Homicide</a></li>
-								<li><a href="#" onclick="selectCrime('robbery', 3)">Robbery</a></li>
-								<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
-							</ul>
-						</div>
-						<svg id="map" ></svg>
+				<div class="panel-body">
+					Crimes:
+					<div class="btn-group" style="z-index:1">
+						<button class="btn btn-default" type="button" id="bmap">Crimes</button>
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+						 aria-haspopup="true" aria-expanded="false">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul id="crimes" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li><a href="#" onclick="selectCrime('assault', 0)">Assault</a></li>
+							<li><a href="#" onclick="selectCrime('burglary', 1)">Burglary</a></li>
+							<li><a href="#" onclick="selectCrime('homicide', 2)">Homicide</a></li>
+							<li><a href="#" onclick="selectCrime('robbery', 3)">Robbery</a></li>
+							<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
+						</ul>
 					</div>
+					<svg id="map" style="position:relative"></svg>
 				</div>
-
-				
+			</div>
 
 			<!--scatterplot-->
-			<div class="panel panel-default col-xs-4"  id="containerSP">
+			<div class="panel panel-default col-xs-4" id="containerSP">
 				<div class="panel-body">
 					<div id="selectionUI">
 						Yaxis:
@@ -77,11 +75,14 @@
 					<!--slider-->
 					<svg id="slider"></svg>
 				</div>
-			</div>	
-		</div>
-		<!--pcp-->
-		<div class="panel panel-default" >
-			<div class="panel-body" id="bottom"></div>
+			</div>
+
+			<div class="row">
+				<!--pcp-->
+				<div class="panel panel-default" id="parallel" col-xs-10>
+					<div class="panel-body" id="bottom"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!--external-->

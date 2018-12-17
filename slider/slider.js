@@ -5,7 +5,7 @@ d3.select("#left")
 var svg = d3.select("#slider")
     .attr("width", leftContW)
     .attr("height", sliderH)
-    //.attr("transform", "translate(0," + margin.top  + ")")
+    .attr("transform", "translate(" + leftContW/9  + ",0)")
     .append("g");
 
 function sliderYears() {

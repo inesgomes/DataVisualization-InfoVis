@@ -4,7 +4,10 @@
       .domain(["Radial Velocity", "Imaging", "Eclipse Timing Variations", "Astrometry", "Microlensing", "Orbital Brightness Modulation", "Pulsar Timing", "Pulsation Timing Variations", "Transit", "Transit Timing Variations"])
       .range(["#DB7F85", "#50AB84", "#4C6C86", "#C47DCB", "#B59248", "#DD6CA7", "#E15E5A", "#5DA5B3", "#725D82", "#54AF52", "#954D56", "#8C92E8", "#D8597D", "#AB9C27", "#D67D4B", "#D58323", "#BA89AD", "#357468", "#8F86C2", "#7D9E33", "#517C3F", "#9D5130", "#5E9ACF", "#776327", "#944F7E"]);
 */
-
+/*
+d3.select("#parallel")
+  .style('width',  pcpW + 'px')
+*/
 function getData(selectedC,year) {
   let data = [], obj, ind;
 
@@ -105,7 +108,7 @@ function getData(selectedC,year) {
   var canvas = container.append("canvas")
     .attr("width", pcpW)
     .attr("height", pcpH)
-    .style("width", pcpW + "px")
+    .style("width", pcpW+ "px")
     .style("height", pcpH + "px")
     .style("margin-top", margin.top + "px")
     .style("margin-left", margin.left + "px");
