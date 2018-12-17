@@ -49,3 +49,8 @@ select {
   stroke-opacity: 0.5;
   stroke-width: 1.25px;
 }
+
+#slider{
+  display: block;
+  margin: auto;
+}

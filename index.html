@@ -31,10 +31,10 @@
 			<div class="panel panel-default col-xs-5" id="right">
 					<div class="panel-body">
 							Crimes:
-						<div class="btn-group" >
-							<button class="btn btn-default" type="button" id="bmap">Crimes</button>
+						<div class="btn-group" style="z-index:1">
+							<button class="btn btn-default" type="button" id="bmap" >Crimes</button>
 							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-							 aria-haspopup="true" aria-expanded="false">
+							 aria-haspopup="true" aria-expanded="false" >
 								<span class="caret"></span>
 								<span class="sr-only">Toggle Dropdown</span>
 							</button>
@@ -46,7 +46,7 @@
 								<li><a href="#" onclick="selectCrime('sexualviolence', 4)">Sexual Violence</a></li>
 							</ul>
 						</div>
-						<svg id="map" style="position:relative"></svg>
+						<svg id="map" ></svg>
 					</div>
 				</div>
 
@@ -80,7 +80,7 @@
 			</div>	
 		</div>
 		<!--pcp-->
-		<div class="panel panel-default">
+		<div class="panel panel-default" >
 			<div class="panel-body" id="bottom"></div>
 		</div>
 	</div>

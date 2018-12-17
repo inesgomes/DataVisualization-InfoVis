@@ -9,7 +9,7 @@ var map = d3.select("#map")
   .attr("width", mapW)
   .attr("height", mapH)
   .style('position','absolute')
-  .attr("transform", "translate(-"+ 130 +", 0)")
+  .attr("transform", "translate(-"+ 100 +", 0)")
   .append("g");
 
 var body = d3.select("body");
