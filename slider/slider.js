@@ -5,15 +5,14 @@ d3.select("#left")
 var svg = d3.select("#slider")
     .attr("width", leftContW)
     .attr("height", sliderH)
-    .style('background', '#C1E1EC')
-    //.attr("transform", "translate(0," + margin.top  + ")")
+    .attr("transform", "translate(" + leftContW / 9 + ",0)")
     .append("g");
 
-function sliderYears() {
+function drawSlider() {
 
     var x = d3.scaleLinear()
         .domain([2010, 2015])
-        .range([0, width / 4])  //????
+        .range([0, width / 4])
         .clamp(true);
 
     //cria 'eixo'
@@ -55,10 +54,11 @@ function sliderYears() {
         .duration(750)
 
     function f(h) {
+        //update default year
         defaultYear = Math.round(h);
+        //change slider
         handle.attr("cx", x(defaultYear));
-        updateMap(getArray(defaultB), defaultYear)
-        updatePoints(defaultB, defaultY, defaultYear,drawCountries)        
-        updatePCP(drawCountries, defaultYear)
+        //update all plots
+        updateDraw();
     }
 }
