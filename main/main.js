@@ -1,7 +1,7 @@
 d3.select(window).on("resize", resize);
 
 d3.select("#text")
-  .style('height',  window.innerHeight + 'px')
+  .style('height', panelH+pcpH + 2*margin.top + margin.bottom + 'px')
 
 function getArray(valueName) {
   if (valueName == "assault")

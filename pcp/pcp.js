@@ -90,22 +90,22 @@ function getData(selectedC,year) {
 
   var xscale = d3.scalePoint()
     .domain(d3.range(dimensions.length))
-    .range([0, pcpW]);
+    .range([6*margin.left, pcpW - 4*margin.left]);
 
   var yAxis = d3.axisLeft();
 
-  var container = d3.select("#bottom").append("div")
+  var container = d3.select("#bottom").append("div")      //panel
     .attr("class", "parcoords")
     .style("width", pcpW + margin.left + margin.right + "px")
     .style("height", pcpH + margin.top + margin.bottom + "px")
-
-  var pcp = container.append("svg")
+   
+  var pcp = container.append("svg")       //y axises
     .attr("width", pcpW + margin.left + margin.right)
     .attr("height", pcpH + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var canvas = container.append("canvas")
+  var canvas = container.append("canvas")   //lines
     .attr("width", pcpW)
     .attr("height", pcpH)
     .style("width", pcpW+ "px")
