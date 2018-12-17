@@ -47,20 +47,11 @@ function drawMap(crimes, year) {
       .on("mouseout", hideTooltipPoint) //hover out
 
     //Fazer legenda
-    var legend_labels = ["<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
+    var legend_labels = ["no data", "<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
     legend = map.selectAll("g.legend")
-      .data([0, 0.2, 0.4, 0.6, 0.8, 1])
+      .data([-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
       .enter().append("g")
       .attr("class", "legend");
-
-    legend.append("rect")
-      .attr("x", legScaleW)
-      .attr("y", function (d, i) { return legScaleH - (i * ls_h) - 2 * ls_h; })
-      .attr("width", ls_w)
-      .attr("height", ls_h)
-      .style("opacity", 0.8)
-    //.style("fill", function (d, i) { return color(d); })
-    //.attr("transform", "translate(0," + margin_map.top*2  + ")");
 
     updateMap(crimes, year);
 
@@ -160,7 +151,7 @@ function selectCrime(type, id) {
   //change color
   color = d3.scaleLinear()
     .clamp(true)
-    .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
+    .domain([-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[id])
     .interpolate(d3.interpolateHcl);
   //update html
