@@ -2,14 +2,13 @@ var legScaleW = mapW * 0.05;
 var legScaleH = panelH * 0.945;
 
 d3.select("#right")
-  //.style('width', mapW + 'px')
   .style('height', panelH + 'px')
 
 var map = d3.select("#map")
   .attr("width", mapW)
   .attr("height", mapH)
   .style('position', 'absolute')
-  .attr("transform", "translate(-" + 100 + ", 0)")
+  .attr("transform", "translate(-160, 0)")
   .append("g");
 
 var body = d3.select("body");
