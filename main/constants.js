@@ -3,13 +3,13 @@ var margin = { top: 30, right: 20, bottom: 30, left: 20 };
 var width = window.innerWidth - margin.left - margin.right;
 var height = window.innerHeight - margin.top - margin.bottom;
 
-var panelH = window.innerHeight*0.65
-var mapH =  window.innerHeight*0.7-margin.top
+var panelH = window.innerHeight * 0.65
+var mapH = window.innerHeight * 0.7 - margin.top
 var scatterH = panelH * 0.5
 var pcpH = window.innerHeight * 0.4;
 var sliderH = window.innerHeight * 0.1;
 
-var textW= window.innerWidth * 0.2;
+var textW = window.innerWidth * 0.2;
 var leftContW = window.innerWidth * 0.4; //need to have some margin between 
 var scatterW = leftContW * 0.85;
 var mapW = window.innerWidth * 0.4;
@@ -25,11 +25,13 @@ var sexviolences = sexualviolence.countries;
 //INIT values
 var defaultB = "assault";
 var defaultY = "sexualviolence";
-var defaultYear = 2010; 
+var defaultYear = 2010;
+var drawCountries = [];
+
+//legend sizes
 var ls_w = 15, ls_h = 15;
 
 //OTHER variables
-var drawCountries = [];
 var points, x, y, xAxis, yAxis;
 var xValues = [];
 var yValues = [];

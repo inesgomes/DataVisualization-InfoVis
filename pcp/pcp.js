@@ -8,25 +8,25 @@
 d3.select("#parallel")
   .style('width',  pcpW + 'px')
 */
-function getData(selectedC,year) {
+function getData(selectedC, year) {
   let data = [], obj, ind;
 
-  if(selectedC.length != 0){
+  if (selectedC.length != 0) {
     //filter the countries
-    a = assaults.filter(function(obj) { return selectedC.includes(obj['country']) })
-    b = burglaries.filter(function(obj) { return selectedC.includes(obj['country']) })
-    r = robberies.filter(function(obj) { return selectedC.includes(obj['country']) })
-    h = homicides.filter(function(obj) { return selectedC.includes(obj['country']) })
-    s = sexviolences.filter(function(obj) { return selectedC.includes(obj['country']) })    
+    a = assaults.filter(function (obj) { return selectedC.includes(obj['country']) })
+    b = burglaries.filter(function (obj) { return selectedC.includes(obj['country']) })
+    r = robberies.filter(function (obj) { return selectedC.includes(obj['country']) })
+    h = homicides.filter(function (obj) { return selectedC.includes(obj['country']) })
+    s = sexviolences.filter(function (obj) { return selectedC.includes(obj['country']) })
   }
-  else{
+  else {
     a = assaults;
     b = burglaries;
     h = homicides;
     r = robberies;
     s = sexviolences;
   }
- 
+
   for (ind = 0; ind < a.length; ind++) {
     obj = new Object();
     obj.country = a[ind]['country'];
@@ -40,93 +40,93 @@ function getData(selectedC,year) {
   return data;
 }
 
-  var types = {
-    "Number": {
-      key: "Number",
-      coerce: function (d) { return +d; },
-      extent: d3.extent,
-      within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
-      defaultScale: d3.scaleLinear().range([pcpH - 2, 0])
-    },
-    "String": {
-      key: "String",
-      coerce: String,
-      extent: function (data) { return data.sort(); },
-      within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
-      defaultScale: d3.scalePoint().range([0, pcpH - 2])
-    }
-  };
+var types = {
+  "Number": {
+    key: "Number",
+    coerce: function (d) { return +d; },
+    extent: d3.extent,
+    within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
+    defaultScale: d3.scaleLinear().range([pcpH - 2, 0])
+  },
+  "String": {
+    key: "String",
+    coerce: String,
+    extent: function (data) { return data.sort(); },
+    within: function (d, extent, dim) { return extent[0] <= dim.scale(d) && dim.scale(d) <= extent[1]; },
+    defaultScale: d3.scalePoint().range([0, pcpH - 2])
+  }
+};
 
-  var dimensions = [
-    {
-      key: "country",
-      type: types["String"],
-      axis: d3.axisLeft()
-        .tickFormat(function (d, i) {
-          return d;
-        })
-    },
-    {
-      key: "assault",
-      type: types["Number"]
-    },
-    {
-      key: "burglary",
-      type: types["Number"]
-    },
-    {
-      key: "homicide",
-      type: types["Number"]
-    },
-    {
-      key: "robbery",
-      type: types["Number"]
-    },
-    {
-      key: "sexualViolence",
-      type: types["Number"]
-    }
-  ];
+var dimensions = [
+  {
+    key: "country",
+    type: types["String"],
+    axis: d3.axisLeft()
+      .tickFormat(function (d, i) {
+        return d;
+      })
+  },
+  {
+    key: "assault",
+    type: types["Number"]
+  },
+  {
+    key: "burglary",
+    type: types["Number"]
+  },
+  {
+    key: "homicide",
+    type: types["Number"]
+  },
+  {
+    key: "robbery",
+    type: types["Number"]
+  },
+  {
+    key: "sexualViolence",
+    type: types["Number"]
+  }
+];
 
-  var xscale = d3.scalePoint()
-    .domain(d3.range(dimensions.length))
-    .range([0, pcpW]);
+var xscale = d3.scalePoint()
+  .domain(d3.range(dimensions.length))
+  .range([0, pcpW]);
 
-  var yAxis = d3.axisLeft();
+var yAxis = d3.axisLeft();
 
-  var container = d3.select("#bottom").append("div")
-    .attr("class", "parcoords")
-    .style("width", pcpW + margin.left + margin.right + "px")
-    .style("height", pcpH + margin.top + margin.bottom + "px")
+var container = d3.select("#bottom").append("div")
+  .attr("class", "parcoords")
+  .style("width", pcpW + margin.left + margin.right + "px")
+  .style("height", pcpH + margin.top + margin.bottom + "px")
 
-  var pcp = container.append("svg")
-    .attr("width", pcpW + margin.left + margin.right)
-    .attr("height", pcpH + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var pcp = container.append("svg")
+  .attr("width", pcpW + margin.left + margin.right)
+  .attr("height", pcpH + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var canvas = container.append("canvas")
-    .attr("width", pcpW)
-    .attr("height", pcpH)
-    .style("width", pcpW+ "px")
-    .style("height", pcpH + "px")
-    .style("margin-top", margin.top + "px")
-    .style("margin-left", margin.left + "px");
+var canvas = container.append("canvas")
+  .attr("width", pcpW)
+  .attr("height", pcpH)
+  .style("width", pcpW + "px")
+  .style("height", pcpH + "px")
+  .style("margin-top", margin.top + "px")
+  .style("margin-left", margin.left + "px");
 
-  var ctx = canvas.node()
-    .getContext("2d");
+var ctx = canvas.node()
+  .getContext("2d");
 
-  var axes = pcp.selectAll(".axis")
-    .data(dimensions)
-    .enter().append("g")
-    .attr("class", "axis")
-    .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
+var axes = pcp.selectAll(".axis")
+  .data(dimensions)
+  .enter().append("g")
+  .attr("class", "axis")
+  .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
 
 
-function drawPCP(selectedC,year) {
+function drawPCP(selectedC, year) {
 
   //create data
-  data = getData(selectedC,year)
+  data = getData(selectedC, year)
 
   ctx.globalCompositeOperation = 'darken';
   ctx.globalAlpha = 0.15;
@@ -182,12 +182,12 @@ function drawPCP(selectedC,year) {
   /*d3.selectAll(".axis.pl_discmethod .tick text")
     .style("fill", color);*/
 
-    updatePCP(selectedC,year);
-    
+  updatePCP(selectedC, year);
+
 }
 
-function updatePCP(selectedC,year){
-  let data = getData(selectedC,year)
+function updatePCP(selectedC, year) {
+  let data = getData(selectedC, year)
   let render = renderQueue(draw_pcp).rate(30);
   ctx.clearRect(0, 0, pcpW, pcpH);
   ctx.globalAlpha = d3.min([1.15 / Math.pow(data.length, 0.3), 1]);

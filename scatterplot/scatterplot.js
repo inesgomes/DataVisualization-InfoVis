@@ -12,8 +12,8 @@ var chart = d3.select("#scatterplot")
 
 
 d3.select("#selectionUI")
-    //.style("margin-left", margin.left + "px")
-    //.style("margin-bottom", margin.bottom + "px")
+//.style("margin-left", margin.left + "px")
+//.style("margin-bottom", margin.bottom + "px")
 
 var body = d3.select("body");
 
@@ -119,8 +119,8 @@ function filterCountries(xVar, yVar, year, selectedC) {
 }
 
 function drawScatterplot(xName, yName, year, selectedC) {
-     //remove old points
-    if(points != null){
+    //remove old points
+    if (points != null) {
         points.remove()
     }
 
@@ -143,16 +143,16 @@ function drawScatterplot(xName, yName, year, selectedC) {
         .style("opacity", 0.6) // opacity of circle
         .style("stroke", color(1))
         .style("fill", function (d, i) { return color(xValues[i] / xMax); })
-        .on("mousemove", function (d, i) {
+        .on("mousemove", function (d, i) { //wolverin
             var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
             tooltipS.classed('hidden', false) //make tooltip visible
                 .html(selectedC[i]) //display the name of point
                 .attr('style', //set size of the tooltip
                     'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
-        }) //hover in
-        .on("mouseout", function () {
+        })
+        .on("mouseout", function () { //hover out
             tooltipS.classed('hidden', true); //hide tooltip
-        }) //hover out
+        });
 }
 
 function updatePoints(xName, yName, year, selectedC) {
@@ -177,10 +177,8 @@ function updatePoints(xName, yName, year, selectedC) {
         .style("stroke", color(1))
 }
 
-
-
-function selectYaxis(name, id){
-    document.getElementById('bscatter').textContent=dataName(name)
+function selectYaxis(name, id) {
+    document.getElementById('bscatter').textContent = dataName(name);
+    defaultY = name;
     updatePoints(defaultB, name, defaultYear, drawCountries);
-      
 }
