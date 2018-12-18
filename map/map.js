@@ -6,7 +6,7 @@ d3.select("#right")
 
 var map = d3.select("#map")
   .attr("width", mapW)
-  .attr("height", mapH)
+  .attr("height", mapH-margin.bottom +5)
   .style('position', 'absolute')
   .attr("transform", "translate(-160, 0)")
   .append("g");
