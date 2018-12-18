@@ -10,6 +10,12 @@ var chart = d3.select("#scatterplot")
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
     .style("margin-top", margin.top + "px")
 
+var legScat = d3.select("#legScatter")
+    .attr('width', leftContW )
+    .attr('height', sliderH/2)
+    .append('g')
+    .attr('transform', 'translate(' + scatterW/3 + ',' + margin.top/2 + ')')
+    
 
 d3.select("#selectionUI")
 //.style("margin-left", margin.left + "px")
@@ -153,6 +159,9 @@ function drawScatterplot(xName, yName, year, selectedC) {
         .on("mouseout", function () { //hover out
             tooltipS.classed('hidden', true); //hide tooltip
         });
+        legScat.append("text")
+            .text(function (d) { return dataName(xName) + " vs " + dataName(yName) })
+
 }
 
 function updatePoints(xName, yName, year, selectedC) {
@@ -175,6 +184,11 @@ function updatePoints(xName, yName, year, selectedC) {
         .attr("cy", function (d, i) { return y(yValues[i]); }) // translate x value
         .style("fill", function (d, i) { return color(xValues[i] / xMax); })    //if X changes, must update color
         .style("stroke", color(1))
+    
+    legScat.selectAll("text").remove()
+    legScat.append("text")
+            .text(function (d) { return dataName(xName) + " vs " + dataName(yName) })
+
 }
 
 function selectYaxis(name, id) {

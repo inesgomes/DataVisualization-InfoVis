@@ -5,7 +5,7 @@ d3.select("#left")
 var svg = d3.select("#slider")
     .attr("width", leftContW)
     .attr("height", sliderH)
-    .attr("transform", "translate(" + leftContW / 9 + ",0)")
+    .attr("transform", "translate(" + leftContW / 9 + "," + (-0.5)*sliderH + ")")
     .append("g");
 
 function drawSlider() {
