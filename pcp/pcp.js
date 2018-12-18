@@ -9,28 +9,34 @@ d3.select("#parallel")
   .style('width',  pcpW + 'px')
 */
 
+var legendPCP = d3.select("#legPCP")
+  .attr('width', pcpW)
+  .attr('height', sliderH)
+  // .style('background', 'lightgrey')
+  .append('g')
+  .attr('transform', 'translate(' + pcpW / 3 + ',' + margin.top / 2 + ')')
 
-var my_jsons = [assaults,burglaries,homicides,robberies,sexviolences]
+var my_jsons = [assaults, burglaries, homicides, robberies, sexviolences]
 
 function getData(selectedC, year) {
   let data = [], obj, ind, my_newjsons = [];
- 
+
   if (selectedC.length != 0) {
 
-     dimensions.forEach(function(dim,i){
-      if(i == 0){
+    dimensions.forEach(function (dim, i) {
+      if (i == 0) {
         //no full domain for countries
         delete dim.domain;
-      } else{
+      } else {
         //define domain with all model
-        dim.domain = d3_functor(dim.type.extent)(my_jsons[i-1].map(function(d) { return d[year]; }));
+        dim.domain = d3_functor(dim.type.extent)(my_jsons[i - 1].map(function (d) { return d[year]; }));
         //select countries to display
-        my_newjsons[i-1] = my_jsons[i-1].filter(function (obj) { return selectedC.includes(obj['country']) })
+        my_newjsons[i - 1] = my_jsons[i - 1].filter(function (obj) { return selectedC.includes(obj['country']) })
       }
-    });   
+    });
   }
   else {
-    dimensions.forEach(function(dim){
+    dimensions.forEach(function (dim) {
       delete dim.domain;
     });
     my_newjsons = my_jsons;
@@ -141,14 +147,14 @@ function createPCP(selectedC, year) {
   drawPCP(selectedC, year)
 }
 
-function updatePCP(selectedC,year){
+function updatePCP(selectedC, year) {
   //clean axis
   axes.selectAll("g").remove()
   //draw
   drawPCP(selectedC, year)
 }
 
-function drawPCP(selectedC,year){
+function drawPCP(selectedC, year) {
   //create data
   data = getData(selectedC, year);
   //create axis
@@ -157,7 +163,7 @@ function drawPCP(selectedC,year){
   drawData(data);
 }
 
-function drawAxis(data){
+function drawAxis(data) {
 
   data.forEach(function (d) {
     dimensions.forEach(function (p) {
@@ -169,7 +175,7 @@ function drawAxis(data){
   dimensions.forEach(function (dim) {
     if (!("domain" in dim)) {
       // detect domain using dimension type's extent function
-      dim.domain = d3_functor(dim.type.extent)(data.map(function(d) { return d[dim.key]; }));
+      dim.domain = d3_functor(dim.type.extent)(data.map(function (d) { return d[dim.key]; }));
     }
     // use type's default scale for dimension
     dim.scale = dim.type.defaultScale.copy();
@@ -187,6 +193,10 @@ function drawAxis(data){
     .attr("class", "title")
     .attr("text-anchor", "start")
     .text(function (d) { return d.key; });
+
+  legendPCP.append("text")
+    .style("font-size", "10px")
+    .text(function (d) { return "The PCP shows the rate of all chosen crimes in European countries per 100,000 population" })
 
 }
 
