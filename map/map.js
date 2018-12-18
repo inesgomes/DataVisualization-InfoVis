@@ -89,7 +89,7 @@ function clickCountry(d) {
   }
 
   //update all
-  drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
+  drawScatterplot(defaultB, defaultY, defaultYear, drawCountries) //this is a bug fix
   updateDraw();
 }
 
@@ -110,9 +110,6 @@ function updateMap(crimes, year) {
     elem.classed("nodata",true);
     return noDataColor;
   })
-
-  //paint selected countries
-  countries.selectAll('.clicked').attr("fill", selectedColor);
 
   legend.append("rect")
     .attr("x", legScaleW)

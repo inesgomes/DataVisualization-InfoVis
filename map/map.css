@@ -4,16 +4,17 @@
     stroke-width: 1px;
   } 
   .country:hover {
-    fill: darkgrey;
+    fill: lightgrey;
   }
   
+  .clicked {
+    fill: yellow;
+    opacity: 0.5;
+  }
+
   .legend {
     font-size: 8px;
-  }
-  .country:active {
-    fill: lightblue;
-  }
-  
+  }  
   
   .hidden {
     display: none !important;
