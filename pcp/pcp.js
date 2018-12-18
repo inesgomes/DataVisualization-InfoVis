@@ -59,21 +59,11 @@ var container = d3.select("#bottom").append("div")    //margem painel
   .style("width", pcpW + margin.left + margin.right + "px")
   .style("height", pcpH + margin.top + margin.bottom + "px")
 
-var legendPCP = container.append("div")
-  .attr('width', pcpW - margin.left)
-  .attr('height', sliderH/2)
-  .style('background', 'lightgrey')
-  .attr('transform', 'translate(0,' + pcpH +100 + ')')
-  .append('g')
-  .attr('transform', 'translate(' + pcpW/3 + ',' + 0.5*margin.top + ')')
-
 var pcp = container.append("svg")   //eixos y
   .attr("width", pcpW + margin.left + margin.right)
   .attr("height", pcpH + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
 
 var canvas = container.append("canvas")   //lines
   .attr("width", pcpW)
@@ -84,7 +74,11 @@ var canvas = container.append("canvas")   //lines
   .style("margin-bottom", margin.bottom + "px")
   .style("margin-left", margin.left + "px");
 
-
+pcp.append("text")
+  .style("font-size", "10px")
+  .text(function (d) { return "The PCP shows the rate of all chosen crimes in European countries per 100,000 population" })
+  .attr("y", pcpH + margin.bottom - 2)
+  .attr("x", pcpW * 0.26)
 
 var ctx = canvas.node()
   .getContext("2d");
@@ -187,11 +181,6 @@ function drawAxis(data) {
     .attr("class", "title")
     .attr("text-anchor", "start")
     .text(function (d) { return d.key; });
-
-  legendPCP.append("text")
-    .style("font-size", "10px")
-    .text(function (d) { return "The PCP shows the rate of all chosen crimes in European countries per 100,000 population" })
-
 }
 
 function drawData(data) {
