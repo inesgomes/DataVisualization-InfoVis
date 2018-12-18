@@ -68,10 +68,10 @@ function drawMap(crimes, year) {
 }
 
 function clickCountry(d) {
-  console.log("entrei")
-
   let elem = d3.select(this);
   let name = d.properties.NAME
+
+  if(elem.classed("nodata")) return;
 
   //verify if element has been already clicked to unselect
   if (elem.classed("clicked")) {
@@ -104,7 +104,11 @@ function updateMap(crimes, year) {
     //find country name in map list and color it
     c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
     if (c.length != 0) return color(c[0][year] / max);
-    return 'lightgray';
+
+    //country doesn't have data
+    let elem = d3.select(this);
+    elem.classed("nodata",true);
+    return noDataColor;
   })
 
   //paint selected countries
