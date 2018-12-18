@@ -7,14 +7,14 @@ var chart = d3.select("#scatterplot")
     .attr('width', scatterW + 50)
     .attr('height', scatterH + 50)
     .append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+    .attr('transform', 'translate(' + 4*margin.left/3 + ',' + margin.top + ')')
     .style("margin-top", margin.top + "px")
 
 var legScat = d3.select("#legScatter")
     .attr('width', leftContW )
     .attr('height', sliderH/2)
     .append('g')
-    .attr('transform', 'translate(' + scatterW/3 + ',' + margin.top/2 + ')')
+    .attr('transform', 'translate(' + margin.left*3.5 + ',' + margin.top/2 + ')')
     
 
 d3.select("#selectionUI")
@@ -160,7 +160,8 @@ function drawScatterplot(xName, yName, year, selectedC) {
             tooltipS.classed('hidden', true); //hide tooltip
         });
         legScat.append("text")
-            .text(function (d) { return dataName(xName) + " vs " + dataName(yName) })
+            .style("font-size", "10px")
+            .text(function (d) { return "Relation between " + dataName(xName) + " and " + dataName(yName) + " with rate per 100,000 population" })
 
 }
 
@@ -187,7 +188,8 @@ function updatePoints(xName, yName, year, selectedC) {
     
     legScat.selectAll("text").remove()
     legScat.append("text")
-            .text(function (d) { return dataName(xName) + " vs " + dataName(yName) })
+    .style("font-size", "10px")
+    .text(function (d) { return "Relation between " + dataName(xName) + " and " + dataName(yName) + " with rate per 100,000 population" })
 
 }
 

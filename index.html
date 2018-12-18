@@ -14,26 +14,29 @@
 	<script type="text/javascript" src="lib/topojson.v1.min.js" charset="utf-8"></script>
 </head>
 
-<body>
-	<div id="main" class="container-fluid">
 
-		<div class="row">
-			<!--text-->
-			<div class="span2">
-				<div class="panel panel-default col-xs-2" id="text">
-					<div class="panel-heading">
-						<p class="panel-title" id="header">Crime</p>
-					</div>
-					<div class="panel-body" id="content">
-						Definition
-					</div>
+<body>
+		<div id="main" class="container-fluid">
+			<!--BIG COL THAT ENGLOB EVERYTHING-->
+			<!--<div class="col-xs-12">-->
+			<!--BIG COL LEFT-->
+			<div class="panel panel-default col-xs-2" id="text">
+				<div class="panel-heading">
+					<p class="panel-title" id="header">Crime</p>
+				</div>
+				<div class="panel-body" id="content">
+					Definition
 				</div>
 			</div>
-			<div class="span9">
-				<div class="row">
-					<!--map-->
-					<div class="span5">
-						<div class="panel panel-default col-xs-5" id="right">
+	
+			<!--BIG COL RIGHT-->
+			<div class="col-xs-10">
+				<!--2 ROWS-->
+				<div class="row-fluid">
+					<!--ROW 1 : map and scatterplot-->
+					<div class="row">
+						<!--map-->
+						<div class="panel panel-default col-xs-6 nopadding" id="right">
 							<div class="panel-body">
 								Crimes:
 								<div class="btn-group" style="z-index:1; width: 150px;">
@@ -54,10 +57,9 @@
 								<svg id="map" style="position:relative"></svg>
 							</div>
 						</div>
-					</div>
-					<!--scatterplot-->
-					<div class="span4">
-						<div class="panel panel-default col-xs-4" id="containerSP">
+	
+						<!--scatterplot-->
+						<div class="panel panel-default col-xs-5 nopadding" id="containerSP">
 							<div class="panel-body">
 								<div id="selectionUI">
 									Yaxis:
@@ -84,41 +86,35 @@
 							</div>
 						</div>
 					</div>
-
+					<!--ROW 2 : pcp-->
 					<div class="row">
-						<!--pcp-->
-						<div class="span9">
-							
-							<div class="panel panel-default" id="parallel">
-								<div class="panel-body" id="bottom"></div>
-								<svg id="legPCP"></svg>
-							</div>
-							
+						<div class="panel panel-default" id="parallel">
+							<div class="panel-body" id="bottom"></div>
+							<svg id="legPCP"></svg>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	
-	<!--external-->
-	<script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
-	<!--data-->
-	<script type="text/javascript" src="data/assault.js"></script>
-	<script type="text/javascript" src="data/burglary.js"></script>
-	<script type="text/javascript" src="data/homicide.js"></script>
-	<script type="text/javascript" src="data/robbery.js"></script>
-	<script type="text/javascript" src="data/sexualviolence.js"></script>
-	<script type="text/json" src="data/europe.json"></script>
-	<!--constants-->
-	<script type="text/javascript" src="main/constants.js"></script>
-	<!--js files-->
-	<script type="text/javascript" src="slider/slider.js"></script>
-	<script type="text/javascript" src="scatterplot/scatterplot.js"></script>
-	<script type="text/javascript" src="map/map.js"></script>
-	<script type="text/javascript" src="pcp/pcp.js"></script>
-	<script type="text/javascript" src="main/main.js"></script>
-
-</body>
+		<!--external-->
+		<script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
+		<!--data-->
+		<script type="text/javascript" src="data/assault.js"></script>
+		<script type="text/javascript" src="data/burglary.js"></script>
+		<script type="text/javascript" src="data/homicide.js"></script>
+		<script type="text/javascript" src="data/robbery.js"></script>
+		<script type="text/javascript" src="data/sexualviolence.js"></script>
+		<script type="text/json" src="data/europe.json"></script>
+		<!--constants-->
+		<script type="text/javascript" src="main/constants.js"></script>
+		<!--js files-->
+		<script type="text/javascript" src="slider/slider.js"></script>
+		<script type="text/javascript" src="scatterplot/scatterplot.js"></script>
+		<script type="text/javascript" src="map/map.js"></script>
+		<script type="text/javascript" src="pcp/pcp.js"></script>
+		<script type="text/javascript" src="main/main.js"></script>
+	
+	</body>
 
 </html>

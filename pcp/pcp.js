@@ -12,9 +12,9 @@ d3.select("#parallel")
 var legendPCP = d3.select("#legPCP")
     .attr('width', pcpW )
     .attr('height', sliderH)
-    .style('background', 'lightgrey')
+   // .style('background', 'lightgrey')
     .append('g')
-    .attr('transform', 'translate(' + scatterW/3 + ',' + margin.top + ')')
+    .attr('transform', 'translate(' + pcpW/3 + ',' + margin.top/2 + ')')
 
 function getData(selectedC, year) {
   let data = [], obj, ind;
@@ -188,9 +188,8 @@ function drawPCP(selectedC, year) {
     .attr("width", 16);
 
     legendPCP.append("text")
-        //.attr("x", leftContW / 2)
-        //.attr("y", panelH * 0.5)
-        .text(function (d) { return "The PCP shows the gravity of all chosen crimes in European countries." })
+         .style("font-size", "10px")
+        .text(function (d) { return "The PCP shows the rate of all chosen crimes in European countries per 100,000 population" })
 
   /*d3.selectAll(".axis.pl_discmethod .tick text")
     .style("fill", color);*/

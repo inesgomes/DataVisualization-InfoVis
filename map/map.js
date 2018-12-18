@@ -47,9 +47,9 @@ function drawMap(crimes, year) {
       .on("mouseout", hideTooltipPoint) //hover out
 
     //Fazer legenda
-    var legend_labels = ["no data", "<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
+    var legend_labels = ["selected", "no data", "<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
     legend = map.selectAll("g.legend")
-      .data([-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
+      .data([-2,-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
       .enter().append("g")
       .attr("class", "legend");
 
@@ -151,7 +151,7 @@ function selectCrime(type, id) {
   //change color
   color = d3.scaleLinear()
     .clamp(true)
-    .domain([-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
+    .domain([-2,-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[id])
     .interpolate(d3.interpolateHcl);
   //update html
