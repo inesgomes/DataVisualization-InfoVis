@@ -1,59 +1,4 @@
-/*
-    TODO meter regioes da europa com estas cores ?
-    var color = d3.scaleOrdinal()
-      .domain(["Radial Velocity", "Imaging", "Eclipse Timing Variations", "Astrometry", "Microlensing", "Orbital Brightness Modulation", "Pulsar Timing", "Pulsation Timing Variations", "Transit", "Transit Timing Variations"])
-      .range(["#DB7F85", "#50AB84", "#4C6C86", "#C47DCB", "#B59248", "#DD6CA7", "#E15E5A", "#5DA5B3", "#725D82", "#54AF52", "#954D56", "#8C92E8", "#D8597D", "#AB9C27", "#D67D4B", "#D58323", "#BA89AD", "#357468", "#8F86C2", "#7D9E33", "#517C3F", "#9D5130", "#5E9ACF", "#776327", "#944F7E"]);
-*/
-/*
-d3.select("#parallel")
-  .style('width',  pcpW + 'px')
-*/
-
-var legendPCP = d3.select("#legPCP")
-  .attr('width', pcpW)
-  .attr('height', sliderH)
-  // .style('background', 'lightgrey')
-  .append('g')
-  .attr('transform', 'translate(' + pcpW / 3 + ',' + margin.top / 2 + ')')
-
 var my_jsons = [assaults, burglaries, homicides, robberies, sexviolences]
-
-function getData(selectedC, year) {
-  let data = [], obj, ind, my_newjsons = [];
-
-  if (selectedC.length != 0) {
-
-    dimensions.forEach(function (dim, i) {
-      if (i == 0) {
-        //no full domain for countries
-        delete dim.domain;
-      } else {
-        //define domain with all model
-        dim.domain = d3_functor(dim.type.extent)(my_jsons[i - 1].map(function (d) { return d[year]; }));
-        //select countries to display
-        my_newjsons[i - 1] = my_jsons[i - 1].filter(function (obj) { return selectedC.includes(obj['country']) })
-      }
-    });
-  }
-  else {
-    dimensions.forEach(function (dim) {
-      delete dim.domain;
-    });
-    my_newjsons = my_jsons;
-  }
-
-  for (ind = 0; ind < my_newjsons[0].length; ind++) {
-    obj = new Object();
-    obj.country = my_newjsons[0][ind]['country'];
-    obj.assault = my_newjsons[0][ind][year];
-    obj.burglary = my_newjsons[1][ind][year];
-    obj.homicide = my_newjsons[2][ind][year];
-    obj.robbery = my_newjsons[3][ind][year];
-    obj.sexualViolence = my_newjsons[4][ind][year];
-    data.push(obj);
-  }
-  return data;
-}
 
 var types = {
   "Number": {
@@ -109,24 +54,37 @@ var xscale = d3.scalePoint()
 
 var yAxis = d3.axisLeft();
 
-var container = d3.select("#bottom").append("div")
+var container = d3.select("#bottom").append("div")    //margem painel
   .attr("class", "parcoords")
   .style("width", pcpW + margin.left + margin.right + "px")
   .style("height", pcpH + margin.top + margin.bottom + "px")
 
-var pcp = container.append("svg")
+var legendPCP = container.append("div")
+  .attr('width', pcpW - margin.left)
+  .attr('height', sliderH/2)
+  .style('background', 'lightgrey')
+  .attr('transform', 'translate(0,' + pcpH +100 + ')')
+  .append('g')
+  .attr('transform', 'translate(' + pcpW/3 + ',' + 0.5*margin.top + ')')
+
+var pcp = container.append("svg")   //eixos y
   .attr("width", pcpW + margin.left + margin.right)
   .attr("height", pcpH + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var canvas = container.append("canvas")
+
+
+var canvas = container.append("canvas")   //lines
   .attr("width", pcpW)
   .attr("height", pcpH)
   .style("width", pcpW + "px")
   .style("height", pcpH + "px")
   .style("margin-top", margin.top + "px")
+  .style("margin-bottom", margin.bottom + "px")
   .style("margin-left", margin.left + "px");
+
+
 
 var ctx = canvas.node()
   .getContext("2d");
@@ -137,6 +95,42 @@ var axes = pcp.selectAll(".axis")
   .attr("class", "axis")
   .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
 
+function getData(selectedC, year) {
+  let data = [], obj, ind, my_newjsons = [];
+
+  if (selectedC.length != 0) {
+
+    dimensions.forEach(function (dim, i) {
+      if (i == 0) {
+        //no full domain for countries
+        delete dim.domain;
+      } else {
+        //define domain with all model
+        dim.domain = d3_functor(dim.type.extent)(my_jsons[i - 1].map(function (d) { return d[year]; }));
+        //select countries to display
+        my_newjsons[i - 1] = my_jsons[i - 1].filter(function (obj) { return selectedC.includes(obj['country']) })
+      }
+    });
+  }
+  else {
+    dimensions.forEach(function (dim) {
+      delete dim.domain;
+    });
+    my_newjsons = my_jsons;
+  }
+
+  for (ind = 0; ind < my_newjsons[0].length; ind++) {
+    obj = new Object();
+    obj.country = my_newjsons[0][ind]['country'];
+    obj.assault = my_newjsons[0][ind][year];
+    obj.burglary = my_newjsons[1][ind][year];
+    obj.homicide = my_newjsons[2][ind][year];
+    obj.robbery = my_newjsons[3][ind][year];
+    obj.sexualViolence = my_newjsons[4][ind][year];
+    data.push(obj);
+  }
+  return data;
+}
 
 function createPCP(selectedC, year) {
   //create

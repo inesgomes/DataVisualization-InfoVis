@@ -22,7 +22,7 @@ var countries;
 
 function drawMap(crimes, year) {
 
-  var center = [55, 49];
+  var center = [60, 49];
 
   //begin map
   var projection = d3.geoMercator()
