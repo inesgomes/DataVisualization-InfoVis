@@ -40,11 +40,11 @@ var yValues = [];
 var noDataColor = 'gray';
 
 var rangeColor = [
-    ['#ffff80',noDataColor ,'#feedde', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'], //laranja
-    ['#ffff80',noDataColor ,'#eff3ff', '#c6dbef', '#9ecae1', '#6baed6', '#3182bd', '#08519c'], //azul 
-    ['#ffff80',noDataColor ,'#edf8e9', '#c7e9c0', '#a1d99b', '#74c476', '#31a354', '#006d2c'], //verde
-    ['#ffff80',noDataColor ,'#fee5d9', '#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'], //vermelho
-    ['#ffff80',noDataColor ,'#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']   //roxo
+    [noDataColor, '#ffff80','#feedde', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'], //laranja
+    [noDataColor, '#ffff80','#eff3ff', '#c6dbef', '#9ecae1', '#6baed6', '#3182bd', '#08519c'], //azul 
+    [noDataColor, '#ffff80','#edf8e9', '#c7e9c0', '#a1d99b', '#74c476', '#31a354', '#006d2c'], //verde
+    [noDataColor, '#ffff80','#fee5d9', '#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'], //vermelho
+    [noDataColor, '#ffff80','#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']   //roxo
 ];
 var numRangeColor = 0;
 var color = d3.scaleLinear()
