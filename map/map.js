@@ -6,7 +6,7 @@ d3.select("#right")
 
 var map = d3.select("#map")
   .attr("width", mapW)
-  .attr("height", mapH-margin.bottom +5)
+  .attr("height", mapH - margin.bottom + 5)
   .style('position', 'absolute')
   .attr("transform", "translate(-160, 0)")
   .append("g");
@@ -71,7 +71,7 @@ function clickCountry(d) {
   let elem = d3.select(this);
   let name = d.properties.NAME
 
-  if(elem.classed("nodata")) return;
+  if (elem.classed("nodata")) return;
 
   //verify if element has been already clicked to unselect
   if (elem.classed("clicked")) {
@@ -107,7 +107,7 @@ function updateMap(crimes, year) {
 
     //country doesn't have data
     let elem = d3.select(this);
-    elem.classed("nodata",true);
+    elem.classed("nodata", true);
     return noDataColor;
   })
 
@@ -117,8 +117,6 @@ function updateMap(crimes, year) {
     .attr("width", ls_w)
     .attr("height", ls_h)
     .style("fill", function (d, i) { return color(d); })
-  //.style("opacity", 0.8)
-  //.attr("transform", "translate(0," + margin_map.top*2  + ")");
 }
 
 function content(v) {
@@ -162,25 +160,6 @@ function selectCrime(type, id) {
   //update graphics
   updateDraw();
 }
-
-/*
-function selectBotton(){
-
-  //console.log($('.dropdown-toggle').dropdown())
-  var e = document.getElementById("botton");
-  defaultB = e.options[e.selectedIndex].value;
-
-  color = d3.scaleLinear()
-    .clamp(true)
-    .domain([0, 0.2, 0.4, 0.6, 0.8, 1])
-    .range(rangeColor[e.selectedIndex])
-    .interpolate(d3.interpolateHcl);
-
-  updatePCP(drawCountries, defaultYear)
-  updateMap(getArray(defaultB), defaultYear)
-  updatePoints(defaultB, defaultY, defaultYear, drawCountries)
-}
-*/
 
 function showTooltipPoint(d) {
   var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });

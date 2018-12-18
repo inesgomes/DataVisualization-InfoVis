@@ -4,7 +4,7 @@ var width = window.innerWidth - margin.left - margin.right;
 var height = window.innerHeight - margin.top - margin.bottom;
 
 var panelH = window.innerHeight * 0.65
-var mapH = window.innerHeight * 0.7 - margin.top    
+var mapH = window.innerHeight * 0.7 - margin.top
 var scatterH = panelH * 0.5
 var pcpH = window.innerHeight * 0.4;
 var sliderH = window.innerHeight * 0.1;
@@ -37,15 +37,14 @@ var xValues = [];
 var yValues = [];
 
 //Everything about colors <3
-var selectedColor = 'black';
 var noDataColor = 'gray';
 
 var rangeColor = [
-    [noDataColor ,'#feedde', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'], //laranja
-    [noDataColor ,'#eff3ff', '#c6dbef', '#9ecae1', '#6baed6', '#3182bd', '#08519c'], //azul 
-    [noDataColor ,'#edf8e9', '#c7e9c0', '#a1d99b', '#74c476', '#31a354', '#006d2c'], //verde
-    [noDataColor ,'#fee5d9', '#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'], //vermelho
-    [noDataColor ,'#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']   //roxo
+    [noDataColor, '#feedde', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'], //laranja
+    [noDataColor, '#eff3ff', '#c6dbef', '#9ecae1', '#6baed6', '#3182bd', '#08519c'], //azul 
+    [noDataColor, '#edf8e9', '#c7e9c0', '#a1d99b', '#74c476', '#31a354', '#006d2c'], //verde
+    [noDataColor, '#fee5d9', '#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'], //vermelho
+    [noDataColor, '#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']   //roxo
 ];
 var numRangeColor = 0;
 var color = d3.scaleLinear()
