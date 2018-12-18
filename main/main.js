@@ -66,7 +66,7 @@ function draw() {
   drawSlider()
   drawScatterplot(defaultB, defaultY, defaultYear, drawCountries)
   drawMap(getArray(defaultB), defaultYear)
-  drawPCP(drawCountries, defaultYear)
+  createPCP(drawCountries, defaultYear)
 }
 
 function resize() {

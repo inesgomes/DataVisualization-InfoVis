@@ -123,15 +123,32 @@ var axes = pcp.selectAll(".axis")
   .attr("transform", function (d, i) { return "translate(" + xscale(i) + ")"; });
 
 
-function drawPCP(selectedC, year) {
-
-  //create data
-  data = getData(selectedC, year)
-
+function createPCP(selectedC, year) {
+  //create
   ctx.globalCompositeOperation = 'darken';
   ctx.globalAlpha = 0.15;
   ctx.lineWidth = 1.5;
-  //ctx.scale(devicePixelRatio, devicePixelRatio);  //TODO analisar isto
+  //draw
+  drawPCP(selectedC, year)
+}
+
+function updatePCP(selectedC,year){
+  //clean axis
+  axes.selectAll("g").remove()
+  //draw
+  drawPCP(selectedC, year)
+}
+
+function drawPCP(selectedC,year){
+  //create data
+  data = getData(selectedC, year);
+  //create axis
+  drawAxis(data);
+  //draw
+  drawData(data);
+}
+
+function drawAxis(data){
 
   data.forEach(function (d) {
     dimensions.forEach(function (p) {
@@ -141,14 +158,10 @@ function drawPCP(selectedC, year) {
 
   // type/dimension default setting happens here
   dimensions.forEach(function (dim) {
-    if (!("domain" in dim)) {
-      // detect domain using dimension type's extent function
-      dim.domain = d3_functor(dim.type.extent)(data.map(function (d) { return d[dim.key]; }));
-    }
-    if (!("scale" in dim)) {
-      // use type's default scale for dimension
-      dim.scale = dim.type.defaultScale.copy();
-    }
+    // detect domain using dimension type's extent function
+    dim.domain = d3_functor(dim.type.extent)(data.map(function (d) { return d[dim.key]; }));
+    // use type's default scale for dimension
+    dim.scale = dim.type.defaultScale.copy();
     dim.scale.domain(dim.domain);
   });
 
@@ -164,30 +177,9 @@ function drawPCP(selectedC, year) {
     .attr("text-anchor", "start")
     .text(function (d) { return d.key; });
 
-  // Add and store a brush for each axis.
-  axes.append("g")
-    .attr("class", "brush")
-    .each(function (d) {
-      d3.select(this).call(d.brush = d3.brushY()
-        .extent([[-10, 0], [10, pcpH]])
-        .on("start", brushstart)
-        .on("brush", brush)
-        .on("end", brush)
-      )
-    })
-    .selectAll("rect")
-    .attr("x", -8)
-    .attr("width", 16);
-
-  /*d3.selectAll(".axis.pl_discmethod .tick text")
-    .style("fill", color);*/
-
-  updatePCP(selectedC, year);
-
 }
 
-function updatePCP(selectedC, year) {
-  let data = getData(selectedC, year)
+function drawData(data) {
   let render = renderQueue(draw_pcp).rate(30);
   ctx.clearRect(0, 0, pcpW, pcpH);
   ctx.globalAlpha = d3.min([1.15 / Math.pow(data.length, 0.3), 1]);
@@ -239,43 +231,6 @@ function draw_pcp(d) {
     ctx.lineTo(p[0], p[1]);
   });
   ctx.stroke();
-}
-
-function brushstart() {
-  d3.event.sourceEvent.stopPropagation();
-}
-
-// Handles a brush event, toggling the display of foreground lines.
-function brush() {
-  render.invalidate();
-
-  var actives = [];
-  pcp.selectAll(".axis .brush")
-    .filter(function (d) {
-      return d3.brushSelection(this);
-    })
-    .each(function (d) {
-      actives.push({
-        dimension: d,
-        extent: d3.brushSelection(this)
-      });
-    });
-
-  var selected = data.filter(function (d) {
-    if (actives.every(function (active) {
-      var dim = active.dimension;
-      // test if point is within extents for each active brush
-      return dim.type.within(d[dim.key], active.extent, dim);
-    })) {
-      return true;
-    }
-  });
-
-  //aquele comentario gigante estava aqui
-
-  ctx.clearRect(0, 0, pcpW, pcpH);
-  ctx.globalAlpha = d3.min([0.85 / Math.pow(selected.length, 0.3), 1]);
-  render(selected);
 }
 
 function d3_functor(v) {
