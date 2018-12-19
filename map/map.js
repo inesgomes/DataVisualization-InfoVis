@@ -8,7 +8,7 @@ var map = d3.select("#map")
   .attr("width", mapW)
   .attr("height", mapH - margin.bottom + 5)
   .style('position', 'absolute')
-  .attr("transform", "translate(-160, 0)")
+  .attr("transform", "translate(-240, 0)")
   .append("g");
 
 var body = d3.select("body");
@@ -22,7 +22,7 @@ var countries;
 
 function drawMap(crimes, year) {
 
-  var center = [60, 49];
+  var center = [55, 50];
 
   //begin map
   var projection = d3.geoMercator()
@@ -35,36 +35,83 @@ function drawMap(crimes, year) {
 
   countries = map.append("g");
   //load map info 
-  d3.json('../data/europe.json', function (data) {
-    countries.selectAll('.country')
-      .data(topojson.feature(data, data.objects.europe).features)
-      .enter()
-      .append('path')
-      .attr('class', 'country')
-      .attr('d', path)
-      .on("click", clickCountry)
-      .on("mousemove", showTooltipPoint) //hover in
-      .on("mouseout", hideTooltipPoint) //hover out
 
-    //Fazer legenda
-    var legend_labels = ["no data", "selected", "<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
-    legend = map.selectAll("g.legend")
-      .data([-2,-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
-      .enter().append("g")
-      .attr("class", "legend");
+  data = europe;
+  console.log(europe)
+  //d3.json('../data/europe.json', function (data) {
+  countries.selectAll('.country')
+    .data(topojson.feature(data, data.objects.europe).features)
+    .enter()
+    .append('path')
+    .attr('class', 'country')
+    .attr('d', path)
+    .on("click", clickCountry)
+    .on("mouseout", hideTooltipPoint) //hover out
 
-    updateMap(crimes, year);
+  //Fazer legenda
+  var legend_labels = ["no data", "selected", "<20%", "+20%", "+40%", "+60%", "+80%", "100%"]
+  legend = map.selectAll("g.legend")
+    .data([-2, -1, 0, 0.2, 0.4, 0.6, 0.8, 1])
+    .enter().append("g")
+    .attr("class", "legend");
 
-    legend.append("text")
-      .attr("x", legScaleW + 20)
-      .attr("y", function (d, i) { return legScaleH - (i * ls_h) - ls_h - 4; })
-      .text(function (d, i) { return legend_labels[i]; });
+  legend.append("text")
+    .attr("x", legScaleW + 20)
+    .attr("y", function (d, i) { return legScaleH - (i * ls_h) - ls_h - 4; })
+    .text(function (d, i) { return legend_labels[i]; });
 
-    return;
-  });
+  //});
 
   this.map = map;
   this.projection = projection;
+
+  updateMap(crimes, year);
+}
+
+function updateMap(crimes, year) {
+  //get max value of that crime on that year
+  let i, maxValues = [];
+  for (i = 0; i < crimes.length; i++) {
+    maxValues[i] = crimes[i][year]
+  }
+  let max = d3.max(maxValues);
+
+  countries.selectAll('.country')
+    .attr("fill", function (d) {
+      //find country name in map list and color it
+      let n = getCountryNum(crimes, year, d.properties.NAME)
+      if (n != -1) return color(n/max);
+
+      //country doesn't have data
+      let elem = d3.select(this);
+      elem.classed("nodata", true);
+      return noDataColor;
+    })
+    .on("mousemove", function (d) {
+      //mouse position
+      let mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
+      //country crime %
+      let n = getCountryNum(crimes, year, d.properties.NAME).toFixed(2)
+      let label = "";
+      if(n == -1){
+        label = d.properties.NAME
+      }
+      else{
+        label = d.properties.NAME+' ('+ n +')';
+      }
+      //create tooltip
+      tooltip.classed('hidden', false) //make tooltip visible
+        .html(label) //display the name of point
+        .attr('style', //set size of the tooltip
+          'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
+    }) //hover in
+
+  legend.append("rect")
+    .attr("x", legScaleW)
+    .attr("y", function (d, i) { return legScaleH - (i * ls_h) - 2 * ls_h; })
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function (d, i) { return color(d); })
 }
 
 function clickCountry(d) {
@@ -93,30 +140,14 @@ function clickCountry(d) {
   updateDraw();
 }
 
-function updateMap(crimes, year) {
-  let i, maxValues = [];
-  for (i = 0; i < crimes.length; i++) {
-    maxValues[i] = crimes[i][year]
-  }
-  var max = d3.max(maxValues);
+function hideTooltipPoint(d) {
+  tooltip.classed('hidden', true); //hide tooltip
+}
 
-  countries.selectAll('.country').attr("fill", function (d) {
-    //find country name in map list and color it
-    c = crimes.filter(function (obj) { return obj['country'] == d.properties.NAME })
-    if (c.length != 0) return color(c[0][year] / max);
-
-    //country doesn't have data
-    let elem = d3.select(this);
-    elem.classed("nodata", true);
-    return noDataColor;
-  })
-
-  legend.append("rect")
-    .attr("x", legScaleW)
-    .attr("y", function (d, i) { return legScaleH - (i * ls_h) - 2 * ls_h; })
-    .attr("width", ls_w)
-    .attr("height", ls_h)
-    .style("fill", function (d, i) { return color(d); })
+function getCountryNum(crimes, year, name) {
+  let c = crimes.filter(function (obj) { return obj['country'] == name })
+  if (c.length != 0) return c[0][year];
+  return -1;
 }
 
 function content(v) {
@@ -144,13 +175,14 @@ function content(v) {
     return `Rape and sexual assault, including Sexual Offences against Children.`
 }
 
+
 function selectCrime(type, id) {
   //update type
   defaultB = type
   //change color
   color = d3.scaleLinear()
     .clamp(true)
-    .domain([-2,-1, 0, 0.2, 0.4, 0.6, 0.8, 1])
+    .domain([-2, -1, 0, 0.2, 0.4, 0.6, 0.8, 1])
     .range(rangeColor[id])
     .interpolate(d3.interpolateHcl);
   //update html
@@ -159,16 +191,4 @@ function selectCrime(type, id) {
   document.getElementById('bmap').textContent = dataName(defaultB)
   //update graphics
   updateDraw();
-}
-
-function showTooltipPoint(d) {
-  var mouse = d3.mouse(body.node()).map(function (d) { return parseInt(d); });
-  tooltip.classed('hidden', false) //make tooltip visible
-    .html(d.properties.NAME) //display the name of point
-    .attr('style', //set size of the tooltip
-      'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
-};
-
-function hideTooltipPoint(d) {
-  tooltip.classed('hidden', true); //hide tooltip
 }

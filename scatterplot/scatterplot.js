@@ -161,7 +161,7 @@ function drawScatterplot(xName, yName, year, selectedC) {
         });
         legScat.append("text")
             .style("font-size", "10px")
-            .text(function (d) { return "Relation between " + dataName(xName) + " and " + dataName(yName) + " with rate per 100,000 population" })
+            .text(function (d) { return "Relation between " + dataName(xName) + " and " + dataName(yName) + " with rate per 100 000 population" })
 
 }
 
@@ -189,7 +189,7 @@ function updatePoints(xName, yName, year, selectedC) {
     legScat.selectAll("text").remove()
     legScat.append("text")
     .style("font-size", "10px")
-    .text(function (d) { return "Relation between " + dataName(xName) + " and " + dataName(yName) + " with rate per 100,000 population" })
+    .text(function (d) { return "Relation between " + dataName(xName) + " and " + dataName(yName) + " with rate per 100 000 population" })
 
 }
 

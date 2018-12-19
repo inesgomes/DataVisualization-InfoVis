@@ -76,7 +76,7 @@ var canvas = container.append("canvas")   //lines
 
 pcp.append("text")
   .style("font-size", "10px")
-  .text(function (d) { return "The PCP shows the rate of all chosen crimes in European countries per 100,000 population" })
+  .text(function (d) { return "The PCP shows the rate of all chosen crimes in European countries per 100 000 population" })
   .attr("y", pcpH + margin.bottom - 2)
   .attr("x", pcpW * 0.26)
 
