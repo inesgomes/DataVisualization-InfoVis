@@ -37,8 +37,6 @@ function drawMap(crimes, year) {
   //load map info 
 
   data = europe;
-  console.log(europe)
-  //d3.json('../data/europe.json', function (data) {
   countries.selectAll('.country')
     .data(topojson.feature(data, data.objects.europe).features)
     .enter()
@@ -59,8 +57,6 @@ function drawMap(crimes, year) {
     .attr("x", legScaleW + 20)
     .attr("y", function (d, i) { return legScaleH - (i * ls_h) - ls_h - 4; })
     .text(function (d, i) { return legend_labels[i]; });
-
-  //});
 
   this.map = map;
   this.projection = projection;
